@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1060995344848",
+    "firebase_url": "https://sweetshare-96308.firebaseio.com",
+    "project_id": "sweetshare-96308",
+    "storage_bucket": "sweetshare-96308.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060995344848:android:0d68419c7fadab686e71d5",
+        "android_client_info": {
+          "package_name": "com.example.sweetshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060995344848-ud6pr8jqm5in5fog4m6kga1fd8gkaa5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-AE0kBFKHf7NK_NoOfift7GnW_pd9FnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060995344848-ud6pr8jqm5in5fog4m6kga1fd8gkaa5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
