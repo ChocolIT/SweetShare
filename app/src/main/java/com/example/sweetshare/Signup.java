@@ -16,7 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.example.sweetshare.R;
+
+import com.example.sweetshare.util;
 
 public class Signup extends AppCompatActivity {
 
@@ -25,7 +26,6 @@ public class Signup extends AppCompatActivity {
     TextView toLoginButton;
     FirebaseAuth fAuth;
     Layout loadingLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class Signup extends AppCompatActivity {
             finish();
         }
 
+        //Creating account in Firebase
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +89,13 @@ public class Signup extends AppCompatActivity {
                 });
             }
         });
+
+        //Displaying focus bar
+        util.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
+        util.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
+        util.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));
+        util.setInputFieldActivityStatus(findViewById(R.id.RepPasswordField), findViewById(R.id.RepPasswordFieldBar));
+
     }
 
     public void toLoginActivity(View view) {
