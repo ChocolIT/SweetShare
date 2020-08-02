@@ -2,7 +2,9 @@ package com.example.sweetshare;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class Login extends AppCompatActivity {
 
@@ -11,4 +13,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
+
+    public void toSignupActivity(View view) {
+        startActivity(new Intent(getApplicationContext(), Signup.class));
+        finish();
+    }
+
 }
