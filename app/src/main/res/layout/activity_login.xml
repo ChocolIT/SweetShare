@@ -71,13 +71,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerText"
-        android:paddingTop="110dp"
+        android:paddingTop="140dp"
         android:overScrollMode="never">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dp">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/EmailField"
@@ -97,24 +96,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/EmailFieldBar"
-                android:layout_width="280dp"
-                android:layout_height="5dp"
-                android:background="@drawable/active_focus_input_field_bar"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="@+id/EmailField"
-                app:layout_constraintTop_toBottomOf="@+id/EmailField" />
-
-            <View
-                android:id="@+id/PasswordFieldBar"
-                android:layout_width="280dp"
-                android:layout_height="5dp"
-                android:background="@drawable/active_focus_input_field_bar"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/passwordField"
-                app:layout_constraintStart_toStartOf="@id/passwordField" />
 
             <Button
                 android:id="@+id/loginButton"
@@ -180,6 +161,24 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/passwordField"
                 app:layout_constraintTop_toBottomOf="@+id/PasswordFieldBar" />
+
+            <View
+                android:id="@+id/PasswordFieldBar"
+                android:layout_width="280dp"
+                android:layout_height="5dp"
+                android:background="@drawable/active_focus_input_field_bar"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/passwordField"
+                app:layout_constraintStart_toStartOf="@id/passwordField" />
+
+            <View
+                android:id="@+id/EmailFieldBar"
+                android:layout_width="280dp"
+                android:layout_height="5dp"
+                android:background="@drawable/active_focus_input_field_bar"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/EmailField"
+                app:layout_constraintBottom_toBottomOf="@+id/EmailField" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
