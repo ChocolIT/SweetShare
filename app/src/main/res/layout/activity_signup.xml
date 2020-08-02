@@ -66,11 +66,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerCircle"
-        android:translationY="-380dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerText"
+        android:paddingTop="110dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/signupBody"
@@ -233,7 +234,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
-        android:layout_height="800dp"
+        android:layout_height="500dp"
         android:translationY="-380dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
