@@ -57,19 +57,24 @@ public class Signup extends AppCompatActivity {
 
                 if (fullName.isEmpty()) {
                     fullNameField.setError("This field can't be empty");
+                    return;
                 }
                 if (email.isEmpty()) {
                     emailField.setError("This field can't be empty");
+                    return;
                 }
                 if (pass.isEmpty()){
                     passField.setError("This field can't be empty");
+                    return;
                 }
                 if (passConfirmation.isEmpty()) {
                     repPassField.setError("This field can't be empty");
+                    return;
                 }
 
                 if (!pass.equals(passConfirmation)) {
                     passField.setError("The passwords don't match");
+                    return;
                 }
                 if (pass.length() < 6) {
                     passField.setError("Password must be at least 6 characters long");

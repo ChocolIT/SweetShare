@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
 
                 if (email.isEmpty()) {
                     emailField.setError("This field can't be empty.");
+                    return;
                 }
                 if (pass.isEmpty()) {
                     passField.setError("This field can't be empty.");

@@ -8,62 +8,6 @@
     tools:context=".Login"
     android:id="@+id/screenLayout">
 
-    <View
-        android:id="@+id/headerCircle"
-        android:layout_width="600dp"
-        android:layout_height="600dp"
-        android:alpha="0.85"
-        android:background="@drawable/gradient_circle"
-        android:translationY="-380dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/motto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sharing has never been sweeter."
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SweetShareText" />
-
-        <TextView
-            android:id="@+id/SweetShareText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/ChocolITText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="by ChocolIT"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/SweetShareText"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -127,6 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/EmailFieldBar" />
 
             <TextView
+                android:id="@+id/delimiterText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="15dp"
@@ -136,6 +81,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+            <View
+                android:id="@+id/delimiterLeft"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/delimitation_line"
+                app:layout_constraintEnd_toStartOf="@id/delimiterText"
+                app:layout_constraintBottom_toBottomOf="@id/delimiterText"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="10dp"/>
+
+            <View
+                android:id="@+id/delimiterRight"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/delimitation_line"
+                app:layout_constraintStart_toEndOf="@id/delimiterText"
+                app:layout_constraintBottom_toBottomOf="@id/delimiterText"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:id="@+id/createAccount"
@@ -167,7 +132,7 @@
                 android:layout_width="280dp"
                 android:layout_height="5dp"
                 android:background="@drawable/active_focus_input_field_bar"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/passwordField"
                 app:layout_constraintStart_toStartOf="@id/passwordField" />
 
@@ -176,7 +141,7 @@
                 android:layout_width="280dp"
                 android:layout_height="5dp"
                 android:background="@drawable/active_focus_input_field_bar"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/EmailField"
                 app:layout_constraintBottom_toBottomOf="@+id/EmailField" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -185,12 +150,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
-        android:layout_height="800dp"
-        android:translationY="-380dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerCircle"
-        android:visibility="invisible">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible">
 
         <View
             android:layout_width="match_parent"
@@ -211,7 +176,63 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26" />
+ />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/headerCircle"
+        android:layout_width="600dp"
+        android:layout_height="600dp"
+        android:alpha="0.85"
+        android:background="@drawable/gradient_circle"
+        android:translationY="-380dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/motto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sharing has never been sweeter."
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SweetShareText" />
+
+        <TextView
+            android:id="@+id/SweetShareText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ChocolITText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:text="by ChocolIT"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/SweetShareText"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
