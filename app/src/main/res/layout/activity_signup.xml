@@ -71,7 +71,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerText"
-        android:paddingTop="110dp">
+        android:paddingTop="110dp"
+        android:overScrollMode="never">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/signupBody"
