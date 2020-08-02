@@ -2,11 +2,14 @@ package com.example.sweetshare;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ public class Login extends AppCompatActivity {
     TextView emailField, passField;
     Button loginBtn;
     FirebaseAuth fAuth;
+    ConstraintLayout loadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class Login extends AppCompatActivity {
         emailField = findViewById(R.id.EmailField);
         passField = findViewById(R.id.passwordField);
         loginBtn = findViewById(R.id.loginButton);
+        loadingLayout = findViewById(R.id.loadingLayout);
 
         fAuth = FirebaseAuth.getInstance();
 
@@ -50,7 +55,10 @@ public class Login extends AppCompatActivity {
                 }
                 if (pass.isEmpty()) {
                     passField.setError("This field can't be empty.");
+                    return;
                 }
+
+                loadingLayout.setVisibility(ConstraintLayout.VISIBLE);
 
                 fAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -62,6 +70,7 @@ public class Login extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(Login.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            loadingLayout.setVisibility(ConstraintLayout.INVISIBLE);
                         }
                     }
                 });

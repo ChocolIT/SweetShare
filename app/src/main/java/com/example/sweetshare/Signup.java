@@ -2,6 +2,7 @@ package com.example.sweetshare;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class Signup extends AppCompatActivity {
     Button signupButton;
     TextView toLoginButton;
     FirebaseAuth fAuth;
-    Layout loadingLayout;
+    ConstraintLayout loadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,8 @@ public class Signup extends AppCompatActivity {
                     return;
                 }
 
+                loadingLayout.setVisibility(ConstraintLayout.VISIBLE);
+
                 fAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -84,6 +87,7 @@ public class Signup extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(Signup.this, "Error:" + task.getException(), Toast.LENGTH_SHORT).show();
+                            loadingLayout.setVisibility(ConstraintLayout.INVISIBLE);
                         }
                     }
                 });
