@@ -67,6 +67,10 @@ public class Login extends AppCompatActivity {
                 });
             }
         });
+
+        //Displaying focus bar
+        util.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldBar));
+        util.setInputFieldActivityStatus(findViewById(R.id.passwordField), findViewById(R.id.PasswordFieldBar));
     }
 
     public void toSignupActivity(View view) {
