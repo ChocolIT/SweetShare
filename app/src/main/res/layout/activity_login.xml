@@ -126,7 +126,8 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/passwordField"
-                app:layout_constraintTop_toBottomOf="@+id/PasswordFieldBar" />
+                app:layout_constraintTop_toBottomOf="@+id/PasswordFieldBar"
+                android:onClick="resetPassword"/>
 
             <View
                 android:id="@+id/PasswordFieldBar"

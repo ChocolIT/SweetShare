@@ -9,4 +9,7 @@
     <color name="grey">#CBCBCB</color>
     <color name="black">#000000</color>
     <color name="inputFieldGrey">#f0f0f0</color>
+    <color name="darkGrey">#595959</color>
+    <color name="successGreen">#00b015</color>
+    <color name="failureRed">#e60000</color>
 </resources>

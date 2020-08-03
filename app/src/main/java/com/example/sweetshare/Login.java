@@ -88,4 +88,8 @@ public class Login extends AppCompatActivity {
         finish();
     }
 
+    public void resetPassword(View view) {
+        startActivity(new Intent(getApplicationContext(), PasswordRecovery.class));
+        finish();
+    }
 }
