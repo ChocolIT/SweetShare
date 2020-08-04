@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SweetShare</string>
+    <string name="pass_recovery_welcome_text">Forgot your password? Don\'t worry, it happens to everyone. Enter your account email below
+    so we can send you a password reset link.</string>
+    <string name="reset_link_sent">Link sent. Please check your inbox.</string>
+    <string name="reset_link_error">Link not sent. Check the input and try again.</string>
 </resources>
