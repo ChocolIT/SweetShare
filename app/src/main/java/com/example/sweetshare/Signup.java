@@ -22,11 +22,11 @@ import com.example.sweetshare.util;
 
 public class Signup extends AppCompatActivity {
 
-    EditText fullNameField, emailField, passField, repPassField;
-    Button signupButton;
-    TextView toLoginButton;
-    FirebaseAuth fAuth;
-    ConstraintLayout loadingLayout;
+    private EditText fullNameField, emailField, passField, repPassField;
+    private Button signupButton;
+    private TextView toLoginButton;
+    private FirebaseAuth fAuth;
+    private ConstraintLayout loadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class Signup extends AppCompatActivity {
             finish();
         }
 
-        //Creating account in Firebase
+        // Creating account in Firebase
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +99,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
-        //Displaying focus bar
+        // Displaying focus bar
         util.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
         util.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
         util.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));

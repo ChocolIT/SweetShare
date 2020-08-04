@@ -30,12 +30,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Login extends AppCompatActivity {
 
-    TextView emailField, passField;
-    Button loginBtn;
-    FirebaseAuth fAuth;
-    ConstraintLayout loadingLayout;
-    GoogleSignInClient mGoogleSignInClient;
-    SignInButton googleSignInButton;
+    private TextView emailField, passField;
+    private Button loginBtn;
+    private FirebaseAuth fAuth;
+    private ConstraintLayout loadingLayout;
+    private GoogleSignInClient mGoogleSignInClient;
+    private SignInButton googleSignInButton;
 
     private int RC_SIGN_IN = 1;
 

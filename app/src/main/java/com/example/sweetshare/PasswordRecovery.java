@@ -17,10 +17,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PasswordRecovery extends AppCompatActivity {
 
-    EditText emailField;
-    FirebaseAuth fAuth;
-    Button sendLinkBtn;
-    TextView backToLoginActivity;
+    private EditText emailField;
+    private FirebaseAuth fAuth;
+    private Button sendLinkBtn;
+    private TextView backToLoginActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
