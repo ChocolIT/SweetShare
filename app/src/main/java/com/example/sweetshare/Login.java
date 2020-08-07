@@ -91,9 +91,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Logged in.", Toast.LENGTH_SHORT);
                             Util.fetchUserDataFromFireStoreAndStartMainActivity(fAuth.getCurrentUser().getUid(), Login.this);
-                            finish();
                         }
                         else {
                             Toast.makeText(Login.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();

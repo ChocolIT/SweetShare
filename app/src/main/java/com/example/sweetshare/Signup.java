@@ -107,8 +107,6 @@ public class Signup extends AppCompatActivity {
 
                             // Starting MainActivity.java
                             Util.fetchUserDataFromFireStoreAndStartMainActivity(uID, Signup.this);
-                            Toast.makeText(Signup.this, "Account created.", Toast.LENGTH_SHORT).show();
-                            finish();
                         }
                         else {
                             Toast.makeText(Signup.this, "Error:" + task.getException(), Toast.LENGTH_SHORT).show();

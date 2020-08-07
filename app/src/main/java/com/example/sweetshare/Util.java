@@ -1,5 +1,6 @@
 package com.example.sweetshare;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.EventLog;
@@ -53,11 +54,12 @@ public class Util {
                     String userEmail = documentSnapshot.getString(Constants.USER_EMAIL);
                     userData.put(Constants.USER_EMAIL, userEmail);
 
-
                     Intent intent = new Intent(contextOrigin, MainActivity.class);
                     intent.putExtra(Constants.USER_DATA, (Serializable) userData);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
                     contextOrigin.startActivity(intent);
+                    ((Activity)contextOrigin).finish();
                 }
             });
         }
