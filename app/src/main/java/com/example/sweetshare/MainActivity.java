@@ -12,6 +12,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     public void logout(View view) {
@@ -53,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayoutMediator.attach();
         viewPager2.setCurrentItem(1, false);
 
+    }
 
-
+    public Map getUserData() {
+        Intent intent = getIntent();
+        return (Map<String, Object>) (HashMap<String, Object>)intent.getSerializableExtra(Constants.USER_DATA);
     }
 }

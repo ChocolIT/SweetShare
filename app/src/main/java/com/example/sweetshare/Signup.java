@@ -6,19 +6,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import com.example.sweetshare.util;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -95,6 +94,8 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+                            // Adding additional user data to DB
                             String uID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(uID);
 
@@ -104,8 +105,9 @@ public class Signup extends AppCompatActivity {
 
                             documentReference.set(userData);
 
+                            // Starting MainActivity.java
+                            Util.fetchUserDataFromFireStoreAndStartMainActivity(uID, Signup.this);
                             Toast.makeText(Signup.this, "Account created.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                         else {
                             Toast.makeText(Signup.this, "Error:" + task.getException(), Toast.LENGTH_SHORT).show();
@@ -117,10 +119,10 @@ public class Signup extends AppCompatActivity {
         });
 
         // Displaying focus bar
-        util.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
-        util.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
-        util.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));
-        util.setInputFieldActivityStatus(findViewById(R.id.RepPasswordField), findViewById(R.id.RepPasswordFieldBar));
+        Util.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
+        Util.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
+        Util.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));
+        Util.setInputFieldActivityStatus(findViewById(R.id.RepPasswordField), findViewById(R.id.RepPasswordFieldBar));
 
     }
 

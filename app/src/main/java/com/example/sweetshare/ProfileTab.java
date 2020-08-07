@@ -2,11 +2,16 @@ package com.example.sweetshare;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +65,14 @@ public class ProfileTab extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile_tab, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Map<String, Object> userData = ((MainActivity)getActivity()).getUserData();
+
+        TextView textView = view.findViewById(R.id.textViewProfile);
+        textView.setText(userData.get(Constants.USER_FULL_NAME).toString());
     }
 }
