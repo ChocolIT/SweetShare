@@ -58,7 +58,6 @@ public class Util {
                     intent.putExtra(Constants.USER_DATA, (Serializable) userData);
 
                     contextOrigin.startActivity(intent);
-
                 }
             });
         }

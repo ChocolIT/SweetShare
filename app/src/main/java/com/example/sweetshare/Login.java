@@ -92,7 +92,7 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(Login.this, "Logged in.", Toast.LENGTH_SHORT);
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Util.fetchUserDataFromFireStoreAndStartMainActivity(fAuth.getCurrentUser().getUid(), Login.this);
                             finish();
                         }
                         else {

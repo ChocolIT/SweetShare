@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +17,17 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Intent intent = getIntent();
-        Map<String, Object> userData = (HashMap<String, Object>)intent.getSerializableExtra(Constants.USER_DATA);
-        String user_name = userData.get(Constants.USER_FULL_NAME).toString();
 
-        TextView text = findViewById(R.id.text1);
-        text.setText(user_name);
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+
+        if (fAuth.getCurrentUser() != null) {
+            String uID = fAuth.getCurrentUser().getUid();
+            Util.fetchUserDataFromFireStoreAndStartMainActivity(uID, SplashScreen.this);
+        }
+        else {
+            Intent intent = new Intent(SplashScreen.this, Login.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
