@@ -73,6 +73,6 @@ public class ProfileTab extends Fragment {
         Map<String, Object> userData = ((MainActivity)getActivity()).getUserData();
 
         TextView textView = view.findViewById(R.id.textViewProfile);
-        textView.setText(userData.get(Constants.USER_FULL_NAME).toString());
+        textView.setText(userData.get(UserConstants.USER_FULL_NAME).toString());
     }
 }

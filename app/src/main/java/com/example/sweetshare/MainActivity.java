@@ -60,6 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     public Map getUserData() {
         Intent intent = getIntent();
-        return (Map<String, Object>) (HashMap<String, Object>)intent.getSerializableExtra(Constants.USER_DATA);
+        return (Map<String, Object>) (HashMap<String, Object>)intent.getSerializableExtra(UserConstants.USER_DATA);
     }
 }

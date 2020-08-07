@@ -3,22 +3,16 @@ package com.example.sweetshare;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.EventLog;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nullable;
 
 public class Util {
         public static void setInputFieldActivityStatus(View inputField, final View activityBar) {
@@ -48,14 +42,14 @@ public class Util {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Map<String, String> userData = new HashMap<>();
 
-                    String userFullName = documentSnapshot.getString(Constants.USER_FULL_NAME);
-                    userData.put(Constants.USER_FULL_NAME, userFullName);
+                    String userFullName = documentSnapshot.getString(UserConstants.USER_FULL_NAME);
+                    userData.put(UserConstants.USER_FULL_NAME, userFullName);
 
-                    String userEmail = documentSnapshot.getString(Constants.USER_EMAIL);
-                    userData.put(Constants.USER_EMAIL, userEmail);
+                    String userEmail = documentSnapshot.getString(UserConstants.USER_EMAIL);
+                    userData.put(UserConstants.USER_EMAIL, userEmail);
 
                     Intent intent = new Intent(contextOrigin, MainActivity.class);
-                    intent.putExtra(Constants.USER_DATA, (Serializable) userData);
+                    intent.putExtra(UserConstants.USER_DATA, (Serializable) userData);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
                     contextOrigin.startActivity(intent);

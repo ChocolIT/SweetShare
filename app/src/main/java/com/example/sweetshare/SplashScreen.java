@@ -23,7 +23,6 @@ public class SplashScreen extends AppCompatActivity {
         if (fAuth.getCurrentUser() != null) {
             String uID = fAuth.getCurrentUser().getUid();
             Util.fetchUserDataFromFireStoreAndStartMainActivity(uID, SplashScreen.this);
-            finish();
         }
         else {
             Intent intent = new Intent(SplashScreen.this, Login.class);

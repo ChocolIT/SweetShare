@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -100,8 +99,8 @@ public class Signup extends AppCompatActivity {
                             DocumentReference documentReference = fStore.collection("users").document(uID);
 
                             Map<String, Object> userData = new HashMap<>();
-                            userData.put(Constants.USER_FULL_NAME, fullName);
-                            userData.put(Constants.USER_EMAIL, email);
+                            userData.put(UserConstants.USER_FULL_NAME, fullName);
+                            userData.put(UserConstants.USER_EMAIL, email);
 
                             documentReference.set(userData);
 
