@@ -38,6 +38,7 @@ public class Signup extends AppCompatActivity {
         passField = findViewById(R.id.PasswordField);
         repPassField = findViewById(R.id.RepPasswordField);
         signupButton = findViewById(R.id.SignupButton);
+        loadingLayout = findViewById(R.id.loadingLayout);
 
         fAuth = FirebaseAuth.getInstance();
 
