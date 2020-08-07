@@ -19,6 +19,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.sweetshare.util;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signup extends AppCompatActivity {
 
@@ -26,6 +31,7 @@ public class Signup extends AppCompatActivity {
     private Button signupButton;
     private TextView toLoginButton;
     private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
     private ConstraintLayout loadingLayout;
 
     @Override
@@ -41,6 +47,7 @@ public class Signup extends AppCompatActivity {
         loadingLayout = findViewById(R.id.loadingLayout);
 
         fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
         if (fAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -51,8 +58,8 @@ public class Signup extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fullName = fullNameField.getText().toString().trim();
-                String email = emailField.getText().toString().trim();
+                final String fullName = fullNameField.getText().toString().trim();
+                final String email = emailField.getText().toString().trim();
                 String pass = passField.getText().toString();
                 String passConfirmation = repPassField.getText().toString();
 
@@ -88,6 +95,15 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            String uID = fAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = fStore.collection("users").document(uID);
+
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put(Constants.USER_FULL_NAME, fullName);
+                            userData.put(Constants.USER_EMAIL, email);
+
+                            documentReference.set(userData);
+
                             Toast.makeText(Signup.this, "Account created.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
