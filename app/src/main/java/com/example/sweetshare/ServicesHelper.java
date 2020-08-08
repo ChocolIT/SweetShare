@@ -3,7 +3,10 @@ package com.example.sweetshare;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.View;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -40,13 +43,16 @@ public class ServicesHelper {
             documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    Map<String, String> userData = new HashMap<>();
+                    Map<String, Object> userData = new HashMap<>();
 
                     String userFullName = documentSnapshot.getString(UserConstants.USER_FULL_NAME);
                     userData.put(UserConstants.USER_FULL_NAME, userFullName);
 
                     String userEmail = documentSnapshot.getString(UserConstants.USER_EMAIL);
                     userData.put(UserConstants.USER_EMAIL, userEmail);
+
+                    Long userReputation = (Long) documentSnapshot.get(UserConstants.USER_REPUTATION);
+                    userData.put(UserConstants.USER_REPUTATION, userReputation);
 
                     Intent intent = new Intent(contextOrigin, MainActivity.class);
                     intent.putExtra(UserConstants.USER_DATA, (Serializable) userData);
@@ -56,5 +62,18 @@ public class ServicesHelper {
                     ((Activity)contextOrigin).finish();
                 }
             });
+        }
+
+        public static int getStarIconFill (Long userRep, int multiplier) {
+
+            if (userRep <= 20 * (multiplier - 1)) {
+                return UserConstants.EMPTY_REVIEW_STAR;
+            }
+            else if (userRep > 20 * (multiplier - 1) && userRep <= 20 * (multiplier) - 10) {
+                return UserConstants.HALF_REVIEW_STAR;
+            }
+            else {
+                return UserConstants.FULL_REVIEW_STAR;
+            }
         }
 }

@@ -1,9 +1,12 @@
 package com.example.sweetshare;
 
+import android.app.Service;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -76,6 +79,20 @@ public class ProfileTab extends Fragment {
         userReputation = view.findViewById(R.id.userReputation);
 
         userFullName.setText(userData.get(UserConstants.USER_FULL_NAME).toString());
-        //userReputation.setText("Reputation: " + userData.get(UserConstants.USER_REPUTATION).toString());
+        userReputation.setText("Reputation: " + userData.get(UserConstants.USER_REPUTATION).toString());
+
+        setReviewStarsFill(view, (Long) userData.get(UserConstants.USER_REPUTATION));
+
+
+    }
+
+    private void setReviewStarsFill(View view, Long userRep) {
+        int[] viewList = {R.id.ic_review_star1, R.id.ic_review_star2, R.id.ic_review_star3, R.id.ic_review_star4, R.id.ic_review_star5};
+
+        for (int i = 1; i <= 5; i++) {
+            int drawableId = ServicesHelper.getStarIconFill(userRep, i);
+            Drawable drawable = ContextCompat.getDrawable(view.getContext(), drawableId);
+            view.findViewById(viewList[i - 1]).setBackground(drawable);
+        }
     }
 }
