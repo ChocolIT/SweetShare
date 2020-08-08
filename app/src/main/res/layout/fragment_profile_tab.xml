@@ -257,14 +257,20 @@
         android:layout_height="65dp"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <View
+    <androidx.cardview.widget.CardView
         android:id="@+id/profileImg"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/circle"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gradientHeaderBarSimulator"
-        app:layout_constraintBottom_toBottomOf="@id/gradientHeaderBarSimulator"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gradientHeaderBarSimulator"
+        app:layout_constraintTop_toTopOf="@id/gradientHeaderBarSimulator">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_profile_tab_default_profile_picture"/>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
