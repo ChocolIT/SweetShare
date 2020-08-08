@@ -20,6 +20,9 @@ import java.util.Map;
  */
 public class ProfileTab extends Fragment {
 
+    private TextView userFullName;
+    private TextView userReputation;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -72,7 +75,10 @@ public class ProfileTab extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Map<String, Object> userData = ((MainActivity)getActivity()).getUserData();
 
-        TextView textView = view.findViewById(R.id.textViewProfile);
-        textView.setText(userData.get(UserConstants.USER_FULL_NAME).toString());
+        userFullName = view.findViewById(R.id.userFullName);
+        userReputation = view.findViewById(R.id.userReputation);
+
+        userFullName.setText(userData.get(UserConstants.USER_FULL_NAME).toString());
+        //userReputation.setText("Reputation: " + userData.get(UserConstants.USER_REPUTATION).toString());
     }
 }

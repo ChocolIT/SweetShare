@@ -101,6 +101,7 @@ public class Signup extends AppCompatActivity {
                             Map<String, Object> userData = new HashMap<>();
                             userData.put(UserConstants.USER_FULL_NAME, fullName);
                             userData.put(UserConstants.USER_EMAIL, email);
+                            userData.put(UserConstants.USER_REPUTATION, 0);
 
                             documentReference.set(userData);
 
