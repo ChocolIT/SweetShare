@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Util {
+public class ServicesHelper {
         public static void setInputFieldActivityStatus(View inputField, final View activityBar) {
             /** Adds onFocusChangeListener to a View and displays/hides its activity bar based on it.
              * param: [View] The view we want to add the listener to.

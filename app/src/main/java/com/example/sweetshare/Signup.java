@@ -106,7 +106,7 @@ public class Signup extends AppCompatActivity {
                             documentReference.set(userData);
 
                             // Starting MainActivity.java
-                            Util.fetchUserDataFromFireStoreAndStartMainActivity(uID, Signup.this);
+                            ServicesHelper.fetchUserDataFromFireStoreAndStartMainActivity(uID, Signup.this);
                         }
                         else {
                             Toast.makeText(Signup.this, "Error:" + task.getException(), Toast.LENGTH_SHORT).show();
@@ -118,10 +118,10 @@ public class Signup extends AppCompatActivity {
         });
 
         // Displaying focus bar
-        Util.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
-        Util.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
-        Util.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));
-        Util.setInputFieldActivityStatus(findViewById(R.id.RepPasswordField), findViewById(R.id.RepPasswordFieldBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.RepPasswordField), findViewById(R.id.RepPasswordFieldBar));
 
     }
 

@@ -63,7 +63,7 @@ public class PasswordRecovery extends AppCompatActivity {
             }
         });
 
-        Util.setInputFieldActivityStatus(emailField, findViewById(R.id.focusActivityBar));
+        ServicesHelper.setInputFieldActivityStatus(emailField, findViewById(R.id.focusActivityBar));
     }
 
     public void toLoginActivity(View view) {

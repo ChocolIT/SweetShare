@@ -4,12 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -22,7 +18,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (fAuth.getCurrentUser() != null) {
             String uID = fAuth.getCurrentUser().getUid();
-            Util.fetchUserDataFromFireStoreAndStartMainActivity(uID, SplashScreen.this);
+            ServicesHelper.fetchUserDataFromFireStoreAndStartMainActivity(uID, SplashScreen.this);
         }
         else {
             Intent intent = new Intent(SplashScreen.this, Login.class);
