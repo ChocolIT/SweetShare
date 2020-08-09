@@ -2,6 +2,7 @@ package com.example.sweetshare;
 
 import android.app.Service;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,10 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
@@ -25,6 +30,7 @@ public class ProfileTab extends Fragment {
 
     private TextView userFullName;
     private TextView userReputation;
+    private ImageView userProfilePicture;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -77,9 +83,21 @@ public class ProfileTab extends Fragment {
 
         userFullName = view.findViewById(R.id.userFullName);
         userReputation = view.findViewById(R.id.userReputation);
+        userProfilePicture = view.findViewById(R.id.profileImg);
 
         userFullName.setText(userData.get(UserConstants.USER_FULL_NAME).toString());
         userReputation.setText("Reputation: " + userData.get(UserConstants.USER_REPUTATION).toString());
+
+        if ((Boolean) userData.get(UserConstants.USER_HAS_CUSTOM_PICTURE)) {
+            Uri pictureUri = Uri.parse(userData.get(UserConstants.USER_PROFILE_PICTURE_URI).toString());
+            Log.d("TAG", "onViewCreated: " + pictureUri);
+            Picasso
+                    .get()
+                    .load(pictureUri)
+                    .fit()
+                    .centerCrop()
+                    .into(userProfilePicture);
+        }
 
         setReviewStarsFill(view, (Long) userData.get(UserConstants.USER_REPUTATION));
 

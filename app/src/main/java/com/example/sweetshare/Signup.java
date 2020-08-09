@@ -102,6 +102,7 @@ public class Signup extends AppCompatActivity {
                             userData.put(UserConstants.USER_FULL_NAME, fullName);
                             userData.put(UserConstants.USER_EMAIL, email);
                             userData.put(UserConstants.USER_REPUTATION, 0);
+                            userData.put(UserConstants.USER_HAS_CUSTOM_PICTURE, false);
 
                             documentReference.set(userData);
 

@@ -68,7 +68,7 @@
             <ImageView
                 android:id="@+id/profileImgPreview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/lightGrey"
                 android:src="@drawable/ic_profile_tab_default_profile_picture"
                 android:scaleType="centerCrop"
