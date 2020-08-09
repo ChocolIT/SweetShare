@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         return (Map<String, Object>) (HashMap<String, Object>)intent.getSerializableExtra(UserConstants.USER_DATA);
     }
 
-    public void lol(View view) {
+    public void toEditUserProfileActivity(View view) {
+        Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
+        startActivity(intent);
     }
 }
