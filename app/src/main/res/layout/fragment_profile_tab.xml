@@ -35,16 +35,21 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/scrollViewProfile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileImg"
-        app:layout_constraintBottom_toTopOf="@id/tabLayoutSimulator"
-        android:layout_marginTop="20dp">
+        android:overScrollMode="never">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/userFullName"
@@ -73,62 +78,85 @@
                 android:id="@+id/userStarRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/userReputation"
-                android:layout_marginTop="0dp">
+                android:translationX="10dp">
 
                 <View
                     android:id="@+id/ic_review_star1"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="-5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="-5dp"/>
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <View
                     android:id="@+id/ic_review_star2"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    app:layout_constraintStart_toEndOf="@id/ic_review_star1"
+                    android:layout_margin="-5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="-5dp"/>
+                    app:layout_constraintStart_toEndOf="@id/ic_review_star1"
+                    android:translationX="-5dp"/>
 
                 <View
                     android:id="@+id/ic_review_star3"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    app:layout_constraintStart_toEndOf="@id/ic_review_star2"
+                    android:layout_margin="-5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="-5dp"/>
+                    app:layout_constraintStart_toEndOf="@id/ic_review_star2"
+                    android:translationX="-10dp"/>
 
                 <View
                     android:id="@+id/ic_review_star4"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    app:layout_constraintStart_toEndOf="@id/ic_review_star3"
+                    android:layout_margin="-5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="-5dp"/>
+                    app:layout_constraintStart_toEndOf="@id/ic_review_star3"
+                    android:translationX="-15dp"/>
 
                 <View
                     android:id="@+id/ic_review_star5"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    app:layout_constraintStart_toEndOf="@id/ic_review_star4"
+                    android:layout_margin="-5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="-5dp"/>
+                    app:layout_constraintStart_toEndOf="@id/ic_review_star4"
+                    android:translationX="-20dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:id="@+id/productsButton"
-                android:layout_width="250dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/profile_tab_button_background"
+            <Button
+                android:id="@+id/editProfileButton"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/profile_tab_edit_profile_button"
+                android:drawableStart="@drawable/ic_profile_tab_edit"
+                android:paddingStart="7dp"
+                android:text="Edit Profile"
+
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/userStarRating" />
+
+            <View
+                android:id="@+id/productsButton"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/profile_tab_button_background"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editProfileButton" />
 
             <ImageView
                 android:id="@+id/ic_products"
@@ -144,10 +172,11 @@
                 android:id="@+id/text_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Products"
+                android:layout_marginStart="10dp"
+                android:text="PRODUCTS"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productsButton"
                 app:layout_constraintStart_toEndOf="@id/ic_products"
                 app:layout_constraintTop_toTopOf="@+id/productsButton" />
@@ -155,8 +184,8 @@
 
             <View
                 android:id="@+id/reviewsButton"
-                android:layout_width="250dp"
-                android:layout_height="55dp"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/profile_tab_button_background"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,18 +206,19 @@
                 android:id="@+id/text_reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Reviews"
+                android:layout_marginStart="10dp"
+                android:text="REVIEWS"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/reviewsButton"
                 app:layout_constraintStart_toEndOf="@id/ic_reviews"
                 app:layout_constraintTop_toTopOf="@+id/reviewsButton" />
 
             <View
                 android:id="@+id/ordersButton"
-                android:layout_width="250dp"
-                android:layout_height="55dp"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/profile_tab_button_background"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -209,18 +239,19 @@
                 android:id="@+id/text_orders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Orders"
+                android:layout_marginStart="10dp"
+                android:text="ORDERS"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/ordersButton"
                 app:layout_constraintStart_toEndOf="@id/ic_orders"
                 app:layout_constraintTop_toTopOf="@+id/ordersButton" />
 
             <View
                 android:id="@+id/favoritesButton"
-                android:layout_width="250dp"
-                android:layout_height="55dp"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/profile_tab_button_background"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -240,10 +271,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Favorites"
+                android:layout_marginStart="10dp"
+                android:text="FAVORITES"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/favoritesButton"
                 app:layout_constraintStart_toEndOf="@id/ic_favorites"
                 app:layout_constraintTop_toTopOf="@+id/favoritesButton" />
@@ -251,11 +283,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tabLayoutSimulator"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileImg"

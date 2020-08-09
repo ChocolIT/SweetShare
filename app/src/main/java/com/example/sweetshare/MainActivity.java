@@ -62,4 +62,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         return (Map<String, Object>) (HashMap<String, Object>)intent.getSerializableExtra(UserConstants.USER_DATA);
     }
+
+    public void lol(View view) {
+    }
 }
