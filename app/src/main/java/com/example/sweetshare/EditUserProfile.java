@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,9 +19,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.Map;
 
 public class EditUserProfile extends AppCompatActivity {
 
@@ -58,12 +63,17 @@ public class EditUserProfile extends AppCompatActivity {
                 Uri profileImgUri = data.getData();
                 profileImgPreview.setImageURI(profileImgUri);
                 uploadImageToFirebase(profileImgUri);
+
+                String uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(uId);
+                documentReference.update(UserConstants.USER_HAS_CUSTOM_PICTURE, true);
             }
         }
     }
 
     private void uploadImageToFirebase (Uri imageUri) {
         StorageReference fileRef = storageReference.child("profile-images/" + fAuth.getCurrentUser().getUid() + ".jpg");
+        Log.d("TAG", "uploadImageToFirebase: " + fAuth.getCurrentUser().getUid());
         fileRef.putFile(imageUri);
     }
 }
