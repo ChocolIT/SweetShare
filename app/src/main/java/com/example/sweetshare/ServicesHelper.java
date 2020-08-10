@@ -3,6 +3,7 @@ package com.example.sweetshare;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
@@ -24,6 +25,13 @@ import com.google.firebase.storage.StorageReference;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ServicesHelper {
         public static void setInputFieldActivityStatus(View inputField, final View activityBar) {
@@ -51,19 +59,21 @@ public class ServicesHelper {
             documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    final Map<String, Object> userData = new HashMap<>();
+
+                    SharedPreferences sharedPreferences = contextOrigin.getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+                    final SharedPreferences.Editor editor = sharedPreferences.edit();
 
                     String userFullName = documentSnapshot.getString(UserConstants.USER_FULL_NAME);
-                    userData.put(UserConstants.USER_FULL_NAME, userFullName);
+                    editor.putString(UserConstants.USER_FULL_NAME, userFullName);
 
                     String userEmail = documentSnapshot.getString(UserConstants.USER_EMAIL);
-                    userData.put(UserConstants.USER_EMAIL, userEmail);
+                    editor.putString(UserConstants.USER_EMAIL, userEmail);
 
                     Long userReputation = (Long) documentSnapshot.get(UserConstants.USER_REPUTATION);
-                    userData.put(UserConstants.USER_REPUTATION, userReputation);
+                    editor.putLong(UserConstants.USER_REPUTATION, userReputation);
 
                     Boolean userHasCustomPhoto = (Boolean) documentSnapshot.get(UserConstants.USER_HAS_CUSTOM_PICTURE);
-                    userData.put(UserConstants.USER_HAS_CUSTOM_PICTURE, userHasCustomPhoto);
+                    editor.putBoolean(UserConstants.USER_HAS_CUSTOM_PICTURE, userHasCustomPhoto);
 
                     if (userHasCustomPhoto) {
                         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile-images/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
@@ -72,12 +82,12 @@ public class ServicesHelper {
                         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                userData.put(UserConstants.USER_PROFILE_PICTURE_URI, uri);
+                                editor.putString(UserConstants.USER_PROFILE_PICTURE_URI, uri.toString());
 
                                 Intent intent = new Intent(contextOrigin, MainActivity.class);
-                                intent.putExtra(UserConstants.USER_DATA, (Serializable) userData);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
+                                editor.commit();
                                 contextOrigin.startActivity(intent);
                                 ((Activity)contextOrigin).finish();
                             }
@@ -86,12 +96,14 @@ public class ServicesHelper {
                     }
                     else {
                         Intent intent = new Intent(contextOrigin, MainActivity.class);
-                        intent.putExtra(UserConstants.USER_DATA, (Serializable) userData);
+                        editor.commit();
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
                         contextOrigin.startActivity(intent);
                         ((Activity)contextOrigin).finish();
                     }
+
+
 
                 }
             });
