@@ -77,11 +77,11 @@ public class ServicesHelper {
 
                     if (userHasCustomPhoto) {
                         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile-images/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
-                        Log.d("TAG", "onSuccess: Helper " + storageReference.getDownloadUrl());
 
                         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+                                Log.d("TAG", "onSuccess: Function URI" + uri.toString());
                                 editor.putString(UserConstants.USER_PROFILE_PICTURE_URI, uri.toString());
 
                                 Intent intent = new Intent(contextOrigin, MainActivity.class);

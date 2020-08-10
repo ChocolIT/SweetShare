@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
     public Map getUserData() {
         Intent intent = getIntent();
         Map<String, Object> userData = new HashMap<>();
@@ -86,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         return userData;
     }
 
-    public void toEditUserProfileActivity(View view) {
-        Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
-        startActivity(intent);
-    }
+//    public void toEditUserProfileActivity(View view) {
+//        Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
+//        startActivity(intent);
+//    }
 }

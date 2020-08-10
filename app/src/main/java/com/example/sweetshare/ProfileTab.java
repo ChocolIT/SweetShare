@@ -1,6 +1,10 @@
 package com.example.sweetshare;
 
+import android.app.Activity;
 import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,9 +18,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.type.Color;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.Map;
@@ -31,6 +39,7 @@ public class ProfileTab extends Fragment {
     private TextView userFullName;
     private TextView userReputation;
     private ImageView userProfilePicture;
+    private Button editProfileBtn;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -84,13 +93,13 @@ public class ProfileTab extends Fragment {
         userFullName = view.findViewById(R.id.userFullName);
         userReputation = view.findViewById(R.id.userReputation);
         userProfilePicture = view.findViewById(R.id.profileImg);
+        editProfileBtn = view.findViewById(R.id.editProfileButton);
 
         userFullName.setText(userData.get(UserConstants.USER_FULL_NAME).toString());
         userReputation.setText("Reputation: " + userData.get(UserConstants.USER_REPUTATION).toString());
 
         if ((Boolean) userData.get(UserConstants.USER_HAS_CUSTOM_PICTURE)) {
             Uri pictureUri = Uri.parse(userData.get(UserConstants.USER_PROFILE_PICTURE_URI).toString());
-            Log.d("TAG", "onViewCreated: " + pictureUri);
             Picasso
                     .get()
                     .load(pictureUri)
@@ -101,16 +110,47 @@ public class ProfileTab extends Fragment {
 
         setReviewStarsFill(view, (Long) userData.get(UserConstants.USER_REPUTATION));
 
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(getContext(), EditUserProfile.class), RequestCodes.EDIT_PROFILE_ACTIVITY_REQUEST_CODE);
+            }
+        });
 
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == RequestCodes.EDIT_PROFILE_ACTIVITY_REQUEST_CODE) {
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+                    Picasso
+                            .get()
+                            .load(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default"))
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .fit()
+                            .centerCrop()
+                            .into(userProfilePicture);
+            }
     }
 
     private void setReviewStarsFill(View view, Long userRep) {
         int[] viewList = {R.id.ic_review_star1, R.id.ic_review_star2, R.id.ic_review_star3, R.id.ic_review_star4, R.id.ic_review_star5};
-
         for (int i = 1; i <= 5; i++) {
             int drawableId = ServicesHelper.getStarIconFill(userRep, i);
             Drawable drawable = ContextCompat.getDrawable(view.getContext(), drawableId);
             view.findViewById(viewList[i - 1]).setBackground(drawable);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        Picasso.get().load(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default")).fit().centerCrop().into(userProfilePicture);
     }
 }

@@ -1,31 +1,28 @@
 package com.example.sweetshare;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
-import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.util.Map;
+import com.squareup.picasso.Picasso;
 
 public class EditUserProfile extends AppCompatActivity {
 
@@ -45,6 +42,12 @@ public class EditUserProfile extends AppCompatActivity {
         profileImgPreviewLayout = findViewById(R.id.changeProfileImgLayout);
         profileImgPreview = findViewById(R.id.profileImgPreview);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(UserConstants.USER_HAS_CUSTOM_PICTURE, false)) {
+            String uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Picasso.get().load(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default")).fit().centerCrop().into(profileImgPreview);
+        }
+
         profileImgPreviewLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +55,10 @@ public class EditUserProfile extends AppCompatActivity {
                 startActivityForResult(openGalleryIntent, RequestCodes.GALLERY_REQUEST_CODE);
             }
         });
+
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.nameInputField), findViewById(R.id.nameInputFieldActivityBar));
+        EditText nameInputField = findViewById(R.id.nameInputField);
+        nameInputField.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
     }
 
     @Override
@@ -67,6 +74,21 @@ public class EditUserProfile extends AppCompatActivity {
                 String uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(uId);
                 documentReference.update(UserConstants.USER_HAS_CUSTOM_PICTURE, true);
+
+                SharedPreferences sharedPreferences = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(UserConstants.USER_HAS_CUSTOM_PICTURE, true);
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile-images/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
+
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.d("TAG", "onSuccess edit profile: " + uri.toString());
+                        editor.putString(UserConstants.USER_PROFILE_PICTURE_URI, uri.toString());
+                        editor.commit();
+                    }
+                });
             }
         }
     }
