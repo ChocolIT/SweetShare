@@ -22,11 +22,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.type.Color;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,6 +39,8 @@ import java.util.Map;
  * create an instance of this fragment.
  */
 public class ProfileTab extends Fragment {
+
+    private Map<String, Object> userData = new HashMap<>();
 
     private TextView userFullName;
     private TextView userReputation;
@@ -88,7 +94,7 @@ public class ProfileTab extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Map<String, Object> userData = ((MainActivity)getActivity()).getUserData();
+        userData = ((MainActivity)getActivity()).getUserData();
 
         userFullName = view.findViewById(R.id.userFullName);
         userReputation = view.findViewById(R.id.userReputation);
@@ -126,17 +132,27 @@ public class ProfileTab extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
             if (requestCode == RequestCodes.EDIT_PROFILE_ACTIVITY_REQUEST_CODE) {
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-                    Picasso
-                            .get()
-                            .load(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default"))
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .fit()
-                            .centerCrop()
-                            .into(userProfilePicture);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+                Uri pictureUri = Uri.parse(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default").toString());
+
+                Log.d("TAG", "onActivityResult: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                Picasso.get().setLoggingEnabled(true);
+                Picasso
+                        .get()
+                        .load(pictureUri)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .fit()
+                        .centerCrop()
+                        .into(userProfilePicture);
+
+                userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
+                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                documentReference.update(UserConstants.USER_FULL_NAME, sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
             }
     }
+
 
     private void setReviewStarsFill(View view, Long userRep) {
         int[] viewList = {R.id.ic_review_star1, R.id.ic_review_star2, R.id.ic_review_star3, R.id.ic_review_star4, R.id.ic_review_star5};
@@ -147,10 +163,4 @@ public class ProfileTab extends Fragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        Picasso.get().load(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default")).fit().centerCrop().into(userProfilePicture);
-    }
 }

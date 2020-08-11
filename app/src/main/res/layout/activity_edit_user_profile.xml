@@ -49,15 +49,24 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:elevation="10dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/gradient_rectangle"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_edit_user_profile_tab_edit" />
+                    android:src="@drawable/ic_edit_user_profile_tab_edit"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -122,7 +131,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            android:onClick="backButton"/>
 
         <TextView
             android:layout_width="wrap_content"
