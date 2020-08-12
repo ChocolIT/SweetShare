@@ -40,11 +40,8 @@ import java.util.Map;
  */
 public class ProfileTab extends Fragment {
 
-    private Map<String, Object> userData = new HashMap<>();
-
     private TextView userFullName;
     private TextView userReputation;
-    private ImageView userProfilePicture;
     private Button editProfileBtn;
 
     private static final String ARG_PARAM1 = "param1";
@@ -57,14 +54,6 @@ public class ProfileTab extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileTab.
-     */
     // TODO: Rename and change types and number of parameters
     public static ProfileTab newInstance(String param1, String param2) {
         ProfileTab fragment = new ProfileTab();
@@ -94,27 +83,16 @@ public class ProfileTab extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userData = ((MainActivity)getActivity()).getUserData();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
 
         userFullName = view.findViewById(R.id.userFullName);
         userReputation = view.findViewById(R.id.userReputation);
-        userProfilePicture = view.findViewById(R.id.profileImg);
         editProfileBtn = view.findViewById(R.id.editProfileButton);
 
-        userFullName.setText(userData.get(UserConstants.USER_FULL_NAME).toString());
-        userReputation.setText("Reputation: " + userData.get(UserConstants.USER_REPUTATION).toString());
+        userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
+        userReputation.setText(String.format("Reputation: %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
 
-        if ((Boolean) userData.get(UserConstants.USER_HAS_CUSTOM_PICTURE)) {
-            Uri pictureUri = Uri.parse(userData.get(UserConstants.USER_PROFILE_PICTURE_URI).toString());
-            Picasso
-                    .get()
-                    .load(pictureUri)
-                    .fit()
-                    .centerCrop()
-                    .into(userProfilePicture);
-        }
-
-        setReviewStarsFill(view, (Long) userData.get(UserConstants.USER_REPUTATION));
+        setReviewStarsFill(view, sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404));
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,23 +111,7 @@ public class ProfileTab extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
             if (requestCode == RequestCodes.EDIT_PROFILE_ACTIVITY_REQUEST_CODE) {
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-                Uri pictureUri = Uri.parse(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default").toString());
-
-                Log.d("TAG", "onActivityResult: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                Picasso.get().setLoggingEnabled(true);
-                Picasso
-                        .get()
-                        .load(pictureUri)
-                        .networkPolicy(NetworkPolicy.NO_CACHE)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .fit()
-                        .centerCrop()
-                        .into(userProfilePicture);
-
                 userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
-                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                documentReference.update(UserConstants.USER_FULL_NAME, sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
             }
     }
 

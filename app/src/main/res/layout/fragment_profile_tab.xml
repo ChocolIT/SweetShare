@@ -146,8 +146,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/userStarRating"
-                android:onClick="toEditUserProfileActivity"/>
+                app:layout_constraintTop_toBottomOf="@id/userStarRating" />
 
             <View
                 android:id="@+id/productsButton"

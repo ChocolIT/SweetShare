@@ -61,7 +61,7 @@ public class ServicesHelper {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                     SharedPreferences sharedPreferences = contextOrigin.getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-                    final SharedPreferences.Editor editor = sharedPreferences.edit();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
 
                     String userFullName = documentSnapshot.getString(UserConstants.USER_FULL_NAME);
                     editor.putString(UserConstants.USER_FULL_NAME, userFullName);
@@ -72,38 +72,13 @@ public class ServicesHelper {
                     Long userReputation = (Long) documentSnapshot.get(UserConstants.USER_REPUTATION);
                     editor.putLong(UserConstants.USER_REPUTATION, userReputation);
 
-                    Boolean userHasCustomPhoto = (Boolean) documentSnapshot.get(UserConstants.USER_HAS_CUSTOM_PICTURE);
-                    editor.putBoolean(UserConstants.USER_HAS_CUSTOM_PICTURE, userHasCustomPhoto);
+                    editor.apply();
 
-                    if (userHasCustomPhoto) {
-                        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile-images/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
+                    Intent intent = new Intent(contextOrigin, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Log.d("TAG", "onSuccess: Function URI" + uri.toString());
-                                editor.putString(UserConstants.USER_PROFILE_PICTURE_URI, uri.toString());
-
-                                Intent intent = new Intent(contextOrigin, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-                                editor.commit();
-                                contextOrigin.startActivity(intent);
-                                ((Activity)contextOrigin).finish();
-                            }
-                        });
-
-                    }
-                    else {
-                        Intent intent = new Intent(contextOrigin, MainActivity.class);
-                        editor.commit();
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-                        contextOrigin.startActivity(intent);
-                        ((Activity)contextOrigin).finish();
-                    }
-
-
+                    contextOrigin.startActivity(intent);
+                    ((Activity)contextOrigin).finish();
 
                 }
             });

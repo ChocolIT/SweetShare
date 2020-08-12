@@ -28,90 +28,71 @@ import com.squareup.picasso.Picasso;
 
 public class EditUserProfile extends AppCompatActivity {
 
-    private ConstraintLayout profileImgPreviewLayout;
-    private ImageView profileImgPreview;
-    private StorageReference storageReference;
+    private FirebaseFirestore fStore;
     private FirebaseAuth fAuth;
     private EditText nameInputField;
+    private View nameInputFieldActivityBar;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor sharePrefEditor;
+    private ImageView backButton;
+    private DocumentReference documentReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
 
-        storageReference = FirebaseStorage.getInstance().getReference();
+        sharedPreferences = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        sharePrefEditor = sharedPreferences.edit();
+
+        nameInputFieldActivityBar = findViewById(R.id.nameInputFieldActivityBar);
+        nameInputField = findViewById(R.id.nameInputField);
+        backButton = findViewById(R.id.ic_back_arrow);
+
         fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
-        profileImgPreviewLayout = findViewById(R.id.changeProfileImgLayout);
-        profileImgPreview = findViewById(R.id.profileImgPreview);
+        documentReference = fStore.collection("users").document(fAuth.getCurrentUser().getUid());
 
-        SharedPreferences sharedPreferences = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(UserConstants.USER_HAS_CUSTOM_PICTURE, false)) {
-            String uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Picasso
-                    .get()
-                    .load(sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default"))
-                    .fit().centerCrop().into(profileImgPreview);
-        }
+        nameInputField.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
+        ServicesHelper.setInputFieldActivityStatus(nameInputField, nameInputFieldActivityBar);
 
-        profileImgPreviewLayout.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, RequestCodes.GALLERY_REQUEST_CODE);
+                String updatedName = nameInputField.getText().toString();
+
+                if (updatedName.isEmpty()) {
+                    nameInputField.setError("This field can't de empty");
+                }
+                else if (updatedName.length() < 3) {
+                    nameInputField.setError("The name must contain at least 3 characters.");
+                }
+                else {
+                    sharePrefEditor.putString(UserConstants.USER_FULL_NAME, updatedName);
+                    sharePrefEditor.apply();
+                    documentReference.update(UserConstants.USER_FULL_NAME, updatedName);
+                }
+                finish();
             }
         });
-
-        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.nameInputField), findViewById(R.id.nameInputFieldActivityBar));
-
-        nameInputField = findViewById(R.id.nameInputField);
-        nameInputField.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RequestCodes.GALLERY_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri profileImgUri = data.getData();
-                profileImgPreview.setImageURI(profileImgUri);
-                uploadImageToFirebase(profileImgUri);
-
-                String uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(uId);
-                documentReference.update(UserConstants.USER_HAS_CUSTOM_PICTURE, true);
-
-                SharedPreferences sharedPreferences = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-                final SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(UserConstants.USER_HAS_CUSTOM_PICTURE, true);
-            }
-        }
-    }
-
-    private void uploadImageToFirebase (Uri imageUri) {
-        StorageReference fileRef = storageReference.child("profile-images/" + fAuth.getCurrentUser().getUid() + ".jpg");
-        fileRef.putFile(imageUri);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        SharedPreferences sharedPreferences = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (!nameInputField.getText().toString().trim().equals(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"))) {
-            editor.putString(UserConstants.USER_FULL_NAME, nameInputField.getText().toString().trim());
-            editor.commit();
-        }
-        finish();
-    }
+        String updatedName = nameInputField.getText().toString();
 
-    public void backButton(View view) {
-        SharedPreferences sharedPreferences = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (!nameInputField.getText().toString().trim().equals(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"))) {
-            editor.putString(UserConstants.USER_FULL_NAME, nameInputField.getText().toString().trim());
-            editor.commit();
+        if (updatedName.isEmpty()) {
+            nameInputField.setError("This field can't de empty");
+        }
+        else if (updatedName.length() < 3) {
+            nameInputField.setError("The name must contain at least 3 characters.");
+        }
+        else {
+            sharePrefEditor.putString(UserConstants.USER_FULL_NAME, updatedName);
+            sharePrefEditor.apply();
+            documentReference.update(UserConstants.USER_FULL_NAME, updatedName);
         }
         finish();
     }
