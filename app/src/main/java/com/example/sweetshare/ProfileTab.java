@@ -101,8 +101,6 @@ public class ProfileTab extends Fragment {
             }
         });
 
-
-
     }
 
     @Override

@@ -90,9 +90,4 @@ public class MainActivity extends AppCompatActivity {
 
         return userData;
     }
-
-//    public void toEditUserProfileActivity(View view) {
-//        Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
-//        startActivity(intent);
-//    }
 }
