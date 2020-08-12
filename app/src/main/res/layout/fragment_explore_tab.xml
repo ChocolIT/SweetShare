@@ -5,20 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".MessagesTab">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Explore Tab"
-        android:layout_gravity="center"
-        android:textColor="#000000"/>
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:inputType="textPersonName"
-        android:text="Name" />
-
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/grid_view"
+        android:numColumns="2"
+        android:visibility="visible" />
 </FrameLayout>

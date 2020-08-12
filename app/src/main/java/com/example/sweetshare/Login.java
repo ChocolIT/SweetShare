@@ -76,6 +76,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email, pass;
+
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                /*
                 email = emailField.getText().toString().trim();
                 pass = passField.getText().toString().trim();
 
@@ -103,7 +106,7 @@ public class Login extends AppCompatActivity {
                             loadingLayout.setVisibility(ConstraintLayout.INVISIBLE);
                         }
                     }
-                });
+                }); */
             }
         });
 
