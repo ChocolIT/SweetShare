@@ -7,9 +7,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -22,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
                         tab.setIcon(R.drawable.messages_icon);
                         break;
                 }
-
             }
         }
         );
         tabLayoutMediator.attach();
         viewPager2.setCurrentItem(1, false);
+
+
 
     }
 }

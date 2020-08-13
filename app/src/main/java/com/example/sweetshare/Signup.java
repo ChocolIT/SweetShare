@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import com.example.sweetshare.util;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signup extends AppCompatActivity {
 
@@ -26,6 +29,7 @@ public class Signup extends AppCompatActivity {
     private Button signupButton;
     private TextView toLoginButton;
     private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
     private ConstraintLayout loadingLayout;
 
     @Override
@@ -41,6 +45,7 @@ public class Signup extends AppCompatActivity {
         loadingLayout = findViewById(R.id.loadingLayout);
 
         fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
         if (fAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -51,8 +56,8 @@ public class Signup extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fullName = fullNameField.getText().toString().trim();
-                String email = emailField.getText().toString().trim();
+                final String fullName = fullNameField.getText().toString().trim();
+                final String email = emailField.getText().toString().trim();
                 String pass = passField.getText().toString();
                 String passConfirmation = repPassField.getText().toString();
 
@@ -88,8 +93,20 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Signup.this, "Account created.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                            // Adding additional user data to DB
+                            String uID = fAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = fStore.collection("users").document(uID);
+
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put(UserConstants.USER_FULL_NAME, fullName);
+                            userData.put(UserConstants.USER_EMAIL, email);
+                            userData.put(UserConstants.USER_REPUTATION, 0);
+
+                            documentReference.set(userData);
+
+                            // Starting MainActivity.java
+                            ServicesHelper.fetchUserDataFromFireStoreAndStartMainActivity(uID, Signup.this);
                         }
                         else {
                             Toast.makeText(Signup.this, "Error:" + task.getException(), Toast.LENGTH_SHORT).show();
@@ -101,10 +118,10 @@ public class Signup extends AppCompatActivity {
         });
 
         // Displaying focus bar
-        util.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
-        util.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
-        util.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));
-        util.setInputFieldActivityStatus(findViewById(R.id.RepPasswordField), findViewById(R.id.RepPasswordFieldBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.EmailField), findViewById(R.id.EmailFieldActiveBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.NameField), findViewById(R.id.NameFieldBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.PasswordField), findViewById(R.id.PasswordFieldBar));
+        ServicesHelper.setInputFieldActivityStatus(findViewById(R.id.RepPasswordField), findViewById(R.id.RepPasswordFieldBar));
 
     }
 
