@@ -4,13 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.auth.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +60,34 @@ public class MainActivity extends AppCompatActivity {
         tabLayoutMediator.attach();
         viewPager2.setCurrentItem(1, false);
 
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 
+    public Map getUserData() {
+        Intent intent = getIntent();
+        Map<String, Object> userData = new HashMap<>();
+
+        SharedPreferences sharedPreferences = MainActivity.this.getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+
+        String userFullName = sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default Value Full Name");
+        userData.put(UserConstants.USER_FULL_NAME, userFullName);
+
+        String userEmail = sharedPreferences.getString(UserConstants.USER_EMAIL, "Default Value Email");
+        userData.put(UserConstants.USER_EMAIL, userEmail);
+
+        Long userReputation = sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404);
+        userData.put(UserConstants.USER_REPUTATION, userReputation);
+
+        Boolean userHasCustomPhoto = sharedPreferences.getBoolean(UserConstants.USER_HAS_CUSTOM_PICTURE, false);
+        userData.put(UserConstants.USER_HAS_CUSTOM_PICTURE, userHasCustomPhoto);
+
+        String userProfileImgUri = sharedPreferences.getString(UserConstants.USER_PROFILE_PICTURE_URI, "Default Uri");
+        userData.put(UserConstants.USER_PROFILE_PICTURE_URI, userProfileImgUri);
+
+        return userData;
     }
 }
