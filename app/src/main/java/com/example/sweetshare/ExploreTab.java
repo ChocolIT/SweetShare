@@ -2,25 +2,27 @@ package com.example.sweetshare;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ExploreTab#newInstance} factory method to
-    // * create an instance of this fragment.
-    // */
     public class ExploreTab extends Fragment {
-    //
-    //    // TODO: Rename parameter arguments, choose names that match
-    //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    GridView gridView;
+    String[] categoryName = {"Tools", "Sports", "Gardening", "Photo", "Entertainment", "Clothing", "Electronics", "Books"};
+    int[] numberImage = {R.drawable.ic_explore_tab_brush, R.drawable.ic_explore_tab_soccer_ball, R.drawable.ic_explore_tab_garden, R.drawable.ic_explore_tab_photovideo, R.drawable.ic_explore_tab_entertainment, R.drawable.ic_explore_tab_clothing, R.drawable.ic_explore_tab_electronics, R.drawable.ic_explore_tab_books};
+
+
+        // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -60,5 +62,19 @@ import android.view.ViewGroup;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_explore_tab, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        gridView = view.findViewById(R.id.grid_view);
+        MainAdapter adapter = new MainAdapter(getActivity(), categoryName, numberImage);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), "You Clicked" + categoryName[+position],Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
