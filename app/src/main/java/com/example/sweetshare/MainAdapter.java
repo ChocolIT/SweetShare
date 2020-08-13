@@ -45,10 +45,10 @@ public class MainAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.row_item, null);
         }
         ImageView imageView = convertView.findViewById(R.id.imageView);
-//        TextView textView = convertView.findViewById(R.id.text_view);
+        TextView textView = convertView.findViewById(R.id.categoryNameText);
         imageView.setBackgroundResource(numberImage[position]);
 
-//       textView.setText(categoryName[position]);
+       textView.setText(categoryName[position]);
         return convertView;
     }
 }
