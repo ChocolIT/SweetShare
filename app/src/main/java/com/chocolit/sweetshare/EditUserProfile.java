@@ -1,4 +1,4 @@
-package com.example.sweetshare;
+package com.chocolit.sweetshare;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

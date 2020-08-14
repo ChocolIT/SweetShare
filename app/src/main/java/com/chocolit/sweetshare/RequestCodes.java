@@ -1,4 +1,4 @@
-package com.example.sweetshare;
+package com.chocolit.sweetshare;
 
 public class RequestCodes {
     public static final int GALLERY_REQUEST_CODE = 1000;
