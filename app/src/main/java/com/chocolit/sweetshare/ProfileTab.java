@@ -1,4 +1,4 @@
-package com.example.sweetshare;
+package com.chocolit.sweetshare;
 
 import android.app.Activity;
 import android.app.Service;

@@ -1,4 +1,4 @@
-package com.example.sweetshare;
+package com.chocolit.sweetshare;
 
 import android.graphics.drawable.Drawable;
 

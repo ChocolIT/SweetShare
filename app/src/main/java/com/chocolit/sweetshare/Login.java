@@ -1,4 +1,4 @@
-package com.example.sweetshare;
+package com.chocolit.sweetshare;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,8 +74,6 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 String email, pass;
 
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                /*
                 email = emailField.getText().toString().trim();
                 pass = passField.getText().toString().trim();
 
@@ -95,13 +93,14 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             ServicesHelper.fetchUserDataFromFireStoreAndStartMainActivity(fAuth.getCurrentUser().getUid(), Login.this);
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                         else {
                             Toast.makeText(Login.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
                             loadingLayout.setVisibility(ConstraintLayout.INVISIBLE);
                         }
                     }
-                }); */
+                });
             }
         });
 
