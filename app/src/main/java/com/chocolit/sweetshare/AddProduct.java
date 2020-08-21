@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -32,12 +34,12 @@ import java.util.Map;
 
 public class AddProduct extends AppCompatActivity {
 
-    private View chooseImgView, publishButton, loadingOverlayBackground;
+    private View chooseImgView, publishButton;
     private EditText productNameField, productDescriptionField, cityField, phoneNumberField;
     private TextView userDisplayNameField, userEmailField;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
-    private ProgressBar loadingBar;
+    private FrameLayout loadingOverlay;
 
     final ArrayList<String> uriList = new ArrayList<>();
     private Map<String, Object> productData = new HashMap<>();
@@ -64,8 +66,7 @@ public class AddProduct extends AppCompatActivity {
         chooseImgView = findViewById(R.id.addPhotosBackground);
         publishButton = findViewById(R.id.PublishButtonBackground);
 
-        loadingOverlayBackground = findViewById(R.id.loadingOverlayBackground);
-        loadingBar = findViewById(R.id.progressBar);
+        loadingOverlay = findViewById(R.id.loadingOverlay);
 
         productNameField = findViewById(R.id.TitleInputField);
         productDescriptionField = findViewById(R.id.DescriptionInputField);
@@ -108,8 +109,7 @@ public class AddProduct extends AppCompatActivity {
                     return;
                 }
 
-//                loadingBar.setVisibility(ProgressBar.VISIBLE);
-//                loadingOverlayBackground.setVisibility(View.VISIBLE);
+                loadingOverlay.setVisibility(View.VISIBLE);
 
                 Date date = new Date();
                 Timestamp ts = new Timestamp(date.getTime());
@@ -135,6 +135,15 @@ public class AddProduct extends AppCompatActivity {
                                         DocumentReference documentReference = fStore.collection("products").document(productId);
                                         Log.d("TAG", "onSuccess: uploading to db");
                                         documentReference.set(productData);
+
+                                        // Adding the product id to its corresponding user
+                                        DocumentReference userReference = fStore.collection("users").document(fAuth.getCurrentUser().getUid());
+                                        Map<String, Object> addProductId = new HashMap<>();
+                                        addProductId.put(UserConstants.USER_OWNED_PRODUCTS_LIST, FieldValue.arrayUnion(productId));
+                                        userReference.update(addProductId);
+
+
+                                        loadingOverlay.setVisibility(View.GONE);
                                     }
 
                                 }
