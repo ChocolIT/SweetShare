@@ -11,10 +11,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,6 +35,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AddProduct extends AppCompatActivity {
 
@@ -40,6 +45,7 @@ public class AddProduct extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private FrameLayout loadingOverlay;
+    private ImageView backButton;
 
     final ArrayList<String> uriList = new ArrayList<>();
     private Map<String, Object> productData = new HashMap<>();
@@ -65,6 +71,7 @@ public class AddProduct extends AppCompatActivity {
 
         chooseImgView = findViewById(R.id.addPhotosBackground);
         publishButton = findViewById(R.id.PublishButtonBackground);
+        backButton = findViewById(R.id.backButton);
 
         loadingOverlay = findViewById(R.id.loadingOverlay);
 
@@ -72,6 +79,13 @@ public class AddProduct extends AppCompatActivity {
         productDescriptionField = findViewById(R.id.DescriptionInputField);
         cityField = findViewById(R.id.CityInputField);
         phoneNumberField = findViewById(R.id.PhoneNumberInputField);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         chooseImgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,8 +156,9 @@ public class AddProduct extends AppCompatActivity {
                                         addProductId.put(UserConstants.USER_OWNED_PRODUCTS_LIST, FieldValue.arrayUnion(productId));
                                         userReference.update(addProductId);
 
-
                                         loadingOverlay.setVisibility(View.GONE);
+
+                                        Toast.makeText(getApplicationContext(), "Product created successfully.", Toast.LENGTH_SHORT);
                                     }
 
                                 }
