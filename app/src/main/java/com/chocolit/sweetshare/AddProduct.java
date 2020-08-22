@@ -105,11 +105,6 @@ public class AddProduct extends AppCompatActivity {
                 String city = cityField.getText().toString();
                 String phoneNumber = phoneNumberField.getText().toString();
 
-                productData.put(ProductConstants.PRODUCT_TITLE, productTitle);
-                productData.put(ProductConstants.PRODUCT_DESCRIPTION, productDescription);
-                productData.put(ProductConstants.PRODUCT_CITY, city);
-                productData.put(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER, phoneNumber);
-
                 if (productTitle.isEmpty()){
                     productNameField.setError("This field can't be empty");
                     return;
@@ -122,6 +117,12 @@ public class AddProduct extends AppCompatActivity {
                     cityField.setError("This field can't be empty");
                     return;
                 }
+
+                productData.put(ProductConstants.PRODUCT_TITLE, productTitle);
+                productData.put(ProductConstants.PRODUCT_DESCRIPTION, productDescription);
+                productData.put(ProductConstants.PRODUCT_CITY, city);
+                productData.put(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER, phoneNumber);
+                productData.put(UserConstants.USER_ID, fAuth.getCurrentUser().getUid());
 
                 loadingOverlay.setVisibility(View.VISIBLE);
 
