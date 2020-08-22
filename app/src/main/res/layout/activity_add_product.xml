@@ -84,18 +84,16 @@
                 app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
                 app:layout_constraintTop_toBottomOf="@id/TitleInputField" />
 
-            <View
-                android:id="@+id/CategoryButton"
+            <Spinner
+                android:id="@+id/categoriesSpinner"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@id/CategoryText"
+                app:layout_constraintStart_toStartOf="@id/CategoryText"
+                app:layout_constraintEnd_toEndOf="@id/DescriptionInputField"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/input_field_background"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
-                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
-                app:layout_constraintTop_toBottomOf="@id/CategoryText" />
+                android:spinnerMode="dropdown" />
 
             <View
                 android:id="@+id/DelimitationLineFirst"
@@ -105,7 +103,7 @@
                 android:background="@drawable/delimitation_line"
                 app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
                 app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
-                app:layout_constraintTop_toBottomOf="@id/CategoryButton" />
+                app:layout_constraintTop_toBottomOf="@id/categoriesSpinner" />
 
             <TextView
                 android:id="@+id/DescriptionText"

@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +36,10 @@ import java.util.ArrayList;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class AddProduct extends AppCompatActivity {
 
@@ -46,6 +50,7 @@ public class AddProduct extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private FrameLayout loadingOverlay;
     private ImageView backButton;
+    private Spinner categoriesSpinner;
 
     final ArrayList<String> uriList = new ArrayList<>();
     private Map<String, Object> productData = new HashMap<>();
@@ -64,6 +69,11 @@ public class AddProduct extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         SharedPreferences sharedPref = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        SharedPreferences productCategoriesSharedPref = getSharedPreferences(ProductConstants.PRODUCT_CATEGORIES, Context.MODE_PRIVATE);
+
+        Set<String> pcSet = productCategoriesSharedPref.getStringSet(ProductConstants.PRODUCT_CATEGORIES, new HashSet<String>());
+        String[] productCategories = pcSet.toArray(new String[pcSet.size()]);
+
         userDisplayNameField = findViewById(R.id.ContactNameDisplay);
         userEmailField = findViewById(R.id.EmailAdressInputField);
         userDisplayNameField.setText(sharedPref.getString(UserConstants.USER_FULL_NAME, "Default"));
@@ -72,6 +82,7 @@ public class AddProduct extends AppCompatActivity {
         chooseImgView = findViewById(R.id.addPhotosBackground);
         publishButton = findViewById(R.id.PublishButtonBackground);
         backButton = findViewById(R.id.backButton);
+        categoriesSpinner = findViewById(R.id.categoriesSpinner);
 
         loadingOverlay = findViewById(R.id.loadingOverlay);
 
@@ -79,6 +90,9 @@ public class AddProduct extends AppCompatActivity {
         productDescriptionField = findViewById(R.id.DescriptionInputField);
         cityField = findViewById(R.id.CityInputField);
         phoneNumberField = findViewById(R.id.PhoneNumberInputField);
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, productCategories);
+        categoriesSpinner.setAdapter(spinnerAdapter);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
