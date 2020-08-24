@@ -96,6 +96,7 @@ public class AddProduct extends AppCompatActivity {
         phoneNumberField = findViewById(R.id.PhoneNumberInputField);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, productCategories);
+        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         categoriesSpinner.setAdapter(spinnerAdapter);
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +119,11 @@ public class AddProduct extends AppCompatActivity {
         categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                TextView selectedText = (TextView) adapterView.getChildAt(0);
+                if (selectedText != null) {
+                    selectedText.setTextColor(Color.BLACK);
+                    selectedText.setTextSize(18);
+                }
                 productData.put(ProductConstants.PRODUCT_CATEGORY, adapterView.getItemAtPosition(pos));
             }
 

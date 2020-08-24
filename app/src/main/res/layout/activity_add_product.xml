@@ -56,7 +56,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
-                app:layout_constraintTop_toBottomOf="@id/addPhotosBackground" />
+                app:layout_constraintTop_toBottomOf="@id/addPhotosBackground"/>
 
             <EditText
                 android:id="@+id/TitleInputField"
@@ -93,7 +93,8 @@
                 app:layout_constraintEnd_toEndOf="@id/DescriptionInputField"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/input_field_background"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:scrollbarSize="0dp"/>
 
             <View
                 android:id="@+id/DelimitationLineFirst"
