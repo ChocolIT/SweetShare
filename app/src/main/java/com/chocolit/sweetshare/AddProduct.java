@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -111,6 +115,21 @@ public class AddProduct extends AppCompatActivity {
             }
         });
 
+        categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                productData.put(ProductConstants.PRODUCT_CATEGORY, adapterView.getItemAtPosition(pos));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                TextView errorText = (TextView)categoriesSpinner.getSelectedView();
+                errorText.setError("");
+                errorText.setTextColor(Color.RED);
+                errorText.setText("A category must be selected");
+            }
+        });
+
         publishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,7 +180,7 @@ public class AddProduct extends AppCompatActivity {
 
                                     if (uriList.size() == imgList.size()) {
                                         productData.put(ProductConstants.PRODUCT_IMG_LIST, uriList);
-                                        DocumentReference documentReference = fStore.collection("products").document(productId);
+                                        final DocumentReference documentReference = fStore.collection("products").document(productId);
                                         Log.d("TAG", "onSuccess: uploading to db");
                                         documentReference.set(productData);
 
