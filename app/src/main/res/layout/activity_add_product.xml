@@ -135,6 +135,32 @@
                 app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
                 app:layout_constraintTop_toBottomOf="@id/DescriptionText" />
 
+            <TextView
+                android:id="@+id/priceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/DescriptionInputField"
+                app:layout_constraintStart_toStartOf="@id/DescriptionInputField"
+                android:text="Price*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/priceInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/priceText" />
+
             <View
                 android:id="@+id/DelimitationLineSecond"
                 android:layout_width="0dp"
@@ -143,7 +169,7 @@
                 android:background="@drawable/delimitation_line"
                 app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
                 app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
-                app:layout_constraintTop_toBottomOf="@id/DescriptionInputField" />
+                app:layout_constraintTop_toBottomOf="@id/priceInputField" />
 
             <TextView
                 android:id="@+id/ContactDetailsText"

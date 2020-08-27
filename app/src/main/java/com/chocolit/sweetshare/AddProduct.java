@@ -48,7 +48,7 @@ import java.util.Set;
 public class AddProduct extends AppCompatActivity {
 
     private View chooseImgView, publishButton;
-    private EditText productNameField, productDescriptionField, cityField, phoneNumberField;
+    private EditText productNameField, productDescriptionField, cityField, phoneNumberField, priceInputField;
     private TextView userDisplayNameField, userEmailField;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
@@ -94,6 +94,7 @@ public class AddProduct extends AppCompatActivity {
         productDescriptionField = findViewById(R.id.DescriptionInputField);
         cityField = findViewById(R.id.CityInputField);
         phoneNumberField = findViewById(R.id.PhoneNumberInputField);
+        priceInputField = findViewById(R.id.priceInputField);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, productCategories);
         spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
@@ -143,6 +144,14 @@ public class AddProduct extends AppCompatActivity {
                 String productDescription = productDescriptionField.getText().toString();
                 String city = cityField.getText().toString();
                 String phoneNumber = phoneNumberField.getText().toString();
+                long price = 0;
+
+                try {
+                    price = Long.parseLong(priceInputField.getText().toString());
+                }
+                catch (Exception e) {
+                    priceInputField.setError("Price must be a number");
+                }
 
                 if (productTitle.isEmpty()){
                     productNameField.setError("This field can't be empty");
@@ -156,12 +165,18 @@ public class AddProduct extends AppCompatActivity {
                     cityField.setError("This field can't be empty");
                     return;
                 }
+                if (price == 0) {
+                    priceInputField.setError("This field can't be empty");
+                    return;
+                }
 
                 productData.put(ProductConstants.PRODUCT_TITLE, productTitle);
                 productData.put(ProductConstants.PRODUCT_DESCRIPTION, productDescription);
                 productData.put(ProductConstants.PRODUCT_CITY, city);
                 productData.put(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER, phoneNumber);
                 productData.put(UserConstants.USER_ID, fAuth.getCurrentUser().getUid());
+                productData.put(ProductConstants.PRICE, price);
+                productData.put(ProductConstants.REVIEWS_NO, 0);
 
                 loadingOverlay.setVisibility(View.VISIBLE);
 
