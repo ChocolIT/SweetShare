@@ -90,7 +90,6 @@ public class ProfileTab extends Fragment {
         userFullName = view.findViewById(R.id.userFullName);
         userReputation = view.findViewById(R.id.userReputation);
         editProfileBtn = view.findViewById(R.id.editProfileButton);
-        addButton = view.findViewById(R.id.addProductButton);
 
         userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
         userReputation.setText(String.format("Reputation: %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
@@ -102,12 +101,6 @@ public class ProfileTab extends Fragment {
             public void onClick(View view) {
                 startActivityForResult(new Intent(getContext(), EditUserProfile.class), RequestCodes.EDIT_PROFILE_ACTIVITY_REQUEST_CODE);
 
-            }
-        });
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AddProduct.class));
             }
         });
     }

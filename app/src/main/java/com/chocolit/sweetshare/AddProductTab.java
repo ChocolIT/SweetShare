@@ -1,27 +1,25 @@
 package com.chocolit.sweetshare;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,16 +34,22 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-public class AddProduct extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link AddProductTab#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class AddProductTab extends Fragment {
 
     private View chooseImgView, publishButton;
     private EditText productNameField, productDescriptionField, cityField, phoneNumberField, priceInputField;
@@ -53,7 +57,6 @@ public class AddProduct extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private FrameLayout loadingOverlay;
-    private ImageView backButton;
     private Spinner categoriesSpinner;
 
     final ArrayList<String> uriList = new ArrayList<>();
@@ -61,51 +64,75 @@ public class AddProduct extends AppCompatActivity {
 
     private ArrayList<Uri> imgList = new ArrayList<Uri>();
 
-    public AddProduct() {
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private String mParam1;
+    private String mParam2;
+
+    public AddProductTab() {
+
+    }
+
+    public static AddProductTab newInstance(String param1, String param2) {
+        AddProductTab fragment = new AddProductTab();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_product);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_add_product_tab, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        super.onCreate(savedInstanceState);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-        SharedPreferences sharedPref = getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        SharedPreferences productCategoriesSharedPref = getSharedPreferences(ProductConstants.PRODUCT_CATEGORIES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(UserConstants.USER_FETCHED_DATA_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        SharedPreferences productCategoriesSharedPref = getActivity().getSharedPreferences(ProductConstants.PRODUCT_CATEGORIES, Context.MODE_PRIVATE);
 
         Set<String> pcSet = productCategoriesSharedPref.getStringSet(ProductConstants.PRODUCT_CATEGORIES, new HashSet<String>());
         String[] productCategories = pcSet.toArray(new String[pcSet.size()]);
 
-        userDisplayNameField = findViewById(R.id.ContactNameDisplay);
-        userEmailField = findViewById(R.id.EmailAdressInputField);
+        userDisplayNameField = view.findViewById(R.id.ContactNameDisplay);
+        userEmailField = view.findViewById(R.id.EmailAdressInputField);
         userDisplayNameField.setText(sharedPref.getString(UserConstants.USER_FULL_NAME, "Default"));
         userEmailField.setText(sharedPref.getString(UserConstants.USER_EMAIL, "Default"));
 
-        chooseImgView = findViewById(R.id.addPhotosBackground);
-        publishButton = findViewById(R.id.PublishButtonBackground);
-        backButton = findViewById(R.id.backButton);
-        categoriesSpinner = findViewById(R.id.categoriesSpinner);
+        chooseImgView = view.findViewById(R.id.addPhotosBackground);
+        publishButton = view.findViewById(R.id.PublishButtonBackground);
+        categoriesSpinner = view.findViewById(R.id.categoriesSpinner);
 
-        loadingOverlay = findViewById(R.id.loadingOverlay);
+        loadingOverlay = view.findViewById(R.id.loadingOverlay);
 
-        productNameField = findViewById(R.id.TitleInputField);
-        productDescriptionField = findViewById(R.id.DescriptionInputField);
-        cityField = findViewById(R.id.CityInputField);
-        phoneNumberField = findViewById(R.id.PhoneNumberInputField);
-        priceInputField = findViewById(R.id.priceInputField);
+        productNameField = view.findViewById(R.id.TitleInputField);
+        productDescriptionField = view.findViewById(R.id.DescriptionInputField);
+        cityField = view.findViewById(R.id.CityInputField);
+        phoneNumberField = view.findViewById(R.id.PhoneNumberInputField);
+        priceInputField = view.findViewById(R.id.priceInputField);
 
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, productCategories);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, productCategories);
         spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         categoriesSpinner.setAdapter(spinnerAdapter);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         chooseImgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +193,7 @@ public class AddProduct extends AppCompatActivity {
                     return;
                 }
                 if (price == 0) {
-                    priceInputField.setError("This field can't be empty");
+                    priceInputField.setError("Invalid input");
                     return;
                 }
 
@@ -184,6 +211,7 @@ public class AddProduct extends AppCompatActivity {
                 Timestamp ts = new Timestamp(date.getTime());
                 final String productId = fAuth.getCurrentUser().getUid() + ts.getTime();
                 StorageReference imageFolder = FirebaseStorage.getInstance().getReference().child("productImg/" + productId);
+                Log.d("TAG", "onClick: " + imageFolder);
 
                 for (int i = 0; i < imgList.size(); i++) {
                     Uri currentImg = imgList.get(i);
@@ -213,7 +241,7 @@ public class AddProduct extends AppCompatActivity {
 
                                         loadingOverlay.setVisibility(View.GONE);
 
-                                        Toast.makeText(getApplicationContext(), "Product created successfully.", Toast.LENGTH_SHORT);
+                                        Toast.makeText(getContext(), "Product created successfully.", Toast.LENGTH_SHORT);
                                     }
 
                                 }
@@ -231,11 +259,11 @@ public class AddProduct extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RequestCodes.GALLERY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
+                Log.d("TAG", "onActivityResult: DA");
                 if (data.getClipData() != null) {
                     int countClipData = data.getClipData().getItemCount();
 
@@ -244,8 +272,7 @@ public class AddProduct extends AppCompatActivity {
                         imgList.add(imgUri);
                     }
                 }
-            }
-            else {
+            } else {
 
             }
         }

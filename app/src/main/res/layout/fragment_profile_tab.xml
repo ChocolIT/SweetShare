@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerBarSimulator"
         android:layout_width="match_parent"
@@ -34,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@id/headerBarSimulator">
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewProfile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -282,8 +280,7 @@
                 app:layout_constraintTop_toTopOf="@+id/favoritesButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileImgCard"
@@ -303,35 +300,5 @@
             android:src="@drawable/ic_profile_tab_default_profile_picture"
             android:background="@color/lightGrey"/>
     </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/headerBarSimulator"
-        android:layout_margin="20dp"
-        android:elevation="5dp"
-        android:id="@+id/addProductButton">
-
-        <View
-            android:id="@+id/GradientCircle"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/gradient_add_circle"
-            android:elevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/GradientCircle"
-            app:layout_constraintEnd_toEndOf="@id/GradientCircle"
-            app:layout_constraintStart_toStartOf="@id/GradientCircle"
-            app:layout_constraintTop_toTopOf="@id/GradientCircle" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
