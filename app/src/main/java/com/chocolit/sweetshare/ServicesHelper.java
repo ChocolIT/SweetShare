@@ -24,7 +24,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -95,5 +98,22 @@ public class ServicesHelper {
             else {
                 return UserConstants.FULL_REVIEW_STAR;
             }
+        }
+
+        public static void getProductCategories(final Context contextOrigin) {
+            FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+            DocumentReference productCategories = fStore.collection("product_categories").document("product_categories");
+            productCategories.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    SharedPreferences sharedPref = contextOrigin.getSharedPreferences(ProductConstants.PRODUCT_CATEGORIES, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor prefEditor = sharedPref.edit();
+
+                    List<String> group = (List<String>) documentSnapshot.get(ProductConstants.PRODUCT_CATEGORIES);
+                    Set<String> productCategories = new HashSet<>(group);
+                    prefEditor.putStringSet(ProductConstants.PRODUCT_CATEGORIES, productCategories);
+                    prefEditor.commit();
+                }
+            });
         }
 }
