@@ -40,7 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageSlider"
                 android:layout_marginTop="15dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="25dp"
                 android:textSize="22sp"/>
 
             <TextView
@@ -154,9 +154,43 @@
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@color/darkGrey"/>
 
+            <View
+                android:id="@+id/firstDelimiter"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@drawable/delimitation_line"
+                app:layout_constraintTop_toBottomOf="@id/productPrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_maginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/descriptionTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                app:layout_constraintTop_toBottomOf="@id/firstDelimiter"
+                app:layout_constraintStart_toStartOf="@id/firstDelimiter"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/firstDelimiter"
+                app:layout_constraintEnd_toEndOf="@id/firstDelimiter"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTitleText"
+                android:gravity="start"
+                android:textSize="20dp"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     </androidx.core.widget.NestedScrollView>
 
