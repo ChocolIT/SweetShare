@@ -89,6 +89,14 @@ public class ProfileTab extends Fragment {
         userReputation = view.findViewById(R.id.userReputation);
         editProfileBtn = view.findViewById(R.id.editProfileButton);
 
+        View icSettings = view.findViewById(R.id.ic_settings);
+        icSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ProductPage.class));
+            }
+        });
+
         userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
         userReputation.setText(String.format("Reputation: %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
 

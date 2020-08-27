@@ -13,4 +13,5 @@
     <color name="successGreen">#00b015</color>
     <color name="failureRed">#e60000</color>
     <color name="lightGrey">#dbdbdb</color>
+    <color name="reviewStarYellow">#ffdf00</color>
 </resources>

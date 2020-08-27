@@ -11,7 +11,7 @@ public class UserConstants {
     public static final String USER_PROFILE_PICTURE_URI = "USER_PROFILE_PICTURE_URI";
     public static final String USER_FETCHED_DATA_SHARED_PREFERENCES_FILE = "USER_FETCHED_DATA";
 
-    public static final int EMPTY_REVIEW_STAR = R.drawable.ic_review_star_empty;
-    public static final int HALF_REVIEW_STAR = R.drawable.ic_review_star_half;
-    public static final int FULL_REVIEW_STAR = R.drawable.ic_review_star_full;
+    public static final int EMPTY_REVIEW_STAR = R.drawable.ic_star_empty_sharp;
+    public static final int HALF_REVIEW_STAR = R.drawable.ic_star_half_sharp;
+    public static final int FULL_REVIEW_STAR = R.drawable.ic_star_filled_sharp;
 }
