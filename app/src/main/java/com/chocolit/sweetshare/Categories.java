@@ -32,8 +32,8 @@ public class Categories extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
         products_list = findViewById(R.id.category_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
-
-        Query query = firebaseFirestore.collection("products");
+        String clickCategory = getIntent().getExtras().getString(ProductConstants.PRODUCT_CATEGORY);
+        Query query = firebaseFirestore.collection("products"); // whereEqualTo(ProductConstants.PRODUCT_CATEGORY, clickCategory)
 
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
 

@@ -78,6 +78,7 @@ public class ExploreTab extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // Toast.makeText(getContext(), "You Clicked" + categoryName[+position],Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), Categories.class);
+                intent.putExtra(ProductConstants.PRODUCT_CATEGORY, categoryName[+position]);
                 startActivity(intent);
             }
         });
