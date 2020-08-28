@@ -4,6 +4,7 @@
     so we can send you a password reset link.</string>
     <string name="reset_link_sent">Link sent. Please check your inbox.</string>
     <string name="reset_link_error">Link not sent. Check the input and try again.</string>
+    <string name="messages_message_tab">Messages Tab</string>
     <string name="explore_tab_categories_text">Categories</string>
     <string name="login_hint_email">Email</string>
     <string name="login_button_text">Login</string>
@@ -28,4 +29,5 @@
     <string name="profile_orders">ORDERS</string>
     <string name="profile_favourites">FAVOURITES</string>
     <string name="splash_screen_name">Name</string>
+
 </resources>

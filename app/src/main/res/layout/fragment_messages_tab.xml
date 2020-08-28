@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Messages Tab"
+        android:text="@string/messages_message_tab"
         android:layout_gravity="center"
         android:textColor="#000000"/>
 

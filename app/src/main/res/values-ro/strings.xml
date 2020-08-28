@@ -24,4 +24,5 @@
     <string name="profile_reviews">RECENZII</string>
     <string name="profile_orders">COMENZI</string>
     <string name="profile_profile_tab">Profil</string>
+    <string name="messages_message_tab">Mesaje</string>
 </resources>
