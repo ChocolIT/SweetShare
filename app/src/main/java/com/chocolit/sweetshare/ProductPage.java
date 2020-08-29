@@ -39,12 +39,13 @@ public class ProductPage extends AppCompatActivity {
         final TextView productCityText = findViewById(R.id.productCityText);
         final TextView productReviewsNo = findViewById(R.id.productReviewsNo);
         final TextView productPrice = findViewById(R.id.productPrice);
+        final TextView productDescription = findViewById(R.id.descriptionText);
 
         imageSlider = findViewById(R.id.imageSlider);
         final List<SlideModel> slideModels = new ArrayList<>();
 
         fStore = FirebaseFirestore.getInstance();
-        String docID = "zcorO0qMOlOlCOi3au42jcDhV5A31598546609607";
+        String docID = "zcorO0qMOlOlCOi3au42jcDhV5A31598709036068";
         DocumentReference productDoc = fStore.collection("products").document(docID);
 
         productDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -60,6 +61,7 @@ public class ProductPage extends AppCompatActivity {
                 productCityText.setText(documentSnapshot.getString(ProductConstants.PRODUCT_CITY));
                 productReviewsNo.setText(String.format("%s reviews", documentSnapshot.getLong(ProductConstants.REVIEWS_NO)));
                 productPrice.setText(String.format("%s SWEETS/DAY", documentSnapshot.getLong(ProductConstants.PRICE)));
+                productDescription.setText(documentSnapshot.getString(ProductConstants.PRODUCT_DESCRIPTION));
 
                 setProductStarRating(documentSnapshot.getLong(ProductConstants.PRODUCT_RATING), getApplicationContext());
             }
