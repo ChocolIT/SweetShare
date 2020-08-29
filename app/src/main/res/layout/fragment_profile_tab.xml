@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerBarSimulator"
         android:layout_width="match_parent"
@@ -34,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@id/headerBarSimulator">
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewProfile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -282,8 +280,7 @@
                 app:layout_constraintTop_toTopOf="@+id/favoritesButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileImgCard"
@@ -294,6 +291,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/gradientHeaderBarSimulator"
         app:layout_constraintTop_toTopOf="@id/gradientHeaderBarSimulator">
+
 
         <ImageView
             android:id="@+id/profileImg"
