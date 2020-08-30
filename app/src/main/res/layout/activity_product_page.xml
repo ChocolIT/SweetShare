@@ -191,10 +191,60 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/secondDelimiter"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@drawable/delimitation_line"
+                app:layout_constraintTop_toBottomOf="@id/descriptionText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="20dp"/>
 
+            <TextView
+                android:id="@+id/reviewsTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/secondDelimiter"
+                android:text="@string/reviews_title_text"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_medium"
+                app:layout_constraintStart_toStartOf="@id/descriptionTitleText"
+                android:layout_marginTop="20dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintTop_toBottomOf="@id/reviewsTitleText"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <View
+        android:id="@+id/backArrowBackground"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:alpha=".7"
+        android:background="@drawable/back_button_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/backArrowBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backArrowBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
