@@ -1,57 +1,52 @@
 package com.chocolit.sweetshare;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class ProductsModel {
 
 
-    private String name;
-    private long price;
-    private String categoryName;
-    private String city;
+    private String PRODUCT_TITLE;
+    private long PRODUCT_PRICE;
+    private String PRODUCT_CATEGORY;
+    private String PRODUCT_CITY;
 
     private ProductsModel(){
 
     }
-    private ProductsModel(String name, long price, String categoryName, String city){
-        this.name = name;
-        this.price = price;
-        this.categoryName = categoryName;
-        this.city = city;
+    private ProductsModel(String PRODUCT_TITLE, long PRODUCT_PRICE, String PRODUCT_CATEGORY, String PRODUCT_CITY){
+        this.PRODUCT_TITLE = PRODUCT_TITLE;
+        this.PRODUCT_PRICE = PRODUCT_PRICE;
+        this.PRODUCT_CATEGORY = PRODUCT_CATEGORY;
+        this.PRODUCT_CITY = PRODUCT_CITY;
     }
 
-    public long getPrice() {
-        return price;
+    public long getPRODUCT_PRICE() {
+        return PRODUCT_PRICE;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public void setPRODUCT_PRICE(long PRODUCT_PRICE) {
+        this.PRODUCT_PRICE = PRODUCT_PRICE;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getPRODUCT_CATEGORY() {
+        return PRODUCT_CATEGORY;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setPRODUCT_CATEGORY(String PRODUCT_CATEGORY) {
+        this.PRODUCT_CATEGORY = PRODUCT_CATEGORY;
     }
 
-    public String getCity() {
-        return city;
+    public String getPRODUCT_CITY() {
+        return PRODUCT_CITY;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setPRODUCT_CITY(String PRODUCT_CITY) {
+        this.PRODUCT_CITY = PRODUCT_CITY;
     }
 
-    public String getName() {
-        return name;
+    public String getPRODUCT_TITLE() {
+        return PRODUCT_TITLE;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPRODUCT_TITLE(String PRODUCT_TITLE) {
+        this.PRODUCT_TITLE = PRODUCT_TITLE;
     }
 }

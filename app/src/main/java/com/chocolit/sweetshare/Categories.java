@@ -5,22 +5,14 @@ import android.os.Bundle;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +30,7 @@ public class Categories extends AppCompatActivity {
         products_list = findViewById(R.id.category_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
         String clickCategory = getIntent().getExtras().getString(ProductConstants.PRODUCT_CATEGORY);
-        Query query = firebaseFirestore.collection("products"); // whereEqualTo(ProductConstants.PRODUCT_CATEGORY, clickCategory)
+        Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.PRODUCT_CATEGORY, clickCategory);
 
 
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
@@ -54,9 +46,9 @@ public class Categories extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductsModel model) {
-                holder.list_name.setText(model.getName());
-                holder.list_city.setText(model.getCity());
-                holder.list_price.setText(model.getPrice() + "");
+                holder.list_title.setText(model.getPRODUCT_TITLE());
+                holder.list_city.setText(model.getPRODUCT_CITY());
+                holder.list_price.setText(model.getPRODUCT_PRICE() + "");
             }
         };
 
@@ -68,14 +60,14 @@ public class Categories extends AppCompatActivity {
 
     private class ProductsViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView list_name;
+        private TextView list_title;
         private TextView list_price;
         private TextView list_city;
 
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            list_name = itemView.findViewById(R.id.list_name);
+            list_title = itemView.findViewById(R.id.list_name);
             list_city = itemView.findViewById(R.id.list_city);
             list_price = itemView.findViewById(R.id.list_price);
         }
