@@ -161,20 +161,7 @@ public class ProductPage extends AppCompatActivity {
                 }
             }
         });
-
     }
-
-    private void isFavorite(DocumentReference userDoc, final String prodId) {
-        userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                List<String> group = (List<String>) documentSnapshot.get(UserConstants.USER_FAVORITES);
-                Log.d("TAG", "onSuccess: " + group.get(0));
-                a.put("isTrue", group.contains(prodId));
-            }
-        });
-    }
-
 
     private void setProductStarRating(Long productRating, Context currentContext) {
         int[] viewList = {R.id.ic_review_star1, R.id.ic_review_star2, R.id.ic_review_star3, R.id.ic_review_star4, R.id.ic_review_star5};
