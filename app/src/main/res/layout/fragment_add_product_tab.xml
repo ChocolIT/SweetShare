@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddProductTab">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerBarSimulator">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <View
+                android:id="@+id/addPhotosBackground"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/gradient_rectangle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Add photos"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/addPhotosBackground"
+                app:layout_constraintEnd_toEndOf="@+id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@+id/addPhotosBackground"
+                app:layout_constraintTop_toTopOf="@+id/addPhotosBackground" />
+
+            <TextView
+                android:id="@+id/productNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Product Name*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/addPhotosBackground"/>
+
+            <EditText
+                android:id="@+id/TitleInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/productNameText" />
+
+            <TextView
+                android:id="@+id/CategoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Category*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/TitleInputField" />
+
+            <Spinner
+                android:id="@+id/categoriesSpinner"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@id/CategoryText"
+                app:layout_constraintStart_toStartOf="@id/CategoryText"
+                app:layout_constraintEnd_toEndOf="@id/DescriptionInputField"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:spinnerMode="dropdown"
+                android:scrollbarSize="0dp"/>
+
+            <View
+                android:id="@+id/DelimitationLineFirst"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/delimitation_line"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/categoriesSpinner" />
+
+            <TextView
+                android:id="@+id/DescriptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Description*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/DelimitationLineFirst" />
+
+            <EditText
+                android:id="@+id/DescriptionInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/DescriptionText" />
+
+            <TextView
+                android:id="@+id/priceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/DescriptionInputField"
+                app:layout_constraintStart_toStartOf="@id/DescriptionInputField"
+                android:text="Price*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/priceInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/priceText" />
+
+            <View
+                android:id="@+id/DelimitationLineSecond"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/delimitation_line"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/priceInputField" />
+
+            <TextView
+                android:id="@+id/ContactDetailsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Contact Details"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/DelimitationLineSecond" />
+
+            <TextView
+                android:id="@+id/CityNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="City*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/ContactDetailsText" />
+
+            <EditText
+                android:id="@+id/CityInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/CityNameText" />
+
+            <TextView
+                android:id="@+id/displayNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Display Name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/CityInputField" />
+
+            <TextView
+                android:id="@+id/ContactNameDisplay"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="*Display Name*"
+                android:textColor="@color/darkGrey"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/displayNameText" />
+
+            <TextView
+                android:id="@+id/EmailAdressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Email adress"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/ContactNameDisplay" />
+
+            <TextView
+                android:id="@+id/EmailAdressInputField"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="*Email Adress*"
+                android:textColor="@color/darkGrey"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/EmailAdressText" />
+
+            <TextView
+                android:id="@+id/PhoneNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Phone Number"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/EmailAdressInputField" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="2dp"
+                android:text="(optional)"
+                android:textColor="@color/darkGrey"
+                app:layout_constraintBottom_toBottomOf="@id/PhoneNumberText"
+                app:layout_constraintStart_toEndOf="@id/PhoneNumberText" />
+
+            <EditText
+                android:id="@+id/PhoneNumberInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_field_background"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/addPhotosBackground"
+                app:layout_constraintStart_toStartOf="@id/addPhotosBackground"
+                app:layout_constraintTop_toBottomOf="@id/PhoneNumberText" />
+
+            <View
+                android:id="@+id/PublishButtonBackground"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/ripple_effect_mask_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/PhoneNumberInputField"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publish"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/PublishButtonBackground"
+                app:layout_constraintEnd_toEndOf="@id/PublishButtonBackground"
+                app:layout_constraintStart_toStartOf="@id/PublishButtonBackground"
+                app:layout_constraintTop_toTopOf="@id/PublishButtonBackground" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerBarSimulator"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:animateLayoutChanges="true"
+        android:background="@color/black"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

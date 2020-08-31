@@ -19,7 +19,7 @@ public class TabPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new ExploreTab();
             case 2:
-                return new MessagesTab();
+                return new AddProductTab();
             default:
                 return null;
         }

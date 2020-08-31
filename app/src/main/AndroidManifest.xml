@@ -16,7 +16,10 @@
         <activity android:name=".Login" />
         <activity android:name=".PasswordRecovery" />
         <activity android:name=".Signup" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

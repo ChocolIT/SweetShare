@@ -103,6 +103,8 @@ public class Signup extends AppCompatActivity {
                             userData.put(UserConstants.USER_FULL_NAME, fullName);
                             userData.put(UserConstants.USER_EMAIL, email);
                             userData.put(UserConstants.USER_REPUTATION, 0);
+                            ArrayList<String> ownedProducts = new ArrayList<>();
+                            userData.put(UserConstants.USER_OWNED_PRODUCTS_LIST, ownedProducts);
 
                             ArrayList<String> favoriteProducts = new ArrayList<>();
                             userData.put(UserConstants.USER_FAVORITES, favoriteProducts);

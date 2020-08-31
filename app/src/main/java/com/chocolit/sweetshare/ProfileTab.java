@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -41,6 +42,7 @@ import java.util.Map;
 public class ProfileTab extends Fragment {
 
     private TextView userFullName;
+    private ConstraintLayout addButton;
     private TextView userReputation;
     private Button editProfileBtn;
 
@@ -106,9 +108,9 @@ public class ProfileTab extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivityForResult(new Intent(getContext(), EditUserProfile.class), RequestCodes.EDIT_PROFILE_ACTIVITY_REQUEST_CODE);
+
             }
         });
-
     }
 
     @Override
