@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,6 +103,9 @@ public class Signup extends AppCompatActivity {
                             userData.put(UserConstants.USER_FULL_NAME, fullName);
                             userData.put(UserConstants.USER_EMAIL, email);
                             userData.put(UserConstants.USER_REPUTATION, 0);
+
+                            ArrayList<String> favoriteProducts = new ArrayList<>();
+                            userData.put(UserConstants.USER_FAVORITES, favoriteProducts);
 
                             documentReference.set(userData);
 

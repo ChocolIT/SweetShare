@@ -29,13 +29,17 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductPage extends AppCompatActivity {
 
@@ -43,6 +47,8 @@ public class ProductPage extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private RecyclerView reviewsRecyclerView;
     private FirestoreRecyclerAdapter adapter;
+    private DocumentReference userDoc;
+    final Map<String, Boolean> a = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +62,12 @@ public class ProductPage extends AppCompatActivity {
         final TextView productReviewsNo = findViewById(R.id.productReviewsNo);
         final TextView productPrice = findViewById(R.id.productPrice);
         final TextView productDescription = findViewById(R.id.descriptionText);
+        final ImageView favoriteButton = findViewById(R.id.icFavoriteButton);
 
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
 
         imageSlider = findViewById(R.id.imageSlider);
         final List<SlideModel> slideModels = new ArrayList<>();
-
         final String docID = "zcorO0qMOlOlCOi3au42jcDhV5A31598709036068";
         DocumentReference productDoc = fStore.collection("products").document(docID);
 
@@ -99,6 +105,8 @@ public class ProductPage extends AppCompatActivity {
         SnapHelper helper = new PagerSnapHelper();
         helper.attachToRecyclerView(reviewsRecyclerView);
 
+        userDoc = fStore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         productDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -108,6 +116,21 @@ public class ProductPage extends AppCompatActivity {
                 }
                 imageSlider.setImageList(slideModels, true);
 
+                userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        List<String> group = (List<String>) documentSnapshot.get(UserConstants.USER_FAVORITES);
+                        a.put("isTrue", group.contains(docID));
+
+                        if (a.get("isTrue")) {
+                            favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite));
+                        }
+                        else {
+                            favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite_border));
+                        }
+                    }
+                });
+
                 productTitleText.setText(documentSnapshot.getString(ProductConstants.PRODUCT_TITLE));
                 productCityText.setText(documentSnapshot.getString(ProductConstants.PRODUCT_CITY));
                 productReviewsNo.setText(String.format("%s reviews", documentSnapshot.getLong(ProductConstants.REVIEWS_NO)));
@@ -116,7 +139,42 @@ public class ProductPage extends AppCompatActivity {
                 setProductStarRating(documentSnapshot.getLong(ProductConstants.PRODUCT_RATING), getApplicationContext());
             }
         });
+
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!a.get("isTrue")) {
+                    favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite));
+                    a.put("isTrue", true);
+
+                    Map<String, Object> addProductId = new HashMap<>();
+                    addProductId.put(UserConstants.USER_FAVORITES, FieldValue.arrayUnion(docID));
+                    userDoc.update(addProductId);
+                }
+                else {
+                    favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite_border));
+                    a.put("isTrue", false);
+
+                    Map<String, Object> addProductId = new HashMap<>();
+                    addProductId.put(UserConstants.USER_FAVORITES, FieldValue.arrayRemove(docID));
+                    userDoc.update(addProductId);
+                }
+            }
+        });
+
     }
+
+    private void isFavorite(DocumentReference userDoc, final String prodId) {
+        userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                List<String> group = (List<String>) documentSnapshot.get(UserConstants.USER_FAVORITES);
+                Log.d("TAG", "onSuccess: " + group.get(0));
+                a.put("isTrue", group.contains(prodId));
+            }
+        });
+    }
+
 
     private void setProductStarRating(Long productRating, Context currentContext) {
         int[] viewList = {R.id.ic_review_star1, R.id.ic_review_star2, R.id.ic_review_star3, R.id.ic_review_star4, R.id.ic_review_star5};
