@@ -1,6 +1,7 @@
 package com.chocolit.sweetshare;
 
-public class ProductConstants {    public static final String PRODUCT_TITLE = "PRODUCT_TITLE";
+public class ProductConstants {
+    public static final String PRODUCT_TITLE = "PRODUCT_TITLE";
     public static final String PRODUCT_DESCRIPTION = "PRODUCT_DESCRIPTION";
     public static final String PRODUCT_CITY = "PRODUCT_CITY";
     public static final String PRODUCT_OWNER_PHONE_NUMBER = "PRODUCT_OWNER_PHONE_NUMBER";
@@ -11,6 +12,5 @@ public class ProductConstants {    public static final String PRODUCT_TITLE = "P
     public static final String PRODUCT_RATING = "PRODUCT_RATING";
     public static final String REVIEWS_NO = "REVIEWS_NO";
     public static final String PRICE = "PRICE";
-
     public static final String REVIEW_ID = "REVIEW_ID";
 }
