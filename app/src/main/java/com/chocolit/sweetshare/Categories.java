@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Categories extends AppCompatActivity {
@@ -48,7 +49,8 @@ public class Categories extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductsModel model) {
                 holder.list_title.setText(model.getPRODUCT_TITLE());
                 holder.list_city.setText(model.getPRODUCT_CITY());
-                holder.list_price.setText(model.getPRODUCT_PRICE() + "");
+                holder.list_description.setText(model.getPRODUCT_DESCRIPTION());
+                holder.list_price.setText(model.getPRICE() + "");
             }
         };
 
@@ -63,12 +65,15 @@ public class Categories extends AppCompatActivity {
         private TextView list_title;
         private TextView list_price;
         private TextView list_city;
+        private TextView list_description;
+        private ImageView list_image;
 
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
 
             list_title = itemView.findViewById(R.id.list_name);
             list_city = itemView.findViewById(R.id.list_city);
+            list_description = itemView.findViewById(R.id.list_description);
             list_price = itemView.findViewById(R.id.list_price);
         }
 
