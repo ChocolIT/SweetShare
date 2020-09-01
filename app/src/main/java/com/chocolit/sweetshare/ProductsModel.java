@@ -7,8 +7,6 @@ public class ProductsModel {
     private long PRICE;
     private String PRODUCT_CATEGORY;
     private String PRODUCT_CITY;
-
-
     private String PRODUCT_DESCRIPTION;
 
     private ProductsModel(){

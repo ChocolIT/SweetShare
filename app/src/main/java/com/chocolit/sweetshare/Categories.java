@@ -7,6 +7,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class Categories extends AppCompatActivity {
     private RecyclerView products_list;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
+    private String url = "https://demo-res.cloudinary.com/image/upload/sample.jpg";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,8 @@ public class Categories extends AppCompatActivity {
             list_city = itemView.findViewById(R.id.list_city);
             list_description = itemView.findViewById(R.id.list_description);
             list_price = itemView.findViewById(R.id.list_price);
+            list_image = itemView.findViewById(R.id.list_image);
+            Picasso.get().load(url).into(list_image);
         }
 
     }
