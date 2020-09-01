@@ -35,15 +35,15 @@ public class MainActivity extends AppCompatActivity {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 switch (position) {
                     case 0:
-                        tab.setText("Profile");
+                        tab.setText(R.string.tab_profile);
                         tab.setIcon(R.drawable.profile_icon);
                         break;
                     case 1:
-                        tab.setText("Explore");
+                        tab.setText(R.string.tab_explore);
                         tab.setIcon(R.drawable.explore_icon);
                         break;
                     case 2:
-                        tab.setText("Messages");
+                        tab.setText(R.string.tab_new_product);
                         tab.setIcon(R.drawable.messages_icon);
                         break;
                 }

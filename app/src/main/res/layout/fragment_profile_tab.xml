@@ -130,13 +130,13 @@
 
             <Button
                 android:id="@+id/editProfileButton"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/profile_tab_edit_profile_button"
                 android:drawableStart="@drawable/ic_profile_tab_edit"
-                android:paddingStart="7dp"
-                android:paddingEnd="0dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:text="@string/profile_edit_profile"
                 android:foreground="?attr/selectableItemBackground"
                 android:textAllCaps="false"

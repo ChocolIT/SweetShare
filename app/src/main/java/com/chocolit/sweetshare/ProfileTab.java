@@ -92,7 +92,7 @@ public class ProfileTab extends Fragment {
         editProfileBtn = view.findViewById(R.id.editProfileButton);
 
         userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
-        userReputation.setText(String.format("Reputation: %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
+        userReputation.setText(String.format(getResources().getString(R.string.profile_reputation) + " %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
 
         setReviewStarsFill(view, sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404));
 
