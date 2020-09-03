@@ -1,5 +1,9 @@
 package com.chocolit.sweetshare;
 
+import android.net.Uri;
+
+import java.util.ArrayList;
+
 public class ProductsModel {
 
 
@@ -8,15 +12,18 @@ public class ProductsModel {
     private String PRODUCT_CATEGORY;
     private String PRODUCT_CITY;
     private String PRODUCT_DESCRIPTION;
+    private ArrayList<String> PRODUCT_IMG_LIST;
 
     private ProductsModel(){
 
     }
-    private ProductsModel(String PRODUCT_TITLE, long PRODUCT_PRICE, String PRODUCT_CATEGORY, String PRODUCT_CITY){
+    private ProductsModel(String PRODUCT_TITLE, long PRODUCT_PRICE, String PRODUCT_CATEGORY, String PRODUCT_CITY, ArrayList<String> PRODUCT_IMG_LIST, String PRODUCT_DESCRIPTION){
         this.PRODUCT_TITLE = PRODUCT_TITLE;
         this.PRICE = PRODUCT_PRICE;
         this.PRODUCT_CATEGORY = PRODUCT_CATEGORY;
         this.PRODUCT_CITY = PRODUCT_CITY;
+        this.PRODUCT_IMG_LIST = PRODUCT_IMG_LIST;
+        this.PRODUCT_DESCRIPTION = PRODUCT_DESCRIPTION;
     }
 
     public long getPRICE() {
@@ -50,6 +57,15 @@ public class ProductsModel {
     public void setPRODUCT_TITLE(String PRODUCT_TITLE) {
         this.PRODUCT_TITLE = PRODUCT_TITLE;
     }
+
+    public ArrayList<String> getPRODUCT_IMG_LIST() {
+        return PRODUCT_IMG_LIST;
+    }
+
+    public void setPRODUCT_IMG_LIST(ArrayList<String> PRODUCT_IMG_LIST) {
+        this.PRODUCT_IMG_LIST = PRODUCT_IMG_LIST;
+    }
+
     public String getPRODUCT_DESCRIPTION() {
         return PRODUCT_DESCRIPTION;
     }
