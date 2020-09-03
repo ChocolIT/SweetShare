@@ -17,9 +17,9 @@ public class ProductsModel {
     private ProductsModel(){
 
     }
-    private ProductsModel(String PRODUCT_TITLE, long PRODUCT_PRICE, String PRODUCT_CATEGORY, String PRODUCT_CITY, ArrayList<String> PRODUCT_IMG_LIST, String PRODUCT_DESCRIPTION){
+    private ProductsModel(String PRODUCT_TITLE, long PRICE, String PRODUCT_CATEGORY, String PRODUCT_CITY, ArrayList<String> PRODUCT_IMG_LIST, String PRODUCT_DESCRIPTION){
         this.PRODUCT_TITLE = PRODUCT_TITLE;
-        this.PRICE = PRODUCT_PRICE;
+        this.PRICE = PRICE;
         this.PRODUCT_CATEGORY = PRODUCT_CATEGORY;
         this.PRODUCT_CITY = PRODUCT_CITY;
         this.PRODUCT_IMG_LIST = PRODUCT_IMG_LIST;

@@ -1,52 +1,37 @@
 package com.chocolit.sweetshare;
 
 import android.annotation.SuppressLint;
-import android.graphics.ColorSpace;
 import android.os.Bundle;
-
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.solver.widgets.Snapshot;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
 
 public class Categories extends AppCompatActivity {
-
     private RecyclerView products_list;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
-    private ArrayList<String> url;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_categories);
         products_list = findViewById(R.id.category_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
         String clickCategory = getIntent().getExtras().getString(ProductConstants.PRODUCT_CATEGORY);
         Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.PRODUCT_CATEGORY, clickCategory);
-
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
 
         adapter = new FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder>(options) {
@@ -57,28 +42,24 @@ public class Categories extends AppCompatActivity {
                 return new ProductsViewHolder(view);
             }
 
-
             @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductsModel model) {
-
-
                 holder.list_title.setText(model.getPRODUCT_TITLE());
                 holder.list_city.setText(model.getPRODUCT_CITY());
                 holder.list_description.setText(model.getPRODUCT_DESCRIPTION());
                 holder.list_price.setText(model.getPRICE() + "");
-
+                String url = model.getPRODUCT_IMG_LIST().get(0);
+                Picasso.get().load(url).into(holder.list_image);
             }
         };
 
         products_list.setHasFixedSize(true);
         products_list.setLayoutManager(new LinearLayoutManager(this));
         products_list.setAdapter(adapter);
-
     }
 
     private class ProductsViewHolder extends RecyclerView.ViewHolder{
-
         private TextView list_title;
         private TextView list_price;
         private TextView list_city;
@@ -93,11 +74,9 @@ public class Categories extends AppCompatActivity {
             list_description = itemView.findViewById(R.id.list_description);
             list_price = itemView.findViewById(R.id.list_price);
             list_image = itemView.findViewById(R.id.list_image);
-            Picasso.get().load(url.get(0)).into(list_image);
-            //url.get(0)
         }
-
     }
+
     @Override
     protected void onStop(){
         super.onStop();
