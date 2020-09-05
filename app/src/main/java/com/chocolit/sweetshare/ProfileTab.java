@@ -41,6 +41,8 @@ import java.util.Map;
  */
 public class ProfileTab extends Fragment {
 
+    private View productsButton;
+
     private TextView userFullName;
     private ConstraintLayout addButton;
     private TextView userReputation;
@@ -91,11 +93,13 @@ public class ProfileTab extends Fragment {
         userReputation = view.findViewById(R.id.userReputation);
         editProfileBtn = view.findViewById(R.id.editProfileButton);
 
+        productsButton = view.findViewById(R.id.productsButton);
+
         View icSettings = view.findViewById(R.id.ic_settings);
         icSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ProductPage.class));
+                startActivity(new Intent(getContext(), ProductLoadingScreen.class));
             }
         });
 
@@ -109,6 +113,14 @@ public class ProfileTab extends Fragment {
             public void onClick(View view) {
                 startActivityForResult(new Intent(getContext(), EditUserProfile.class), RequestCodes.EDIT_PROFILE_ACTIVITY_REQUEST_CODE);
 
+            }
+        });
+
+        productsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.signOut();
             }
         });
     }

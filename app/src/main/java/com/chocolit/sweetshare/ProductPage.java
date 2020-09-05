@@ -47,13 +47,13 @@ public class ProductPage extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private RecyclerView reviewsRecyclerView;
     private FirestoreRecyclerAdapter adapter;
-    private DocumentReference userDoc;
-    final Map<String, Boolean> a = new HashMap<>();
+    boolean isFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
+        Bundle loadedProductData = getIntent().getExtras();
 
         fStore = FirebaseFirestore.getInstance();
 
@@ -65,16 +65,40 @@ public class ProductPage extends AppCompatActivity {
         final ImageView favoriteButton = findViewById(R.id.icFavoriteButton);
 
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
-
         imageSlider = findViewById(R.id.imageSlider);
-        final List<SlideModel> slideModels = new ArrayList<>();
-        final String docID = "zcorO0qMOlOlCOi3au42jcDhV5A31598709036068";
-        DocumentReference productDoc = fStore.collection("products").document(docID);
 
-        Query query = fStore.collection("reviews").whereEqualTo(ProductConstants.REVIEW_ID, docID);
+        productTitleText.setText(loadedProductData.getString(ProductConstants.PRODUCT_TITLE));
+        productCityText.setText(loadedProductData.getString(ProductConstants.PRODUCT_CITY));
+        productReviewsNo.setText(loadedProductData.getString(ProductConstants.REVIEWS_NO));
+        productPrice.setText(loadedProductData.getString(ProductConstants.PRICE));
+        productDescription.setText(loadedProductData.getString(ProductConstants.PRODUCT_DESCRIPTION));
+
+        setProductStarRating(loadedProductData.getLong(ProductConstants.PRODUCT_RATING), getApplicationContext());
+
+        isFavorite = loadedProductData.getBoolean(ProductConstants.IS_FAVORITE);
+        if (isFavorite) {
+            favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite));
+        }
+        else {
+            favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite_border));
+        }
+
+        final List<SlideModel> slideModels = new ArrayList<>();
+        for (int i = 0; i < loadedProductData.getStringArrayList(ProductConstants.PRODUCT_IMG_LIST).size(); i++) {
+            Log.d("TAG", "onCreate: " + loadedProductData.getStringArrayList(ProductConstants.PRODUCT_IMG_LIST).get(i));
+            slideModels.add(new SlideModel(loadedProductData.getStringArrayList(ProductConstants.PRODUCT_IMG_LIST).get(i)));
+        }
+
+        final String productID = loadedProductData.getString(ProductConstants.ID);
+        final DocumentReference productDoc = fStore.collection("products").document(productID);
+        final DocumentReference userDoc = fStore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        Query query = fStore.collection("reviews").whereEqualTo(ProductConstants.REVIEW_ID, productID);
         FirestoreRecyclerOptions<ReviewsModel> options = new FirestoreRecyclerOptions.Builder<ReviewsModel>()
                 .setQuery(query, ReviewsModel.class)
                 .build();
+
+        imageSlider.setImageList(slideModels, true);
 
         adapter = new FirestoreRecyclerAdapter<ReviewsModel, ProductsViewHolder>(options) {
             @NonNull
@@ -105,58 +129,24 @@ public class ProductPage extends AppCompatActivity {
         SnapHelper helper = new PagerSnapHelper();
         helper.attachToRecyclerView(reviewsRecyclerView);
 
-        userDoc = fStore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        productDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                List<String> group = (List<String>) documentSnapshot.get(ProductConstants.PRODUCT_IMG_LIST);
-                for (int i = 0; i < group.size(); i++) {
-                    slideModels.add(new SlideModel(group.get(i)));
-                }
-                imageSlider.setImageList(slideModels, true);
-
-                userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        List<String> group = (List<String>) documentSnapshot.get(UserConstants.USER_FAVORITES);
-                        a.put("isTrue", group.contains(docID));
-
-                        if (a.get("isTrue")) {
-                            favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite));
-                        }
-                        else {
-                            favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite_border));
-                        }
-                    }
-                });
-
-                productTitleText.setText(documentSnapshot.getString(ProductConstants.PRODUCT_TITLE));
-                productCityText.setText(documentSnapshot.getString(ProductConstants.PRODUCT_CITY));
-                productReviewsNo.setText(String.format("%s reviews", documentSnapshot.getLong(ProductConstants.REVIEWS_NO)));
-                productPrice.setText(String.format("%s SWEETS/DAY", documentSnapshot.getLong(ProductConstants.PRICE)));
-                productDescription.setText(documentSnapshot.getString(ProductConstants.PRODUCT_DESCRIPTION));
-                setProductStarRating(documentSnapshot.getLong(ProductConstants.PRODUCT_RATING), getApplicationContext());
-            }
-        });
 
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!a.get("isTrue")) {
+                if (!isFavorite) {
                     favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite));
-                    a.put("isTrue", true);
+                    isFavorite = true;
 
                     Map<String, Object> addProductId = new HashMap<>();
-                    addProductId.put(UserConstants.USER_FAVORITES, FieldValue.arrayUnion(docID));
+                    addProductId.put(UserConstants.USER_FAVORITES, FieldValue.arrayUnion(productID));
                     userDoc.update(addProductId);
                 }
                 else {
                     favoriteButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_favorite_border));
-                    a.put("isTrue", false);
+                    isFavorite = false;
 
                     Map<String, Object> addProductId = new HashMap<>();
-                    addProductId.put(UserConstants.USER_FAVORITES, FieldValue.arrayRemove(docID));
+                    addProductId.put(UserConstants.USER_FAVORITES, FieldValue.arrayRemove(productID));
                     userDoc.update(addProductId);
                 }
             }
