@@ -3,35 +3,27 @@ package com.chocolit.sweetshare;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -63,6 +55,8 @@ public class ProductPage extends AppCompatActivity {
         final TextView productPrice = findViewById(R.id.productPrice);
         final TextView productDescription = findViewById(R.id.descriptionText);
         final ImageView favoriteButton = findViewById(R.id.icFavoriteButton);
+
+        ImageView backButton = findViewById(R.id.backButton);
 
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
         imageSlider = findViewById(R.id.imageSlider);
@@ -149,6 +143,13 @@ public class ProductPage extends AppCompatActivity {
                     addProductId.put(UserConstants.USER_FAVORITES, FieldValue.arrayRemove(productID));
                     userDoc.update(addProductId);
                 }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
