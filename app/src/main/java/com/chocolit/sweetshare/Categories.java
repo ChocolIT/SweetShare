@@ -31,8 +31,20 @@ public class Categories extends AppCompatActivity {
         products_list = findViewById(R.id.category_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
         String clickCategory = getIntent().getExtras().getString(ProductConstants.PRODUCT_CATEGORY);
+
         Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.PRODUCT_CATEGORY, clickCategory);
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
+
+        TextView categoryNameTitle = findViewById(R.id.categoryNameTitle);
+        categoryNameTitle.setText(clickCategory);
+
+        ImageView backButton = findViewById(R.id.backArrowButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         adapter = new FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder>(options) {
             @NonNull
@@ -47,10 +59,14 @@ public class Categories extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductsModel model) {
                 holder.list_title.setText(model.getPRODUCT_TITLE());
                 holder.list_city.setText(model.getPRODUCT_CITY());
-                holder.list_description.setText(model.getPRODUCT_DESCRIPTION());
-                holder.list_price.setText(model.getPRICE() + "");
+                holder.list_price.setText(model.getPRICE() + " SWEETS");
                 String url = model.getPRODUCT_IMG_LIST().get(0);
-                Picasso.get().load(url).into(holder.list_image);
+                Picasso
+                        .get()
+                        .load(url)
+                        .fit()
+                        .centerCrop()
+                        .into(holder.list_image);
             }
         };
 
@@ -69,11 +85,10 @@ public class Categories extends AppCompatActivity {
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            list_title = itemView.findViewById(R.id.list_name);
-            list_city = itemView.findViewById(R.id.list_city);
-            list_description = itemView.findViewById(R.id.list_description);
-            list_price = itemView.findViewById(R.id.list_price);
-            list_image = itemView.findViewById(R.id.list_image);
+            list_title = itemView.findViewById(R.id.productName);
+            list_city = itemView.findViewById(R.id.productCity);
+            list_price = itemView.findViewById(R.id.productPrice);
+            list_image = itemView.findViewById(R.id.productImage);
         }
     }
 
