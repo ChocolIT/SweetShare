@@ -26,9 +26,10 @@ public class ProductLoadingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_loading_screen);
 
+        final String productID = getIntent().getExtras().getString(ProductConstants.ID);
+
         fStore = FirebaseFirestore.getInstance();
 
-        final String productID = "zcorO0qMOlOlCOi3au42jcDhV5A31598709036068";
         final DocumentReference userDoc = fStore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
         DocumentReference productDoc = fStore.collection("products").document(productID);
 

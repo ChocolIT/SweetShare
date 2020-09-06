@@ -11,15 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".Categories"
+            android:label="@string/title_activity_categories" />
         <activity android:name=".ProductLoadingScreen"></activity>
         <activity android:name=".ProductPage" />
-        <activity android:name=".EditUserProfile" />
+-        <activity android:name=".EditUserProfile" />
         <activity android:name=".Login" />
         <activity android:name=".PasswordRecovery" />
         <activity android:name=".Signup" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan">
+        </activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
