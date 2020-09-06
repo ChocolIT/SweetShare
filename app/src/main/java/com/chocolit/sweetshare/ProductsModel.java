@@ -13,17 +13,26 @@ public class ProductsModel {
     private String PRODUCT_CITY;
     private String PRODUCT_DESCRIPTION;
     private ArrayList<String> PRODUCT_IMG_LIST;
+    private String ID;
 
-    private ProductsModel(){
+    private ProductsModel(){}
 
-    }
-    private ProductsModel(String PRODUCT_TITLE, long PRICE, String PRODUCT_CATEGORY, String PRODUCT_CITY, ArrayList<String> PRODUCT_IMG_LIST, String PRODUCT_DESCRIPTION){
+    private ProductsModel(String ID, String PRODUCT_TITLE, long PRICE, String PRODUCT_CATEGORY, String PRODUCT_CITY, ArrayList<String> PRODUCT_IMG_LIST, String PRODUCT_DESCRIPTION){
         this.PRODUCT_TITLE = PRODUCT_TITLE;
         this.PRICE = PRICE;
         this.PRODUCT_CATEGORY = PRODUCT_CATEGORY;
         this.PRODUCT_CITY = PRODUCT_CITY;
         this.PRODUCT_IMG_LIST = PRODUCT_IMG_LIST;
         this.PRODUCT_DESCRIPTION = PRODUCT_DESCRIPTION;
+        this.ID = ID;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public long getPRICE() {

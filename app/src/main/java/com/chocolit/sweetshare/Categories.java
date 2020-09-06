@@ -1,7 +1,9 @@
 package com.chocolit.sweetshare;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +58,7 @@ public class Categories extends AppCompatActivity {
 
             @SuppressLint("SetTextI18n")
             @Override
-            protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductsModel model) {
+            protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull final ProductsModel model) {
                 holder.list_title.setText(model.getPRODUCT_TITLE());
                 holder.list_city.setText(model.getPRODUCT_CITY());
                 holder.list_price.setText(model.getPRICE() + " SWEETS");
@@ -67,6 +69,16 @@ public class Categories extends AppCompatActivity {
                         .fit()
                         .centerCrop()
                         .into(holder.list_image);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), ProductLoadingScreen.class);
+                        intent.putExtra(ProductConstants.ID, model.getID());
+                        startActivity(intent);
+//                        Log.d("TAG", "onClick: " + model.getID());
+                    }
+                });
             }
         };
 
