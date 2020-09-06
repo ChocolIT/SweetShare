@@ -106,6 +106,9 @@ public class Signup extends AppCompatActivity {
                             ArrayList<String> ownedProducts = new ArrayList<>();
                             userData.put(UserConstants.USER_OWNED_PRODUCTS_LIST, ownedProducts);
 
+                            ArrayList<String> favoriteProducts = new ArrayList<>();
+                            userData.put(UserConstants.USER_FAVORITES, favoriteProducts);
+
                             documentReference.set(userData);
 
                             // Starting MainActivity.java

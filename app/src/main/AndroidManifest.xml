@@ -14,7 +14,9 @@
         <activity
             android:name=".Categories"
             android:label="@string/title_activity_categories" />
-        <activity android:name=".EditUserProfile" />
+        <activity android:name=".ProductLoadingScreen"></activity>
+        <activity android:name=".ProductPage" />
+-        <activity android:name=".EditUserProfile" />
         <activity android:name=".Login" />
         <activity android:name=".PasswordRecovery" />
         <activity android:name=".Signup" />
