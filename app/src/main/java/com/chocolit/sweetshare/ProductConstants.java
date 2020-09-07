@@ -10,4 +10,5 @@ public class ProductConstants {
     public static final String PRODUCT_CATEGORY = "PRODUCT_CATEGORY";
     public static final String PRICE = "PRICE";
     public static final String REVIEWS_NO = "REVIEWS_NO";
+    public static final String USER_ID = "USER_ID";
 }
