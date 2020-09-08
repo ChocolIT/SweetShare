@@ -197,6 +197,10 @@ public class AddProductTab extends Fragment {
                     return;
                 }
 
+                Date date = new Date();
+                Timestamp ts = new Timestamp(date.getTime());
+                final String productId = fAuth.getCurrentUser().getUid() + ts.getTime();
+
                 productData.put(ProductConstants.PRODUCT_TITLE, productTitle);
                 productData.put(ProductConstants.PRODUCT_DESCRIPTION, productDescription);
                 productData.put(ProductConstants.PRODUCT_CITY, city);
@@ -204,12 +208,10 @@ public class AddProductTab extends Fragment {
                 productData.put(UserConstants.USER_ID, fAuth.getCurrentUser().getUid());
                 productData.put(ProductConstants.PRICE, price);
                 productData.put(ProductConstants.REVIEWS_NO, 0);
+                productData.put(ProductConstants.ID, productId);
 
                 loadingOverlay.setVisibility(View.VISIBLE);
 
-                Date date = new Date();
-                Timestamp ts = new Timestamp(date.getTime());
-                final String productId = fAuth.getCurrentUser().getUid() + ts.getTime();
                 StorageReference imageFolder = FirebaseStorage.getInstance().getReference().child("productImg/" + productId);
                 Log.d("TAG", "onClick: " + imageFolder);
 
