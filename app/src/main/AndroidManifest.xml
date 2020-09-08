@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MyProducts"
+            android:label="@string/title_activity_my_products"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Categories"
             android:label="@string/title_activity_categories" />
         <activity android:name=".ProductLoadingScreen"></activity>
@@ -22,8 +26,7 @@
         <activity android:name=".Signup" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

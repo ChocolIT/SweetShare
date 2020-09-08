@@ -1,7 +1,6 @@
 package com.chocolit.sweetshare;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
-public class Categories extends AppCompatActivity {
+public class MyProducts extends AppCompatActivity {
     private RecyclerView products_list;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
@@ -28,24 +29,12 @@ public class Categories extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_categories);
-        products_list = findViewById(R.id.category_list);
+        setContentView(R.layout.activity_my_products);
+        products_list = findViewById(R.id.products_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        String clickCategory = getIntent().getExtras().getString(ProductConstants.PRODUCT_CATEGORY);
-
-        Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.PRODUCT_CATEGORY, clickCategory);
+        String clickUserID = FirebaseAuth.getInstance().getCurrentUser().getUid() ;
+        Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.USER_ID, clickUserID);
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
-
-        TextView categoryNameTitle = findViewById(R.id.categoryNameTitle);
-        categoryNameTitle.setText(clickCategory);
-
-        ImageView backButton = findViewById(R.id.backArrowButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         adapter = new FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder>(options) {
             @NonNull
@@ -57,27 +46,12 @@ public class Categories extends AppCompatActivity {
 
             @SuppressLint("SetTextI18n")
             @Override
-            protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull final ProductsModel model) {
+            protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductsModel model) {
                 holder.list_title.setText(model.getPRODUCT_TITLE());
                 holder.list_city.setText(model.getPRODUCT_CITY());
-                holder.list_price.setText(model.getPRICE() + " SWEETS");
+                holder.list_price.setText(model.getPRICE() + "");
                 String url = model.getPRODUCT_IMG_LIST().get(0);
-                Picasso
-                        .get()
-                        .load(url)
-                        .fit()
-                        .centerCrop()
-                        .into(holder.list_image);
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), ProductLoadingScreen.class);
-                        intent.putExtra(ProductConstants.ID, model.getID());
-                        startActivity(intent);
-//                        Log.d("TAG", "onClick: " + model.getID());
-                    }
-                });
+                Picasso.get().load(url).into(holder.list_image);
             }
         };
 
@@ -90,7 +64,6 @@ public class Categories extends AppCompatActivity {
         private TextView list_title;
         private TextView list_price;
         private TextView list_city;
-        private TextView list_description;
         private ImageView list_image;
 
         public ProductsViewHolder(@NonNull View itemView) {

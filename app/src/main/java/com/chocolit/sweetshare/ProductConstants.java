@@ -15,4 +15,5 @@ public class ProductConstants {
     public static final String REVIEW_ID = "REVIEW_ID";
     public static final String IS_FAVORITE = "REVIEW_ID";
     public static final String ID = "ID";
+    public static final String USER_ID = "USER_ID";
 }
