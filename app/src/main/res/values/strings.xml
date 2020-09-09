@@ -18,10 +18,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="textview">TextView</string>
     <string name="sweetshare_is_here">SweetShare is here</string>
-    <string name="todo">TODO</string>
     <string name="title_activity_my_products">MyProducts</string>
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas erat eget tortor interdum placerat. Nam tristique nisi vel augue feugiat, quis viverra dui tincidunt. Fusce vitae luctus lorem. Maecenas fermentum purus id suscipit congue. Vivamus in mi auctor, placerat erat sit amet, tempor urna. Sed bibendum arcu eu odio facilisis viverra. </string>
     <string name="review_show_more">Show more</string>
     <string name="reviews_title_text">Reviews</string>
+    <string name="todo">TODO</string>
 </resources>

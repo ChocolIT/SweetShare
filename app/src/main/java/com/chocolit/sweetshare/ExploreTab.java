@@ -2,6 +2,7 @@ package com.chocolit.sweetshare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 public class ExploreTab extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ImageView searchIcon;
 
     GridView gridView;
     String[] categoryName = {"Tools", "Sports", "Gardening", "Photo", "Entertainment", "Clothing", "Electronics", "Books"};
@@ -52,6 +55,7 @@ public class ExploreTab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -70,6 +74,8 @@ public class ExploreTab extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        searchIcon = view.findViewById(R.id.search_icon);
         gridView = view.findViewById(R.id.grid_view);
         MainAdapter adapter = new MainAdapter(getActivity(), categoryName, numberImage);
         gridView.setAdapter(adapter);
@@ -80,6 +86,13 @@ public class ExploreTab extends Fragment {
                 Intent intent = new Intent(getActivity(), Categories.class);
                 intent.putExtra(ProductConstants.PRODUCT_CATEGORY, categoryName[+position]);
                 startActivity(intent);
+            }
+
+        });
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SearchPage.class));
             }
         });
     }
