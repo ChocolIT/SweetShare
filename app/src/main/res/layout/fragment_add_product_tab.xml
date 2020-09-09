@@ -285,7 +285,7 @@
                 app:layout_constraintStart_toEndOf="@id/PhoneNumberText" />
 
             <EditText
-                android:id="@+id/PhoneNumberInputField"
+                android:id="@+id/phoneNumberInputField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -308,7 +308,7 @@
                 android:background="@drawable/ripple_effect_mask_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/PhoneNumberInputField"/>
+                app:layout_constraintTop_toBottomOf="@id/phoneNumberInputField"/>
 
             <TextView
                 android:layout_width="wrap_content"

@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +59,7 @@ public class AddProductTab extends Fragment {
     private Spinner categoriesSpinner;
 
     final ArrayList<String> uriList = new ArrayList<>();
+    final ArrayList<String> timestampList = new ArrayList<>();
     private Map<String, Object> productData = new HashMap<>();
 
     private ArrayList<Uri> imgList = new ArrayList<Uri>();
@@ -127,7 +127,7 @@ public class AddProductTab extends Fragment {
         productNameField = view.findViewById(R.id.TitleInputField);
         productDescriptionField = view.findViewById(R.id.DescriptionInputField);
         cityField = view.findViewById(R.id.CityInputField);
-        phoneNumberField = view.findViewById(R.id.PhoneNumberInputField);
+        phoneNumberField = view.findViewById(R.id.phoneNumberInputField);
         priceInputField = view.findViewById(R.id.priceInputField);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, productCategories);
@@ -231,6 +231,7 @@ public class AddProductTab extends Fragment {
 
                                     if (uriList.size() == imgList.size()) {
                                         productData.put(ProductConstants.PRODUCT_IMG_LIST, uriList);
+                                        productData.put(ProductConstants.DISABLED_DATES_LIST, timestampList);
                                         final DocumentReference documentReference = fStore.collection("products").document(productId);
                                         Log.d("TAG", "onSuccess: uploading to db");
                                         documentReference.set(productData);
