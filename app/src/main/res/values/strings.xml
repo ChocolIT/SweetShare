@@ -24,4 +24,7 @@
     <string name="review_show_more">Show more</string>
     <string name="reviews_title_text">Reviews</string>
     <string name="todo">TODO</string>
+    <string name="search_what_you_need">Search what you need</string>
+    <string name="search_product">Search product</string>
+    <string name="location">location</string>
 </resources>

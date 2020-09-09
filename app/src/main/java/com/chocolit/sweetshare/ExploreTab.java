@@ -1,8 +1,6 @@
 package com.chocolit.sweetshare;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

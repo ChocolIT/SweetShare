@@ -86,11 +86,10 @@ public class Categories extends AppCompatActivity {
         products_list.setAdapter(adapter);
     }
 
-    private class ProductsViewHolder extends RecyclerView.ViewHolder{
+    private static class ProductsViewHolder extends RecyclerView.ViewHolder{
         private TextView list_title;
         private TextView list_price;
         private TextView list_city;
-        private TextView list_description;
         private ImageView list_image;
 
         public ProductsViewHolder(@NonNull View itemView) {

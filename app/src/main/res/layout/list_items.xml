@@ -56,11 +56,12 @@
                 android:id="@+id/icLocationPin"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_location_pin_black"
-                app:layout_constraintStart_toEndOf="@id/productImage"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"/>
+                android:contentDescription="@string/location"
+                android:src="@drawable/ic_location_pin_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/productImage" />
 
             <TextView
                 android:id="@+id/productCity"
