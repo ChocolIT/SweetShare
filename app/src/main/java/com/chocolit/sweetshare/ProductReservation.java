@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +41,7 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
     private DatePickerDialog startDatePicker, endDatePicker;
     private CheckBox termsAgreement, rememberPreferences;
     private EditText phoneNumberField, addressField;
+    private ImageView backButton;
 
     Calendar startDate = Calendar.getInstance();
     Calendar endDate = Calendar.getInstance();
@@ -75,6 +77,7 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
         endDateButton = findViewById(R.id.endDateButton);
         endDateWarning = findViewById(R.id.endDateWarning);
         phoneNumberTextView = findViewById(R.id.phoneNumberTextView);
+        backButton = findViewById(R.id.backButton);
 
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
@@ -183,6 +186,15 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
 
                 orderDoc.set(orderData);
                 loadingOverlay.setVisibility(View.GONE);
+
+                Intent intent = new Intent(ProductReservation.this, OrderCompleted.class);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
