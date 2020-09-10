@@ -13,7 +13,7 @@ public class ProductConstants {
     public static final String REVIEWS_NO = "REVIEWS_NO";
     public static final String PRICE = "PRICE";
     public static final String REVIEW_ID = "REVIEW_ID";
-    public static final String IS_FAVORITE = "REVIEW_ID";
+    public static final String IS_FAVORITE = "IS_FAVORITE";
     public static final String ID = "ID";
     public static final String DISABLED_DATES_LIST = "DISABLED_DATE_RANGE";
 }

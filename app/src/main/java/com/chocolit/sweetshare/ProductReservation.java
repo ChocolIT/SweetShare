@@ -3,6 +3,7 @@ package com.chocolit.sweetshare;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,13 +13,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
+import com.google.firestore.v1.StructuredQuery;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,7 +56,10 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_reservation);
 
+        FrameLayout loadingOverlay = findViewById(R.id.loadingOverlay);
+
         productID = getIntent().getExtras().getString(ProductConstants.ID);
+        String productOwner = getIntent().getExtras().getString(UserConstants.USER_ID);
         disabledDatesStringList = getIntent().getExtras().getStringArrayList(ProductConstants.DISABLED_DATES_LIST);
 
         phoneNumberField = findViewById(R.id.phoneNumberInputField);
@@ -65,6 +75,9 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
         endDateButton = findViewById(R.id.endDateButton);
         endDateWarning = findViewById(R.id.endDateWarning);
         phoneNumberTextView = findViewById(R.id.phoneNumberTextView);
+
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
         startDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,19 +155,39 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
         rentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Adding occupied dates to product's document.
+
+                loadingOverlay.setVisibility(View.VISIBLE);
+
                 FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-                DocumentReference documentReference = fStore.collection("products").document(productID);
-                Map <String, Object> addTimestamp = new HashMap<>();
-                for (Date date  = startDate.getTime(); startDate.before(endDate); startDate.add(Calendar.DATE, 1), date = startDate.getTime()) {
-                    documentReference.update(ProductConstants.DISABLED_DATES_LIST, FieldValue.arrayUnion(String.valueOf(new Timestamp(date.getTime()).getTime())));
+                DocumentReference productDoc = fStore.collection("products").document(productID);
+                Calendar iterateFromDate = startDate;
+
+                for (Date date  = iterateFromDate.getTime(); iterateFromDate.before(endDate); iterateFromDate.add(Calendar.DATE, 1), date = iterateFromDate.getTime()) {
+                    productDoc.update(ProductConstants.DISABLED_DATES_LIST, FieldValue.arrayUnion(String.valueOf(new Timestamp(date.getTime()).getTime())));
                 }
-                documentReference.update(ProductConstants.DISABLED_DATES_LIST, FieldValue.arrayUnion(String.valueOf(new Timestamp(endDate.getTime().getTime()).getTime())));
+                productDoc.update(ProductConstants.DISABLED_DATES_LIST, FieldValue.arrayUnion(String.valueOf(new Timestamp(endDate.getTime().getTime()).getTime())));
+
+                // Creating an 'order' document
+
+                Date date = new Date();
+                String orderID = fAuth.getCurrentUser().getUid() + new Timestamp(date.getTime()).getTime();
+                DocumentReference orderDoc = fStore.collection("orders").document(orderID);
+
+                Map<String, Object> orderData = new HashMap<>();
+                orderData.put(OrderConstants.ID, orderID);
+                orderData.put(OrderConstants.START_DATE, new Timestamp(startDate.getTime().getTime()).getTime());
+                orderData.put(OrderConstants.END_DATE, new Timestamp(endDate.getTime().getTime()).getTime());
+                orderData.put(OrderConstants.PRODUCT_OWNER, productOwner);
+                orderData.put(OrderConstants.PRODUCT_RENTER, fAuth.getCurrentUser().getUid());
+
+                orderDoc.set(orderData);
+                loadingOverlay.setVisibility(View.GONE);
             }
         });
 
         ServicesHelper.setInputFieldActivityStatus(phoneNumberField, findViewById(R.id.focusBarPhoneNumberField));
         ServicesHelper.setInputFieldActivityStatus(addressField, findViewById(R.id.focusBarAddressField));
-
     }
 
     @Override
@@ -179,6 +212,7 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
                 currentDay.setTimeInMillis(Long.parseLong(ts));
                 if (currentDay.after(startDate) && currentDay.before(endDate)) {
                     validInterval = false;
+                    startDateSelected = false;
                     break;
                 }
             }
