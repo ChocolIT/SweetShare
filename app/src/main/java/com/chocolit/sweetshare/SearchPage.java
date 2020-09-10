@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class SearchPage extends AppCompatActivity {
 
     private RecyclerView products_list;
@@ -31,10 +36,13 @@ public class SearchPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
 
+        EditText editText = (EditText) findViewById(R.id.searchText);
+        String value = editText.getText().toString().trim();
         products_list = findViewById(R.id.category_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        Query query = firebaseFirestore.collection("products");
+        Query query = firebaseFirestore.collection("products").whereGreaterThanOrEqualTo(ProductConstants.PRODUCT_TITLE, "b").whereLessThanOrEqualTo(ProductConstants.PRODUCT_TITLE,"b\uf8ff");
+
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
         adapter = new FirestoreRecyclerAdapter<ProductsModel, SearchPage.ProductsViewHolder>(options) {
             @NonNull
@@ -79,7 +87,6 @@ public class SearchPage extends AppCompatActivity {
         private TextView list_title;
         private TextView list_price;
         private TextView list_city;
-        private TextView list_description;
         private ImageView list_image;
 
         public ProductsViewHolder(@NonNull View itemView) {
