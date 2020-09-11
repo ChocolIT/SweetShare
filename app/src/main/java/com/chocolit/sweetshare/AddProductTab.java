@@ -210,6 +210,22 @@ public class AddProductTab extends Fragment {
                 productData.put(ProductConstants.REVIEWS_NO, 0);
                 productData.put(ProductConstants.ID, productId);
 
+                String[] wordsInTitle = productTitle.split(" ");
+                ArrayList<String> keywords= new ArrayList<>();
+
+                for (String word : wordsInTitle) {
+                    for (int i = 0; i < word.length(); i++) {
+                        String currentKeyword = "";
+                        for (int j = 0; j <= i; j++) {
+                            currentKeyword += word.charAt(j);
+                        }
+                        Log.d("TAG", "onClick: " + keywords);
+                        keywords.add(currentKeyword);
+                    }
+                }
+
+                productData.put(ProductConstants.KEYWORDS, keywords);
+
                 loadingOverlay.setVisibility(View.VISIBLE);
 
                 StorageReference imageFolder = FirebaseStorage.getInstance().getReference().child("productImg/" + productId);

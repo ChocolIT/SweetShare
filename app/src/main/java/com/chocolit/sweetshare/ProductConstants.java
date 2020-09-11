@@ -16,4 +16,5 @@ public class ProductConstants {
     public static final String IS_FAVORITE = "IS_FAVORITE";
     public static final String ID = "ID";
     public static final String DISABLED_DATES_LIST = "DISABLED_DATE_RANGE";
+    public static final String KEYWORDS = "KEYWORDS";
 }
