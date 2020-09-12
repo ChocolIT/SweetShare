@@ -188,6 +188,13 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
                 loadingOverlay.setVisibility(View.GONE);
 
                 Intent intent = new Intent(ProductReservation.this, OrderCompleted.class);
+                intent.putExtra(OrderConstants.START_DATE, startDate.get(Calendar.DAY_OF_MONTH) + "-" + startDate.get(Calendar.MONTH) + "-" + startDate.get(Calendar.YEAR));
+                intent.putExtra(OrderConstants.END_DATE, endDate.get(Calendar.DAY_OF_MONTH) + "-" + endDate.get(Calendar.MONTH) + "-" + endDate.get(Calendar.YEAR));
+                intent.putExtra(UserConstants.USER_FULL_NAME, getIntent().getExtras().getString(UserConstants.USER_FULL_NAME));
+                intent.putExtra(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER, getIntent().getExtras().getString(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER));
+
+                startActivity(intent);
+                finish();
             }
         });
 

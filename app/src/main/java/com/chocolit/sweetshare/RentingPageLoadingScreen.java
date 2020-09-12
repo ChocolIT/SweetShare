@@ -30,9 +30,18 @@ public class RentingPageLoadingScreen extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ProductReservation.class);
                 intent.putStringArrayListExtra(ProductConstants.DISABLED_DATES_LIST, disabledDatesList);
                 intent.putExtra(ProductConstants.ID, productID);
+                intent.putExtra(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER, documentSnapshot.getString(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER));
                 intent.putExtra(UserConstants.USER_ID, documentSnapshot.getString(UserConstants.USER_ID));
-                startActivity(intent);
-                finish();
+
+                DocumentReference userDoc = fStore.collection("users").document(documentSnapshot.getString(UserConstants.USER_ID));
+                userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        intent.putExtra(UserConstants.USER_FULL_NAME, documentSnapshot.getString(UserConstants.USER_FULL_NAME));
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
         });
     }
