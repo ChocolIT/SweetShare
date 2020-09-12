@@ -53,4 +53,13 @@
     <string name="add_price_must_be_a_number">Prețul trebuie să fie un număr</string>
     <string name="add_this_field_cant_be_empty">Acest câmp nu poate fi gol</string>
     <string name="add_invalid_input">Intrare invalidă</string>
+    <string name="title_activity_categories">Categorii</string>
+    <string name="first_fragment_label">Primul fragment</string>
+    <string name="second_fragment_label">Al doilea fragment</string>
+    <string name="next">Următorul</string>
+    <string name="previous">Înapoi</string>
+    <string name="reviews_title_text">Recenzii</string>
+    <string name="review_show_more">Arată mai mult</string>
+    <string name="title_activity_my_products">Produsele mele</string>
+    <string name="sweetshare_is_here">SweetShare e aici</string>
 </resources>
