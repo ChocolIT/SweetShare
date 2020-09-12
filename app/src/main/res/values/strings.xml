@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">SweetShare</string>
+    <string name="app_name">SweetShare</string>
     <string name="pass_recovery_welcome_text">Forgot your password? Don\'t worry, it happens to everyone. Enter your account email below
     so we can send you a password reset link.</string>
     <string name="reset_link_sent">Link sent. Please check your inbox.</string>
@@ -57,4 +57,21 @@
     <string name="add_price_must_be_a_number">Price must be a number</string>
     <string name="add_this_field_cant_be_empty">This field can\'t be empty</string>
     <string name="add_invalid_input">Invalid input</string>
+    <string name="title_activity_categories">Categories</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="textview">TextView</string>
+    <string name="sweetshare_is_here">SweetShare is here</string>
+    <string name="todo">TODO</string>
+    <string name="title_activity_my_products">MyProducts</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas erat eget tortor interdum placerat. Nam tristique nisi vel augue feugiat, quis viverra dui tincidunt. Fusce vitae luctus lorem. Maecenas fermentum purus id suscipit congue. Vivamus in mi auctor, placerat erat sit amet, tempor urna. Sed bibendum arcu eu odio facilisis viverra. </string>
+    <string name="review_show_more">Show more</string>
+    <string name="reviews_title_text">Reviews</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.chocolit.sweetshare;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
-    public class ExploreTab extends Fragment {
+public class ExploreTab extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -58,6 +59,7 @@ import android.widget.Toast;
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ import android.widget.Toast;
         return inflater.inflate(R.layout.fragment_explore_tab, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -77,8 +80,13 @@ import android.widget.Toast;
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "You Clicked" + categoryName[+position],Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "You Clicked" + categoryName[+position],Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), Categories.class);
+                intent.putExtra(ProductConstants.PRODUCT_CATEGORY, categoryName[+position]);
+                startActivity(intent);
             }
         });
     }
+
+
 }
