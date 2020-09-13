@@ -24,6 +24,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Login extends AppCompatActivity {
 
@@ -151,7 +158,25 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT);
+                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                    String uID = fAuth.getCurrentUser().getUid();
+                    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+                    DocumentReference documentReference = fStore.collection("users").document(uID);
+
+                    Map<String, Object> userData = new HashMap<>();
+                    userData.put(UserConstants.USER_FULL_NAME, acct.getDisplayName());
+                    userData.put(UserConstants.USER_EMAIL, acct.getEmail());
+                    userData.put(UserConstants.USER_REPUTATION, 0);
+                    ArrayList<String> ownedProducts = new ArrayList<>();
+                    userData.put(UserConstants.USER_OWNED_PRODUCTS_LIST, ownedProducts);
+
+                    ArrayList<String> favoriteProducts = new ArrayList<>();
+                    userData.put(UserConstants.USER_FAVORITES, favoriteProducts);
+
+                    documentReference.set(userData);
+                    ServicesHelper.fetchUserDataFromFireStoreAndStartMainActivity(uID, Login.this);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }
                 else {
                     Toast.makeText(Login.this, "Error: " + task.getException(), Toast.LENGTH_SHORT);
