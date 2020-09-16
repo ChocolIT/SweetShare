@@ -24,4 +24,14 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas erat eget tortor interdum placerat. Nam tristique nisi vel augue feugiat, quis viverra dui tincidunt. Fusce vitae luctus lorem. Maecenas fermentum purus id suscipit congue. Vivamus in mi auctor, placerat erat sit amet, tempor urna. Sed bibendum arcu eu odio facilisis viverra. </string>
     <string name="review_show_more">Show more</string>
     <string name="reviews_title_text">Reviews</string>
+    <string name="terms_agreement_rent_text">By clicking \'Rent Product\' you agree to our terms of service.</string>
+    <string name="remember_preferences_text">Remember my data preferences for my future orders.</string>
+    <string name="rent_it_text">Rent it!</string>
+    <string name="dateIntervalWarning">The selected time interval contains unavailable days.</string>
+    <string name="learn_about_data_processing">Learn about how we process your data.</string>
+    <string name="phone_number_text">Phone Number*</string>
+    <string name="address_text">Address*</string>
+    <string name="start_date_text">Start</string>
+    <string name="end_date_text">End</string>
+    <string name="reservation_successful_text">Reservation successful</string>
 </resources>
