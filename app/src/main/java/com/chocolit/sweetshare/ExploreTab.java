@@ -163,7 +163,6 @@ public class ExploreTab extends Fragment {
                 query = fStore.collection("products").whereArrayContainsAny(ProductConstants.KEYWORDS, keywords);
                 recyclerOptions = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
                 recyclerAdapter.updateOptions(recyclerOptions);
-
                 motionLayout.transitionToEnd();
             }
         });
@@ -171,6 +170,7 @@ public class ExploreTab extends Fragment {
         icBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchBar.getText().clear();
                 motionLayout.transitionToStart();
             }
         });
