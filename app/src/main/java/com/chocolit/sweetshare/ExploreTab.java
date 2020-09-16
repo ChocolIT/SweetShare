@@ -87,10 +87,19 @@ public class ExploreTab extends Fragment {
 
         MotionLayout motionLayout = view.findViewById(R.id.parentLayout);
         ImageView icSearch = view.findViewById(R.id.icSearch);
+        ImageView icBackArrow = view.findViewById(R.id.icBackArrow);
+
         icSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 motionLayout.transitionToEnd();
+            }
+        });
+
+        icBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                motionLayout.transitionToStart();
             }
         });
     }
