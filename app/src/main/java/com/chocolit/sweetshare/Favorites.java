@@ -21,7 +21,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
-public class MyProducts extends AppCompatActivity {
+import java.util.HashMap;
+
+public class Favorites extends AppCompatActivity {
     private RecyclerView products_list;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
@@ -29,11 +31,14 @@ public class MyProducts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_my_products);
+        setContentView(R.layout.activity_favorites);
         products_list = findViewById(R.id.products_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        String clickUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.USER_ID, clickUserID);
+        String clickFavoriteProduct = getIntent().getExtras().getString(ProductConstants.ID);
+
+
+
+        Query query = firebaseFirestore.collection("users").whereEqualTo(ProductConstants.USER_FAVORITES, clickFavoriteProduct);
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
 
         adapter = new FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder>(options) {

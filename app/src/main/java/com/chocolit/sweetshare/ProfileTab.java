@@ -47,6 +47,7 @@ public class ProfileTab extends Fragment {
     private TextView userReputation;
     private Button editProfileBtn;
     private View productsBtn;
+    private View favoritesBtn;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -93,6 +94,7 @@ public class ProfileTab extends Fragment {
         userReputation = view.findViewById(R.id.userReputation);
         editProfileBtn = view.findViewById(R.id.editProfileButton);
         productsBtn = view.findViewById(R.id.productsButton);
+        favoritesBtn = view.findViewById(R.id.favoritesButton);
 
         userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
         userReputation.setText(String.format("Reputation: %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
@@ -111,6 +113,13 @@ public class ProfileTab extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivityForResult(new Intent(getContext(), MyProducts.class), RequestCodes.SHOW_MY_PRODUCTS_CODE);
+
+            }
+        });
+        favoritesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), Favorites.class));
 
             }
         });
