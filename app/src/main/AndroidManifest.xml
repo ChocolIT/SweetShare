@@ -11,25 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderCompleted"></activity>
+        <activity android:name=".OrderCompleted" />
         <activity android:name=".RentingPageLoadingScreen" />
         <activity
             android:name=".MyProducts"
             android:label="@string/title_activity_my_products"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Categories"
             android:label="@string/title_activity_categories" />
-        <activity android:name=".ProductLoadingScreen"></activity>
+        <activity android:name=".ProductLoadingScreen" />
         <activity android:name=".ProductPage" />
--        <activity android:name=".EditUserProfile" />
+       <activity android:name=".EditUserProfile" />
         <activity android:name=".Login" />
         <activity android:name=".PasswordRecovery" />
         <activity android:name=".Signup" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
-            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
