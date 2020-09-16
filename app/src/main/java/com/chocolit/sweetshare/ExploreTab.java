@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 public class ExploreTab extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -80,6 +82,15 @@ public class ExploreTab extends Fragment {
                 Intent intent = new Intent(getActivity(), Categories.class);
                 intent.putExtra(ProductConstants.PRODUCT_CATEGORY, categoryName[+position]);
                 startActivity(intent);
+            }
+        });
+
+        MotionLayout motionLayout = view.findViewById(R.id.parentLayout);
+        ImageView icSearch = view.findViewById(R.id.icSearch);
+        icSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                motionLayout.transitionToEnd();
             }
         });
     }
