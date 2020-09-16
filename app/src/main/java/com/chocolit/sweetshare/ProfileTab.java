@@ -20,7 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,12 +41,12 @@ import java.util.Map;
  */
 public class ProfileTab extends Fragment {
 
-    private View productsButton;
 
     private TextView userFullName;
     private ConstraintLayout addButton;
     private TextView userReputation;
     private Button editProfileBtn;
+    private View productsBtn;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -92,16 +92,7 @@ public class ProfileTab extends Fragment {
         userFullName = view.findViewById(R.id.userFullName);
         userReputation = view.findViewById(R.id.userReputation);
         editProfileBtn = view.findViewById(R.id.editProfileButton);
-
-        productsButton = view.findViewById(R.id.productsButton);
-
-        View icSettings = view.findViewById(R.id.ic_settings);
-        icSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), ProductLoadingScreen.class));
-            }
-        });
+        productsBtn = view.findViewById(R.id.productsButton);
 
         userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
         userReputation.setText(String.format("Reputation: %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
@@ -116,11 +107,11 @@ public class ProfileTab extends Fragment {
             }
         });
 
-        productsButton.setOnClickListener(new View.OnClickListener() {
+        productsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                firebaseAuth.signOut();
+                startActivityForResult(new Intent(getContext(), MyProducts.class), RequestCodes.SHOW_MY_PRODUCTS_CODE);
+
             }
         });
     }
