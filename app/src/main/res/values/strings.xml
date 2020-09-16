@@ -23,8 +23,8 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas erat eget tortor interdum placerat. Nam tristique nisi vel augue feugiat, quis viverra dui tincidunt. Fusce vitae luctus lorem. Maecenas fermentum purus id suscipit congue. Vivamus in mi auctor, placerat erat sit amet, tempor urna. Sed bibendum arcu eu odio facilisis viverra. </string>
     <string name="review_show_more">Show more</string>
     <string name="reviews_title_text">Reviews</string>
-    <string name="todo">TODO</string>
     <string name="search_what_you_need">Search what you need</string>
     <string name="search_product">Search product</string>
     <string name="location">location</string>
+    <string name="todo">TODO</string>
 </resources>
