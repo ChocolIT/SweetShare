@@ -45,7 +45,7 @@ public class ProfileTab extends Fragment {
     private TextView userFullName;
     private ConstraintLayout addButton;
     private TextView userReputation;
-    private Button reviewButton;
+    private View reviewButton;
     private Button editProfileBtn;
     private View productsBtn;
 
