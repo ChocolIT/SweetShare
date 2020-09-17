@@ -46,7 +46,7 @@ public class ProfileTab extends Fragment {
     private ConstraintLayout addButton;
     private TextView userReputation;
     private Button editProfileBtn;
-    private View productsBtn;
+    private View productsBtn, settingsBtn;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -93,6 +93,7 @@ public class ProfileTab extends Fragment {
         userReputation = view.findViewById(R.id.userReputation);
         editProfileBtn = view.findViewById(R.id.editProfileButton);
         productsBtn = view.findViewById(R.id.productsButton);
+        settingsBtn = view.findViewById(R.id.icSettings);
 
         userFullName.setText(sharedPreferences.getString(UserConstants.USER_FULL_NAME, "Default"));
         userReputation.setText(String.format("Reputation: %s", sharedPreferences.getLong(UserConstants.USER_REPUTATION, 404)));
@@ -114,6 +115,11 @@ public class ProfileTab extends Fragment {
 
             }
         });
+
+        settingsBtn.setOnClickListener(view1 -> {
+            startActivity(new Intent(getActivity(), SettingsPage.class));
+        });
+
     }
 
     @Override

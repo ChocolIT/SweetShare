@@ -34,4 +34,10 @@
     <string name="start_date_text">Start</string>
     <string name="end_date_text">End</string>
     <string name="reservation_successful_text">Reservation successful</string>
+    <string name="settings_text">Settings</string>
+    <string name="about_us_text">About Us</string>
+    <string name="faq_text">FAQ</string>
+    <string name="facebook_text">Facebook</string>
+    <string name="instagram_text">Instagram</string>
+    <string name="logout_text">Log Out</string>
 </resources>
