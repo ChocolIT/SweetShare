@@ -39,6 +39,8 @@ public class ExploreTab extends Fragment {
     String[] categoryName = {"Tools", "Sports", "Gardening", "Photo/Video", "Entertainment", "Clothing", "Electronics", "Books"};
     int[] numberImage = {R.drawable.ic_explore_tab_brush, R.drawable.ic_explore_tab_soccer_ball, R.drawable.ic_explore_tab_garden, R.drawable.ic_explore_tab_photovideo, R.drawable.ic_explore_tab_entertainment, R.drawable.ic_explore_tab_clothing, R.drawable.ic_explore_tab_electronics, R.drawable.ic_explore_tab_books};
 
+
+        // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -61,6 +63,7 @@ public class ExploreTab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);

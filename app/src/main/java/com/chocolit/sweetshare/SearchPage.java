@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,44 +21,40 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
-public class Categories extends AppCompatActivity {
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class SearchPage extends AppCompatActivity {
+
     private RecyclerView products_list;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_page);
 
-        setContentView(R.layout.activity_categories);
+        EditText editText = (EditText) findViewById(R.id.searchText);
+        String value = editText.getText().toString().trim();
         products_list = findViewById(R.id.category_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        String clickCategory = getIntent().getExtras().getString(ProductConstants.PRODUCT_CATEGORY);
 
-        Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.PRODUCT_CATEGORY, clickCategory);
+        Query query = firebaseFirestore.collection("products").whereGreaterThanOrEqualTo(ProductConstants.PRODUCT_TITLE, "b").whereLessThanOrEqualTo(ProductConstants.PRODUCT_TITLE,"b\uf8ff");
+
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
-
-        TextView categoryNameTitle = findViewById(R.id.categoryNameTitle);
-        categoryNameTitle.setText(clickCategory);
-
-        ImageView backButton = findViewById(R.id.backArrowButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        adapter = new FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<ProductsModel, SearchPage.ProductsViewHolder>(options) {
             @NonNull
             @Override
-            public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public SearchPage.ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items, parent, false);
-                return new ProductsViewHolder(view);
+                return new SearchPage.ProductsViewHolder(view);
             }
 
             @SuppressLint("SetTextI18n")
             @Override
-            protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull final ProductsModel model) {
+            protected void onBindViewHolder(@NonNull SearchPage.ProductsViewHolder holder, int position, @NonNull final ProductsModel model) {
                 holder.list_title.setText(model.getPRODUCT_TITLE());
                 holder.list_city.setText(model.getPRODUCT_CITY());
                 holder.list_price.setText(model.getPRICE() + " SWEETS");
@@ -86,7 +83,7 @@ public class Categories extends AppCompatActivity {
         products_list.setAdapter(adapter);
     }
 
-    private static class ProductsViewHolder extends RecyclerView.ViewHolder{
+    private class ProductsViewHolder extends RecyclerView.ViewHolder{
         private TextView list_title;
         private TextView list_price;
         private TextView list_city;
