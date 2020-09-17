@@ -19,15 +19,15 @@ public class RentingPageLoadingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_renting_page_loading_screen);
-        String productID = getIntent().getExtras().getString(ProductConstants.ID);
+        final String productID = getIntent().getExtras().getString(ProductConstants.ID);
 
-        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore fStore = FirebaseFirestore.getInstance();
         DocumentReference productDocument = fStore.collection("products").document(productID);
         productDocument.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ArrayList<String> disabledDatesList = (ArrayList<String>) documentSnapshot.get(ProductConstants.DISABLED_DATES_LIST);
-                Intent intent = new Intent(getApplicationContext(), ProductReservation.class);
+                final Intent intent = new Intent(getApplicationContext(), ProductReservation.class);
                 intent.putStringArrayListExtra(ProductConstants.DISABLED_DATES_LIST, disabledDatesList);
                 intent.putExtra(ProductConstants.ID, productID);
                 intent.putExtra(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER, documentSnapshot.getString(ProductConstants.PRODUCT_OWNER_PHONE_NUMBER));
