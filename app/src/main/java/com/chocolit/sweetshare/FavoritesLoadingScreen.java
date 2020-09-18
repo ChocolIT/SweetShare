@@ -1,12 +1,15 @@
 package com.chocolit.sweetshare;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,32 +34,31 @@ public class FavoritesLoadingScreen extends AppCompatActivity {
         userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                ArrayList<String> userFavoritesList = (ArrayList<String>) documentSnapshot.get(UserConstants.USER_FAVORITES);
+                final ArrayList<String> userFavoritesList = (ArrayList<String>) documentSnapshot.get(UserConstants.USER_FAVORITES);
                 for(String prodID : userFavoritesList){
-                    Log.d("TAG", "onSuccess: " + prodID);
                     DocumentReference productDoc = firebaseFirestore.collection("products").document(prodID);
                     productDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             ArrayList<String> imgList = (ArrayList<String>) documentSnapshot.get(ProductConstants.PRODUCT_IMG_LIST);
                             productNames.add(documentSnapshot.getString(ProductConstants.PRODUCT_TITLE));
-                            productPrices.add(documentSnapshot.getString(ProductConstants.PRICE));
+                            productPrices.add(String.valueOf(documentSnapshot.getLong(ProductConstants.PRICE)));
                             productCities.add(documentSnapshot.getString(ProductConstants.PRODUCT_CITY));
                             productImgs.add(imgList.get(0));
                             completed++;
-                            Log.d("TAG", "onSuccess: "  );
+                            if (completed == userFavoritesList.size()) {
+                                Log.d("TAG", "onSuccess: " + productNames.size());
+
+                                Intent intent = new Intent(getApplicationContext(), Favorites.class);
+                                intent.putStringArrayListExtra(ProductConstants.PRODUCT_TITLE, productNames);
+                                intent.putStringArrayListExtra(ProductConstants.PRICE, productPrices);
+                                intent.putStringArrayListExtra(ProductConstants.PRODUCT_CITY, productCities);
+                                intent.putStringArrayListExtra(ProductConstants.PRODUCT_IMG_LIST, productImgs);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
                     });
-                    while(completed < userFavoritesList.size()) {
-                       // Log.d("TAG", "onSuccess: " + completed);
-                    }
-                        Intent intent = new Intent(getApplicationContext(), Favorites.class);
-                        intent.putStringArrayListExtra(ProductConstants.PRODUCT_TITLE, productNames);
-                        intent.putStringArrayListExtra(ProductConstants.PRICE, productPrices);
-                        intent.putStringArrayListExtra(ProductConstants.PRODUCT_CITY, productCities);
-                        intent.putStringArrayListExtra(ProductConstants.PRODUCT_IMG_LIST, productImgs);
-                        startActivity(intent);
-                        finish();
                 }
             }
         });
