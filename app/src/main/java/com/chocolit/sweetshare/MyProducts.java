@@ -51,7 +51,12 @@ public class MyProducts extends AppCompatActivity {
                 holder.list_city.setText(model.getPRODUCT_CITY());
                 holder.list_price.setText(model.getPRICE() + "");
                 String url = model.getPRODUCT_IMG_LIST().get(0);
-                Picasso.get().load(url).into(holder.list_image);
+                Picasso
+                        .get()
+                        .load(url)
+                        .fit()
+                        .centerCrop()
+                        .into(holder.list_image);
             }
         };
 

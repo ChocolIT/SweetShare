@@ -119,7 +119,7 @@ public class ProfileTab extends Fragment {
         favoritesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), Favorites.class));
+                startActivity(new Intent(getContext(), FavoritesLoadingScreen.class));
 
             }
         });

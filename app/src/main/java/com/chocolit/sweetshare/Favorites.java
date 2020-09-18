@@ -1,6 +1,7 @@
 package com.chocolit.sweetshare;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,75 +22,121 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Favorites extends AppCompatActivity {
-    private RecyclerView products_list;
-    private FirebaseFirestore firebaseFirestore;
-    private FirestoreRecyclerAdapter adapter;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    List<EntityProduct> myDataset = new ArrayList<>();
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_favorites);
-        products_list = findViewById(R.id.products_list);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        String clickFavoriteProduct = getIntent().getExtras().getString(ProductConstants.ID);
 
+        Bundle bundle = getIntent().getExtras();
+        final ArrayList<String> productNames = bundle.getStringArrayList(ProductConstants.PRODUCT_TITLE);
+        final ArrayList<String> productCities = bundle.getStringArrayList(ProductConstants.PRODUCT_CITY);
+        final ArrayList<String> productPrices = bundle.getStringArrayList(ProductConstants.PRICE);
+        final ArrayList<String> productImgs = bundle.getStringArrayList(ProductConstants.PRODUCT_IMG_LIST);
 
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        Query query = firebaseFirestore.collection("users").whereEqualTo(ProductConstants.USER_FAVORITES, clickFavoriteProduct);
-        FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
+        recyclerView.setHasFixedSize(true);
 
-        adapter = new FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder>(options) {
-            @NonNull
-            @Override
-            public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items, parent, false);
-                return new ProductsViewHolder(view);
-            }
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-            @SuppressLint("SetTextI18n")
-            @Override
-            protected void onBindViewHolder(@NonNull ProductsViewHolder holder, int position, @NonNull ProductsModel model) {
-                holder.list_title.setText(model.getPRODUCT_TITLE());
-                holder.list_city.setText(model.getPRODUCT_CITY());
-                holder.list_price.setText(model.getPRICE() + "");
-                String url = model.getPRODUCT_IMG_LIST().get(0);
-                Picasso.get().load(url).into(holder.list_image);
-            }
-        };
+        mAdapter = new MyRecyclerViewAdapter(getApplicationContext(), myDataset);
+        recyclerView.setAdapter(mAdapter);
+        for(int i = 0; i < productNames.size(); i++){
+            myDataset.add(new EntityProduct(productNames.get(i), productCities.get(i), productImgs.get(i), productPrices.get(i)));
+        }
 
-        products_list.setHasFixedSize(true);
-        products_list.setLayoutManager(new LinearLayoutManager(this));
-        products_list.setAdapter(adapter);
     }
+    public static class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    private class ProductsViewHolder extends RecyclerView.ViewHolder{
-        private TextView list_title;
-        private TextView list_price;
-        private TextView list_city;
-        private ImageView list_image;
+        private List<EntityProduct> mData;
+        private LayoutInflater mInflater;
+        private ItemClickListener mClickListener;
 
-        public ProductsViewHolder(@NonNull View itemView) {
-            super(itemView);
+        // data is passed into the constructor
+        MyRecyclerViewAdapter(Context context, List<EntityProduct> data) {
+            this.mInflater = LayoutInflater.from(context);
+            this.mData = data;
+        }
 
-            list_title = itemView.findViewById(R.id.productName);
-            list_city = itemView.findViewById(R.id.productCity);
-            list_price = itemView.findViewById(R.id.productPrice);
-            list_image = itemView.findViewById(R.id.productImage);
+        // inflates the row layout from xml when needed
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = mInflater.inflate(R.layout.list_items, parent, false);
+            return new ViewHolder(view);
+        }
+
+        // binds the data to the TextView in each row
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+            holder.nameTextView.setText(mData.get(position).getName());
+            holder.priceTextView.setText(mData.get(position).getPrice());
+            holder.cityTextView.setText(mData.get(position).getCity());
+            Picasso
+                    .get()
+                    .load(mData.get(position).getImg_url())
+                    .fit()
+                    .centerCrop()
+                    .into(holder.productImage);
+        }
+
+        // total number of rows
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+
+        // stores and recycles views as they are scrolled off screen
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            TextView nameTextView;
+            TextView priceTextView;
+            TextView cityTextView;
+            ImageView productImage;
+
+            ViewHolder(View itemView) {
+                super(itemView);
+                nameTextView = itemView.findViewById(R.id.productName);
+                priceTextView = itemView.findViewById(R.id.productPrice);
+                cityTextView = itemView.findViewById(R.id.productCity);
+                productImage = itemView.findViewById(R.id.productImage);
+                itemView.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View view) {
+                if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            }
+        }
+
+        // convenience method for getting data at click position
+        EntityProduct getItem(int id) {
+            return mData.get(id);
+        }
+
+        // allows clicks events to be caught
+        void setClickListener(ItemClickListener itemClickListener) {
+            this.mClickListener = itemClickListener;
+        }
+
+        // parent activity will implement this method to respond to click events
+        public interface ItemClickListener {
+            void onItemClick(View view, int position);
         }
     }
 
-    @Override
-    protected void onStop(){
-        super.onStop();
-        adapter.stopListening();
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
 }
