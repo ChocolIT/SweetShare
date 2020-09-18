@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProductReservation"/>
-        <activity android:name=".SettingsPage"></activity>
+        <activity android:name=".FaqPage"></activity>
+        <activity android:name=".ProductReservation" />
+        <activity android:name=".SettingsPage" />
         <activity android:name=".OrderCompleted" />
         <activity android:name=".RentingPageLoadingScreen" />
         <activity

@@ -35,7 +35,7 @@ public class SettingsPage extends AppCompatActivity {
 
         });
         faqButton.setOnClickListener(view -> {
-
+            openSettingsSubpage(FaqPage.class);
         });
         facebookButton.setOnClickListener(view -> {
 

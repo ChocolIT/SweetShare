@@ -8,23 +8,32 @@
     android:background="@color/backgroundLightGrey">
 
     <View
+        android:id="@+id/headerBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimary"/>
+
+    <View
         android:id="@+id/headerDelimiter"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="50dp"
         android:background="@drawable/delimitation_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/headerBar" />
 
     <ImageView
+        android:id="@+id/imageView4"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_back_arrow"
         app:layout_constraintBottom_toTopOf="@+id/headerDelimiter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black"/>
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/textView"
@@ -32,7 +41,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/settings_text"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/headerDelimiter"
         app:layout_constraintEnd_toEndOf="parent"
