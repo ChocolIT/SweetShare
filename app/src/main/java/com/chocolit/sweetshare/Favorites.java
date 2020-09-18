@@ -3,6 +3,7 @@ package com.chocolit.sweetshare;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class Favorites extends AppCompatActivity {
         for(int i = 0; i < productNames.size(); i++){
             myDataset.add(new EntityProduct(productNames.get(i), productCities.get(i), productImgs.get(i), productPrices.get(i)));
         }
+        Log.d("TAG", "onCreate: " + myDataset.size());
 
     }
     public static class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {

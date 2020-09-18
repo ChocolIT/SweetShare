@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ public class FavoritesLoadingScreen extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ArrayList<String> userFavoritesList = (ArrayList<String>) documentSnapshot.get(UserConstants.USER_FAVORITES);
                 for(String prodID : userFavoritesList){
+                    Log.d("TAG", "onSuccess: " + prodID);
                     DocumentReference productDoc = firebaseFirestore.collection("products").document(prodID);
                     productDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -42,15 +44,19 @@ public class FavoritesLoadingScreen extends AppCompatActivity {
                             productCities.add(documentSnapshot.getString(ProductConstants.PRODUCT_CITY));
                             productImgs.add(imgList.get(0));
                             completed++;
+                            Log.d("TAG", "onSuccess: "  );
                         }
                     });
-                    while(completed < userFavoritesList.size()) {}
+                    while(completed < userFavoritesList.size()) {
+                       // Log.d("TAG", "onSuccess: " + completed);
+                    }
                         Intent intent = new Intent(getApplicationContext(), Favorites.class);
                         intent.putStringArrayListExtra(ProductConstants.PRODUCT_TITLE, productNames);
                         intent.putStringArrayListExtra(ProductConstants.PRICE, productPrices);
                         intent.putStringArrayListExtra(ProductConstants.PRODUCT_CITY, productCities);
                         intent.putStringArrayListExtra(ProductConstants.PRODUCT_IMG_LIST, productImgs);
                         startActivity(intent);
+                        finish();
                 }
             }
         });
