@@ -5,7 +5,9 @@
     android:orientation="vertical"
     app:layout_constraintTop_toBottomOf="@+id/headerDelimiter"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="2.5dp"
+    android:paddingBottom="2.5dp">
 
     <com.github.florent37.expansionpanel.ExpansionHeader
         android:layout_width="match_parent"
@@ -48,7 +50,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp" />
 
+            <View
+                android:layout_height="1dp"
+                android:layout_width="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/delimitation_line"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </com.github.florent37.expansionpanel.ExpansionHeader>
 

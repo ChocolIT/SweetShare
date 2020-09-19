@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.icu.lang.UCharacter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +36,13 @@ public class FaqPage extends AppCompatActivity {
         final RecyclerAdapter adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("FAQ_CONTENTS", Context.MODE_PRIVATE);
+
         //fill with empty objects
         final List<EntityFaqItem> list = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            list.add(new EntityFaqItem("Test question", "Test answer"));
+        for (int i = 1; i <= 6; i++) {
+            list.add(new EntityFaqItem(sharedPreferences.getString("QUESTION_" + i, "404"), sharedPreferences.getString("ANSWER_" + i, "404")));
+            Log.d("TAG", "onCreate: " + sharedPreferences.getString("QUESTION_" + i, "404"));
         }
         adapter.setItems(list);
     }
@@ -59,6 +66,7 @@ public class FaqPage extends AppCompatActivity {
         public void onBindViewHolder(RecyclerHolder holder, int position) {
             holder.bind(list.get(position));
             expansionsCollection.add(holder.getExpansionLayout());
+            holder.questionText.setText(list.get(position).getQuestion());
             holder.answerText.setText(list.get(position).getAnswer());
         }
 
