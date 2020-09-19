@@ -91,7 +91,6 @@ public class ExploreTab extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // Toast.makeText(getContext(), "You Clicked" + categoryName[+position],Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), Categories.class);
                 intent.putExtra(ProductConstants.PRODUCT_CATEGORY, clickCategory[+position]);
                 startActivity(intent);
