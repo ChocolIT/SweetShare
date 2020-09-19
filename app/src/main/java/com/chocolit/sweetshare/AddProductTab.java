@@ -42,6 +42,9 @@ import java.util.Map;
 import java.util.Set;
 
 import static android.app.Activity.RESULT_OK;
+import static com.chocolit.sweetshare.R.string.add_invalid_input;
+import static com.chocolit.sweetshare.R.string.add_price_must_be_a_number;
+import static com.chocolit.sweetshare.R.string.add_this_field_cant_be_empty;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -160,7 +163,7 @@ public class AddProductTab extends Fragment {
                 TextView errorText = (TextView)categoriesSpinner.getSelectedView();
                 errorText.setError("");
                 errorText.setTextColor(Color.RED);
-                errorText.setText("A category must be selected");
+                errorText.setText(R.string.add_a_category_must_be_selected);
             }
         });
 
@@ -177,23 +180,23 @@ public class AddProductTab extends Fragment {
                     price = Long.parseLong(priceInputField.getText().toString());
                 }
                 catch (Exception e) {
-                    priceInputField.setError("Price must be a number");
+                    priceInputField.setError(getResources().getString(add_price_must_be_a_number));
                 }
 
                 if (productTitle.isEmpty()){
-                    productNameField.setError("This field can't be empty");
+                    productNameField.setError(getResources().getString(add_this_field_cant_be_empty));
                     return;
                 }
                 if (productDescription.isEmpty()) {
-                    productDescriptionField.setError("This field can't be empty");
+                    productDescriptionField.setError(getResources().getString(add_this_field_cant_be_empty));
                     return;
                 }
                 if (city.isEmpty()) {
-                    cityField.setError("This field can't be empty");
+                    cityField.setError(getResources().getString(add_this_field_cant_be_empty));
                     return;
                 }
                 if (price == 0) {
-                    priceInputField.setError("Invalid input");
+                    priceInputField.setError(getResources().getString(add_invalid_input));
                     return;
                 }
 

@@ -39,6 +39,8 @@ public class ExploreTab extends Fragment {
     String[] categoryName = {"Tools", "Sports", "Gardening", "Photo/Video", "Entertainment", "Clothing", "Electronics", "Books"};
     int[] numberImage = {R.drawable.ic_explore_tab_brush, R.drawable.ic_explore_tab_soccer_ball, R.drawable.ic_explore_tab_garden, R.drawable.ic_explore_tab_photovideo, R.drawable.ic_explore_tab_entertainment, R.drawable.ic_explore_tab_clothing, R.drawable.ic_explore_tab_electronics, R.drawable.ic_explore_tab_books};
 
+    int[] stringResIDs = {R.string.explore_tools, R.string.explore_sports, R.string.explore_gardening, R.string.explore_photo, R.string.explore_entartainment, R.string.explore_clothing, R.string.explore_electronics, R.string.explore_books};
+
     private String mParam1;
     private String mParam2;
 
@@ -72,6 +74,9 @@ public class ExploreTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        for (int i = 0; i < categoryName.length; i++) {
+            categoryName[i] = getActivity().getString(stringResIDs[i]);
+        }
         return inflater.inflate(R.layout.fragment_explore_tab, container, false);
     }
 
