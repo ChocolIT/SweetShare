@@ -32,7 +32,7 @@ public class SettingsPage extends AppCompatActivity {
 
 
         aboutUsButton.setOnClickListener(view -> {
-
+            openSettingsSubpage(AboutUs.class);
         });
         faqButton.setOnClickListener(view -> {
             openSettingsSubpage(FaqPage.class);

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.florent37.expansionpanel.ExpansionLayout;
@@ -36,6 +37,8 @@ public class FaqPage extends AppCompatActivity {
         final RecyclerAdapter adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
+        ImageView icBackArrow = findViewById(R.id.icBackArrow);
+
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("FAQ_CONTENTS", Context.MODE_PRIVATE);
 
         //fill with empty objects
@@ -45,6 +48,10 @@ public class FaqPage extends AppCompatActivity {
             Log.d("TAG", "onCreate: " + sharedPreferences.getString("QUESTION_" + i, "404"));
         }
         adapter.setItems(list);
+
+        icBackArrow.setOnClickListener((view -> {
+            finish();
+        }));
     }
 
     public final static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerHolder> {
