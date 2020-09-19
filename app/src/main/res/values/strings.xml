@@ -84,4 +84,11 @@
     <string name="start_date_text">Start</string>
     <string name="end_date_text">End</string>
     <string name="reservation_successful_text">Reservation successful</string>
+    <string name="settings_text">Settings</string>
+    <string name="about_us_text">About Us</string>
+    <string name="faq_text">FAQ</string>
+    <string name="facebook_text">Facebook</string>
+    <string name="instagram_text">Instagram</string>
+    <string name="logout_text">Log Out</string>
+    <string name="about_us_description">Have you ever wanted to use an item for a short period of time and not have to buy it? We have come up with a solution for this problem by developing SweetShare, a sharing app which enables you to lend and borrow a great variety of products (cameras, bikes, tools and many more). We want all our customers to have a great and safe experience using our app, and that is why every rental is covered by an auto generated rental contract. We hope you are enjoying so far SweetShare and don’t forget to give us some feedback at contact.chocolit@gmail.com.</string>
 </resources>
