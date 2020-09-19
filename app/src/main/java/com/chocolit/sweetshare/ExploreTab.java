@@ -36,6 +36,7 @@ public class ExploreTab extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     GridView gridView;
+    String[] clickCategory = {"Tools", "Sports", "Gardening", "Photo/Video", "Entertainment", "Clothing", "Electronics", "Books"};
     String[] categoryName = {"Tools", "Sports", "Gardening", "Photo/Video", "Entertainment", "Clothing", "Electronics", "Books"};
     int[] numberImage = {R.drawable.ic_explore_tab_brush, R.drawable.ic_explore_tab_soccer_ball, R.drawable.ic_explore_tab_garden, R.drawable.ic_explore_tab_photovideo, R.drawable.ic_explore_tab_entertainment, R.drawable.ic_explore_tab_clothing, R.drawable.ic_explore_tab_electronics, R.drawable.ic_explore_tab_books};
 
@@ -92,7 +93,7 @@ public class ExploreTab extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // Toast.makeText(getContext(), "You Clicked" + categoryName[+position],Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), Categories.class);
-                intent.putExtra(ProductConstants.PRODUCT_CATEGORY, categoryName[+position]);
+                intent.putExtra(ProductConstants.PRODUCT_CATEGORY, clickCategory[+position]);
                 startActivity(intent);
             }
         });
