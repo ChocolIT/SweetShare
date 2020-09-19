@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -38,10 +39,14 @@ public class SettingsPage extends AppCompatActivity {
             openSettingsSubpage(FaqPage.class);
         });
         facebookButton.setOnClickListener(view -> {
-
+            Uri uri = Uri.parse("http://www.facebook.com/SweetShareApp");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
         instagramButton.setOnClickListener(view -> {
-
+            Uri uri = Uri.parse("http://www.instagram.com/sweetshareapp/");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
         logoutButton.setOnClickListener(view -> {
             FirebaseAuth fAuth = FirebaseAuth.getInstance();
