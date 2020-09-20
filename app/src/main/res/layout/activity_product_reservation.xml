@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductReservation"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/backArrowBackground">
+
+            <Button
+                android:id="@+id/startDateButton"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="75dp"
+                android:background="@drawable/ripple_effect_mask_button"
+                android:fontFamily="@font/roboto_medium"
+                android:padding="10dp"
+                android:text="@string/start_date_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:drawableStart="@drawable/ic_round_calendar_today"/>
+
+            <Button
+                android:id="@+id/endDateButton"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="75dp"
+                android:background="@drawable/ripple_effect_mask_button"
+                android:fontFamily="@font/roboto_medium"
+                android:padding="10dp"
+                android:text="@string/end_date_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/startDateButton"
+                app:layout_constraintTop_toTopOf="parent"
+                android:drawableStart="@drawable/ic_round_calendar_today"
+                android:enabled="false"/>
+
+            <TextView
+                android:id="@+id/endDateWarning"
+                app:layout_constraintTop_toBottomOf="@id/startDateButton"
+                app:layout_constraintStart_toStartOf="@id/startDateButton"
+                android:layout_marginTop="10dp"
+                android:text="@string/dateIntervalWarning"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="16sp"
+                android:textColor="@color/failureRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/phoneNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/phone_number_text"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/startDateButton"
+                app:layout_constraintTop_toBottomOf="@id/startDateButton" />
+
+            <EditText
+                android:id="@+id/phoneNumberInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/input_field_background"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneNumberTextView"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="18sp"/>
+
+            <View
+                android:id="@+id/focusBarPhoneNumberField"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                app:layout_constraintStart_toStartOf="@id/phoneNumberInputField"
+                app:layout_constraintEnd_toEndOf="@id/phoneNumberInputField"
+                app:layout_constraintBottom_toBottomOf="@id/phoneNumberInputField"
+                android:background="@drawable/active_focus_input_field_bar"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/addressTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/address_text"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/startDateButton"
+                app:layout_constraintTop_toBottomOf="@id/phoneNumberInputField"/>
+
+            <EditText
+                android:id="@+id/addressInputField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/input_field_background"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addressTextView" />
+
+            <View
+                android:id="@+id/focusBarAddressField"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                app:layout_constraintStart_toStartOf="@id/addressInputField"
+                app:layout_constraintEnd_toEndOf="@id/addressInputField"
+                app:layout_constraintBottom_toBottomOf="@id/addressInputField"
+                android:background="@drawable/active_focus_input_field_bar"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/learn_about_data_processing"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/icInfo"
+                app:layout_constraintTop_toBottomOf="@id/addressInputField" />
+
+            <ImageView
+                android:id="@+id/icInfo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_outline_info"
+                app:layout_constraintStart_toStartOf="@+id/addressInputField"
+                app:layout_constraintTop_toBottomOf="@id/addressInputField" />
+
+            <CheckBox
+                android:id="@+id/agreeToTermsCheckbox"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintTop_toBottomOf="@id/icInfo"
+                app:layout_constraintStart_toStartOf="@id/icInfo"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/colorPrimary"
+                android:translationX="-5dp"/>
+
+            <TextView
+                android:id="@+id/agreementText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/terms_agreement_rent_text"
+                android:textColor="@color/black"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintStart_toEndOf="@id/icInfo"
+                app:layout_constraintTop_toTopOf="@id/agreeToTermsCheckbox"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="16sp"/>
+
+            <CheckBox
+                android:id="@+id/rememberPreferencesCheckbox"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintTop_toBottomOf="@id/agreementText"
+                app:layout_constraintStart_toStartOf="@id/icInfo"
+                android:layout_marginTop="5dp"
+                android:buttonTint="@color/colorPrimary"
+                android:translationX="-5dp"/>
+
+            <TextView
+                android:id="@+id/rememberPreferencesText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/remember_preferences_text"
+                android:textColor="@color/black"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintStart_toEndOf="@id/icInfo"
+                app:layout_constraintTop_toTopOf="@id/rememberPreferencesCheckbox"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="16sp"/>
+
+            <View
+                android:id="@+id/firstDelimiter"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/delimitation_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rememberPreferencesText" />
+
+            <Button
+                android:id="@+id/rentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/firstDelimiter"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/ripple_effect_mask_button"
+                android:text="@string/rent_it_text"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="16sp"
+                android:enabled="false"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/backArrowBackground"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:alpha=".7"
+        android:background="@drawable/back_button_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/backArrowBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backArrowBackground" />
+
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:animateLayoutChanges="true"
+        android:background="@color/black"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

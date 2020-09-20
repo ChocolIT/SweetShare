@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +57,8 @@ public class ProductPage extends AppCompatActivity {
         final TextView productPrice = findViewById(R.id.productPrice);
         final TextView productDescription = findViewById(R.id.descriptionText);
         final ImageView favoriteButton = findViewById(R.id.icFavoriteButton);
+
+        Button rentButton = findViewById(R.id.rentButton);
 
         ImageView backButton = findViewById(R.id.backButton);
 
@@ -150,6 +154,15 @@ public class ProductPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        rentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductPage.this, RentingPageLoadingScreen.class);
+                intent.putExtra(ProductConstants.ID, productID);
+                startActivity(intent);
             }
         });
     }

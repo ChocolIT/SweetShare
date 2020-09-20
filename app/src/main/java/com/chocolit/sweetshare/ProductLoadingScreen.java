@@ -38,7 +38,6 @@ public class ProductLoadingScreen extends AppCompatActivity {
         productDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-
                 ArrayList<String> productImageList = (ArrayList<String>) documentSnapshot.get(ProductConstants.PRODUCT_IMG_LIST);
 
                 intent.putStringArrayListExtra(ProductConstants.PRODUCT_IMG_LIST, productImageList);

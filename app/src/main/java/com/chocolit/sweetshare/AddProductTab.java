@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +42,9 @@ import java.util.Map;
 import java.util.Set;
 
 import static android.app.Activity.RESULT_OK;
+import static com.chocolit.sweetshare.R.string.add_invalid_input;
+import static com.chocolit.sweetshare.R.string.add_price_must_be_a_number;
+import static com.chocolit.sweetshare.R.string.add_this_field_cant_be_empty;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +62,7 @@ public class AddProductTab extends Fragment {
     private Spinner categoriesSpinner;
 
     final ArrayList<String> uriList = new ArrayList<>();
+    final ArrayList<String> timestampList = new ArrayList<>();
     private Map<String, Object> productData = new HashMap<>();
 
     private ArrayList<Uri> imgList = new ArrayList<Uri>();
@@ -127,7 +130,7 @@ public class AddProductTab extends Fragment {
         productNameField = view.findViewById(R.id.TitleInputField);
         productDescriptionField = view.findViewById(R.id.DescriptionInputField);
         cityField = view.findViewById(R.id.CityInputField);
-        phoneNumberField = view.findViewById(R.id.PhoneNumberInputField);
+        phoneNumberField = view.findViewById(R.id.phoneNumberInputField);
         priceInputField = view.findViewById(R.id.priceInputField);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, productCategories);
@@ -160,7 +163,7 @@ public class AddProductTab extends Fragment {
                 TextView errorText = (TextView)categoriesSpinner.getSelectedView();
                 errorText.setError("");
                 errorText.setTextColor(Color.RED);
-                errorText.setText("A category must be selected");
+                errorText.setText(R.string.add_a_category_must_be_selected);
             }
         });
 
@@ -177,23 +180,23 @@ public class AddProductTab extends Fragment {
                     price = Long.parseLong(priceInputField.getText().toString());
                 }
                 catch (Exception e) {
-                    priceInputField.setError("Price must be a number");
+                    priceInputField.setError(getResources().getString(add_price_must_be_a_number));
                 }
 
                 if (productTitle.isEmpty()){
-                    productNameField.setError("This field can't be empty");
+                    productNameField.setError(getResources().getString(add_this_field_cant_be_empty));
                     return;
                 }
                 if (productDescription.isEmpty()) {
-                    productDescriptionField.setError("This field can't be empty");
+                    productDescriptionField.setError(getResources().getString(add_this_field_cant_be_empty));
                     return;
                 }
                 if (city.isEmpty()) {
-                    cityField.setError("This field can't be empty");
+                    cityField.setError(getResources().getString(add_this_field_cant_be_empty));
                     return;
                 }
                 if (price == 0) {
-                    priceInputField.setError("Invalid input");
+                    priceInputField.setError(getResources().getString(add_invalid_input));
                     return;
                 }
 
@@ -209,6 +212,22 @@ public class AddProductTab extends Fragment {
                 productData.put(ProductConstants.PRICE, price);
                 productData.put(ProductConstants.REVIEWS_NO, 0);
                 productData.put(ProductConstants.ID, productId);
+
+                String[] wordsInTitle = productTitle.split(" ");
+                ArrayList<String> keywords= new ArrayList<>();
+
+                for (String word : wordsInTitle) {
+                    for (int i = 0; i < word.length(); i++) {
+                        String currentKeyword = "";
+                        for (int j = 0; j <= i; j++) {
+                            currentKeyword += word.charAt(j);
+                        }
+                        Log.d("TAG", "onClick: " + keywords);
+                        keywords.add(currentKeyword);
+                    }
+                }
+
+                productData.put(ProductConstants.KEYWORDS, keywords);
 
                 loadingOverlay.setVisibility(View.VISIBLE);
 
@@ -231,6 +250,7 @@ public class AddProductTab extends Fragment {
 
                                     if (uriList.size() == imgList.size()) {
                                         productData.put(ProductConstants.PRODUCT_IMG_LIST, uriList);
+                                        productData.put(ProductConstants.DISABLED_DATES_LIST, timestampList);
                                         final DocumentReference documentReference = fStore.collection("products").document(productId);
                                         Log.d("TAG", "onSuccess: uploading to db");
                                         documentReference.set(productData);

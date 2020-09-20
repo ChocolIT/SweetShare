@@ -1,31 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ExploreTab">
+    tools:context=".ExploreTab"
+    app:layoutDescription="@xml/fragment_explore_tab_scene"
+    android:id="@+id/parentLayout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerBarSimulator"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <GridView
-        android:verticalSpacing="0dp"
-        android:horizontalSpacing="0dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:horizontalSpacing="0dp"
         android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerBarSimulator"
-        android:stretchMode="columnWidth"
-        android:gravity="center_horizontal"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@id/headerBarSimulator" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchResultsLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="@id/searchBar"
+        app:layout_constraintTop_toTopOf="@id/searchBar"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        android:layout_margin="10dp"
+        android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/resultsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="60dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="7.5dp"
+        android:layout_marginEnd="7.5dp"
+        android:background="@drawable/search_bar_border"
+        android:fontFamily="@font/roboto_regular"
+        android:hint="Search"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/darkGrey"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBarSimulator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/headerBarSimulator" />
+
+    <ImageView
+        android:id="@+id/icSearch"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_search"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="@id/searchBar"
+        app:layout_constraintTop_toTopOf="@id/searchBar"
+        app:tint="@color/black"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/icBackArrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="@id/searchBar"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toStartOf="parent"
+        android:src="@drawable/ic_back_arrow"
+        app:tint="@color/black" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

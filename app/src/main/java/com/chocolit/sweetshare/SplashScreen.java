@@ -6,10 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.io.Serializable;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -20,7 +16,7 @@ public class SplashScreen extends AppCompatActivity {
 
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
-        ServicesHelper.getProductCategories(SplashScreen.this);
+        ServicesHelper.fetchData(SplashScreen.this);
 
         if (fAuth.getCurrentUser() != null) {
             String uID = fAuth.getCurrentUser().getUid();
