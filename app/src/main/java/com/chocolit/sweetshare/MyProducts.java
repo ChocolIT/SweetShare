@@ -60,6 +60,13 @@ public class MyProducts extends AppCompatActivity {
             }
         };
 
+        findViewById(R.id.backArrowButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         products_list.setHasFixedSize(true);
         products_list.setLayoutManager(new LinearLayoutManager(this));
         products_list.setAdapter(adapter);
