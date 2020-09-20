@@ -2,6 +2,7 @@ package com.chocolit.sweetshare;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,18 +35,27 @@ public class Favorites extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     List<EntityProduct> myDataset = new ArrayList<>();
-
+    static Context context;
+    static ArrayList<String> productIds;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_favorites);
+        context = getApplicationContext();
+        ImageView icBackArrow = findViewById(R.id.backArrowButton);
+        icBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Bundle bundle = getIntent().getExtras();
         final ArrayList<String> productNames = bundle.getStringArrayList(ProductConstants.PRODUCT_TITLE);
         final ArrayList<String> productCities = bundle.getStringArrayList(ProductConstants.PRODUCT_CITY);
         final ArrayList<String> productPrices = bundle.getStringArrayList(ProductConstants.PRICE);
         final ArrayList<String> productImgs = bundle.getStringArrayList(ProductConstants.PRODUCT_IMG_LIST);
+        productIds = bundle.getStringArrayList(ProductConstants.ID);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -61,7 +72,7 @@ public class Favorites extends AppCompatActivity {
         Log.d("TAG", "onCreate: " + myDataset.size());
 
     }
-    public static class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+    public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
         private List<EntityProduct> mData;
         private LayoutInflater mInflater;
@@ -82,7 +93,7 @@ public class Favorites extends AppCompatActivity {
 
         // binds the data to the TextView in each row
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder,final int position) {
 
             holder.nameTextView.setText(mData.get(position).getName());
             holder.priceTextView.setText(mData.get(position).getPrice());
@@ -93,6 +104,15 @@ public class Favorites extends AppCompatActivity {
                     .fit()
                     .centerCrop()
                     .into(holder.productImage);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Favorites.this, ProductLoadingScreen.class);
+                    intent.putExtra(ProductConstants.ID, productIds.get(position));
+                    startActivity(intent);
+                }
+            });
         }
 
         // total number of rows
@@ -120,7 +140,6 @@ public class Favorites extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
             }
         }
 
@@ -134,11 +153,5 @@ public class Favorites extends AppCompatActivity {
             this.mClickListener = itemClickListener;
         }
 
-        // parent activity will implement this method to respond to click events
-        public interface ItemClickListener {
-            void onItemClick(View view, int position);
-        }
     }
-
-
 }

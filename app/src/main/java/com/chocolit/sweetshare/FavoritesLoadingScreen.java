@@ -26,6 +26,8 @@ public class FavoritesLoadingScreen extends AppCompatActivity {
         final ArrayList<String> productCities = new ArrayList<>();
         final ArrayList<String> productPrices = new ArrayList<>();
         final ArrayList<String> productImgs = new ArrayList<>();
+        final ArrayList<String> productIds = new ArrayList<>();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites_loading_screen);
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -45,6 +47,8 @@ public class FavoritesLoadingScreen extends AppCompatActivity {
                             productPrices.add(String.valueOf(documentSnapshot.getLong(ProductConstants.PRICE)));
                             productCities.add(documentSnapshot.getString(ProductConstants.PRODUCT_CITY));
                             productImgs.add(imgList.get(0));
+                            productIds.add(documentSnapshot.getString(ProductConstants.ID));
+
                             completed++;
                             if (completed == userFavoritesList.size()) {
                                 Log.d("TAG", "onSuccess: " + productNames.size());
@@ -54,6 +58,7 @@ public class FavoritesLoadingScreen extends AppCompatActivity {
                                 intent.putStringArrayListExtra(ProductConstants.PRICE, productPrices);
                                 intent.putStringArrayListExtra(ProductConstants.PRODUCT_CITY, productCities);
                                 intent.putStringArrayListExtra(ProductConstants.PRODUCT_IMG_LIST, productImgs);
+                                intent.putStringArrayListExtra(ProductConstants.ID, productIds);
                                 startActivity(intent);
                                 finish();
                             }
