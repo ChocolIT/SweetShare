@@ -32,7 +32,7 @@ public class MyProducts extends AppCompatActivity {
         setContentView(R.layout.activity_my_products);
         products_list = findViewById(R.id.products_list);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        String clickUserID = FirebaseAuth.getInstance().getCurrentUser().getUid() ;
+        String clickUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Query query = firebaseFirestore.collection("products").whereEqualTo(ProductConstants.USER_ID, clickUserID);
         FirestoreRecyclerOptions<ProductsModel> options = new FirestoreRecyclerOptions.Builder<ProductsModel>().setQuery(query, ProductsModel.class).build();
 
@@ -51,9 +51,21 @@ public class MyProducts extends AppCompatActivity {
                 holder.list_city.setText(model.getPRODUCT_CITY());
                 holder.list_price.setText(model.getPRICE() + "");
                 String url = model.getPRODUCT_IMG_LIST().get(0);
-                Picasso.get().load(url).into(holder.list_image);
+                Picasso
+                        .get()
+                        .load(url)
+                        .fit()
+                        .centerCrop()
+                        .into(holder.list_image);
             }
         };
+
+        findViewById(R.id.backArrowButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         products_list.setHasFixedSize(true);
         products_list.setLayoutManager(new LinearLayoutManager(this));

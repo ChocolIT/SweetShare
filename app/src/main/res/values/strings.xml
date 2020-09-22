@@ -68,12 +68,16 @@
     <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="textview" translatable="false">TextView</string>
     <string name="sweetshare_is_here">SweetShare is here</string>
-    <string name="todo" translatable="false">TODO</string>
-    <string name="title_activity_my_products">MyProducts</string>
+  
+    <string name="todo">TODO</string>
+    <string name="title_activity_my_products">My Products</string>
 
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas erat eget tortor interdum placerat. Nam tristique nisi vel augue feugiat, quis viverra dui tincidunt. Fusce vitae luctus lorem. Maecenas fermentum purus id suscipit congue. Vivamus in mi auctor, placerat erat sit amet, tempor urna. Sed bibendum arcu eu odio facilisis viverra. </string>
     <string name="review_show_more">Show more</string>
     <string name="reviews_title_text">Reviews</string>
+  
+    <string name="title_activity_favorites">Favorites</string>
+
     <string name="terms_agreement_rent_text">By clicking \'Rent Product\' you agree to our terms of service.</string>
     <string name="remember_preferences_text">Remember my data preferences for my future orders.</string>
     <string name="rent_it_text">Rent it!</string>
@@ -91,4 +95,5 @@
     <string name="instagram_text">Instagram</string>
     <string name="logout_text">Log Out</string>
     <string name="about_us_description">Have you ever wanted to use an item for a short period of time and not have to buy it? We have come up with a solution for this problem by developing SweetShare, a sharing app which enables you to lend and borrow a great variety of products (cameras, bikes, tools and many more). We want all our customers to have a great and safe experience using our app, and that is why every rental is covered by an auto generated rental contract. We hope you are enjoying so far SweetShare and don’t forget to give us some feedback at contact.chocolit@gmail.com.</string>
+  
 </resources>
