@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <View
-            android:id="@+id/ic_settings"
+            android:id="@+id/icSettings"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/ic_profile_tab_settings"

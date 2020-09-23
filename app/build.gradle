@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:6.3.0'
     implementation 'com.google.android.gms:play-services-tasks:17.2.0'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+    implementation 'com.github.florent37:expansionpanel:1.2.4'
 }

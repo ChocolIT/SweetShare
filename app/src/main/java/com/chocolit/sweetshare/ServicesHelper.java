@@ -100,7 +100,7 @@ public class ServicesHelper {
             }
         }
 
-        public static void getProductCategories(final Context contextOrigin) {
+        public static void fetchData(final Context contextOrigin) {
             FirebaseFirestore fStore = FirebaseFirestore.getInstance();
             DocumentReference productCategories = fStore.collection("product_categories").document("product_categories");
             productCategories.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -113,6 +113,26 @@ public class ServicesHelper {
                     Set<String> productCategories = new HashSet<>(group);
                     prefEditor.putStringSet(ProductConstants.PRODUCT_CATEGORIES, productCategories);
                     prefEditor.commit();
+
+                    SharedPreferences faqContents = contextOrigin.getSharedPreferences("FAQ_CONTENTS", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor faqContentsEditor = faqContents.edit();
+
+                    final int[] index = {1};
+                    for (int i = 1; i <= 6; i++) {
+                        DocumentReference currentFaq = fStore.collection("faq_contents").document(String.valueOf(i));
+                        currentFaq.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                faqContentsEditor.putString("QUESTION_" + index[0], documentSnapshot.getString("question"));
+                                faqContentsEditor.putString("ANSWER_" + index[0], documentSnapshot.getString("answer"));
+                                if (index[0] == 6) {
+                                    faqContentsEditor.commit();
+                                }
+                                index[0]++;
+                            }
+                        });
+                    }
                 }
             });
         }
