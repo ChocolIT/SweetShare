@@ -54,6 +54,12 @@ public class SettingsPage extends AppCompatActivity {
             openSettingsSubpage(Login.class);
             finish();
         });
+        findViewById(R.id.icBackArrow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void openSettingsSubpage(Class destination) {
