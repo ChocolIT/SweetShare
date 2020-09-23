@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/icon_launcher2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UserOrders"></activity>
         <activity android:name=".FavoritesLoadingScreen"></activity>
         <activity
             android:name=".Favorites"
@@ -22,6 +23,7 @@
         <activity android:name=".SettingsPage" />
         <activity android:name=".OrderCompleted" />
         <activity android:name=".RentingPageLoadingScreen" />
+        <activity android:name=".ProductReservation"/>
         <activity
             android:name=".MyProducts"
             android:label="@string/title_activity_my_products"
