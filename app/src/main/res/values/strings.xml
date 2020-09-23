@@ -84,4 +84,6 @@
     <string name="start_date_text">Start</string>
     <string name="end_date_text">End</string>
     <string name="reservation_successful_text">Reservation successful</string>
+
+    <string name="my_orders_text">My Orders</string>
 </resources>

@@ -49,6 +49,7 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
     private String productID;
 
     private  ArrayList<String> disabledDatesStringList;
+    private String phNo;
 
     private boolean startDateSelected = false, endDateSelected = false;
     private boolean textCompleted = false;
@@ -162,6 +163,13 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
 
                 loadingOverlay.setVisibility(View.VISIBLE);
 
+                Map<String, Object> orderData = new HashMap<>();
+                orderData.put(OrderConstants.START_DATE, new Timestamp(startDate.getTime().getTime()).getTime());
+                orderData.put(OrderConstants.END_DATE, new Timestamp(endDate.getTime().getTime()).getTime());
+
+                long a = new Timestamp(startDate.getTime().getTime()).getTime();
+                long b = new Timestamp(endDate.getTime().getTime()).getTime();
+
                 FirebaseFirestore fStore = FirebaseFirestore.getInstance();
                 DocumentReference productDoc = fStore.collection("products").document(productID);
                 Calendar iterateFromDate = startDate;
@@ -177,15 +185,18 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
                 String orderID = fAuth.getCurrentUser().getUid() + new Timestamp(date.getTime()).getTime();
                 DocumentReference orderDoc = fStore.collection("orders").document(orderID);
 
-                Map<String, Object> orderData = new HashMap<>();
                 orderData.put(OrderConstants.ID, orderID);
-                orderData.put(OrderConstants.START_DATE, new Timestamp(startDate.getTime().getTime()).getTime());
-                orderData.put(OrderConstants.END_DATE, new Timestamp(endDate.getTime().getTime()).getTime());
                 orderData.put(OrderConstants.PRODUCT_OWNER, productOwner);
                 orderData.put(OrderConstants.PRODUCT_RENTER, fAuth.getCurrentUser().getUid());
+                orderData.put(OrderConstants.CONTACT_PHONE_NUMBER, phNo);
+                orderData.put(ProductConstants.PRODUCT_TITLE, getIntent().getExtras().getString(ProductConstants.PRODUCT_TITLE));
+                orderData.put("FIRST_IMAGE", getIntent().getExtras().getString("FIRST_IMAGE"));
 
                 orderDoc.set(orderData);
                 loadingOverlay.setVisibility(View.GONE);
+
+                startDate.setTimeInMillis(a);
+                endDate.setTimeInMillis(b);
 
                 Intent intent = new Intent(ProductReservation.this, OrderCompleted.class);
                 intent.putExtra(OrderConstants.START_DATE, startDate.get(Calendar.DAY_OF_MONTH) + "-" + startDate.get(Calendar.MONTH) + "-" + startDate.get(Calendar.YEAR));
@@ -265,6 +276,7 @@ public class ProductReservation extends AppCompatActivity implements DatePickerD
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             if (!phoneNumberField.getText().toString().trim().isEmpty() && !addressField.getText().toString().trim().isEmpty()) {
                 textCompleted = true;
+                phNo = phoneNumberField.getText().toString().trim();
             }
             else if (phoneNumberField.getText().toString().trim().isEmpty() || addressField.getText().toString().trim().isEmpty()) {
                 textCompleted = false;

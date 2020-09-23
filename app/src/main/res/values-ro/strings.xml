@@ -62,4 +62,15 @@
     <string name="review_show_more">Arată mai mult</string>
     <string name="title_activity_my_products">Produsele mele</string>
     <string name="sweetshare_is_here">SweetShare e aici</string>
+    <string name="terms_agreement_rent_text">Apăsând \'Închiriază produsul\', ești de acord cu termenii și condițiile.</string>
+    <string name="remember_preferences_text">Ține-mi minte datele pentru închirieri viitoare.</string>
+    <string name="rent_it_text">Închiriază!</string>
+    <string name="dateIntervalWarning">Intervalul de timp selectat conține zile indisponibile.</string>
+    <string name="learn_about_data_processing">Află cum procesăm datele personale.</string>
+    <string name="phone_number_text">Număr de telefon*</string>
+    <string name="address_text">Adresă*</string>
+    <string name="start_date_text">Început</string>
+    <string name="end_date_text">Sfârșit</string>
+    <string name="reservation_successful_text">Închiriere realizată cu succes!</string>
+    <string name="my_orders_text">Comenzile mele</string>
 </resources>

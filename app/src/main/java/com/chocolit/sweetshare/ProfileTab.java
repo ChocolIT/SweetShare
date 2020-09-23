@@ -114,6 +114,13 @@ public class ProfileTab extends Fragment {
 
             }
         });
+        view.findViewById(R.id.ordersButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), UserOrders.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
