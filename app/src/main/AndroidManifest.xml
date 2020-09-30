@@ -23,7 +23,6 @@
         <activity android:name=".SettingsPage" />
         <activity android:name=".OrderCompleted" />
         <activity android:name=".RentingPageLoadingScreen" />
-        <activity android:name=".ProductReservation"/>
         <activity
             android:name=".MyProducts"
             android:label="@string/title_activity_my_products"
